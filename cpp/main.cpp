@@ -46,15 +46,14 @@ int main(int argc, char* argv[]) {
 
     string pathname=argv[1];
     string argTagset=argv[2];
-    string lemmatizer=argv[3];
 
-    UnicodeString cs = argv[4];
+    UnicodeString cs = argv[3];
     bool caseInsensitive;
     if(cs.toLower()=="true"){
         caseInsensitive=true;
     }else caseInsensitive=false;
 
-    UnicodeString ss = argv[5];
+    UnicodeString ss = argv[4];
     bool spaceInsensitive;
     if(ss.toLower()=="true"){
         spaceInsensitive=true;
