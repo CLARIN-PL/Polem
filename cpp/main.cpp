@@ -72,13 +72,13 @@ int main(int argc, char* argv[]) {
 
     vector<UnicodeString> vecLastNames;
 
-    ifstream lastNames("/home/gkubon/Documents/gk/polem/nelexicon2_nam_liv_person_last.txt");
+    ifstream lastNames("nelexicon2_nam_liv_person_last.txt");
     while(getline(lastNames,line)){
         vecLastNames.push_back(line.substr(line.find("\t")+1).c_str());
     }
     lastNames.close();
 
-    ifstream firstNames("/home/gkubon/Documents/gk/polem/nelexicon2_nam_liv_person_first.txt");
+    ifstream firstNames("nelexicon2_nam_liv_person_first.txt");
     while(getline(firstNames,line)){
         vecLastNames.push_back(line.substr(line.find("\t")+1).c_str());
     }
@@ -86,14 +86,14 @@ int main(int argc, char* argv[]) {
 
     vector<UnicodeString> vecNamLoc;
 
-    ifstream namLoc("/home/gkubon/Documents/gk/polem/nelexicon2-infobox-nam_loc.txt");
+    ifstream namLoc("nelexicon2-infobox-nam_loc.txt");
     while(getline(namLoc,line)){
         vecNamLoc.push_back(line.substr(line.find("\t")+1).c_str());
     }
     namLoc.close();
 
 
-    ifstream dictFile("/home/gkubon/Documents/gk/polem/nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt");
+    ifstream dictFile("nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt");
 
     map<UnicodeString, pair<UnicodeString, UnicodeString> > dictionaryItems;
 
@@ -110,10 +110,10 @@ int main(int argc, char* argv[]) {
     morfeusz::Morfeusz *generator = morfeusz::Morfeusz::createInstance(morfeusz::GENERATE_ONLY);
 
     Inflection inflection = Inflection(vecLastNames);
-    inflection.loadInflectionRules("/home/gkubon/Documents/gk/polem/inflection_nam_liv_person_last.txt");
+    inflection.loadInflectionRules("inflection_nam_liv_person_last.txt");
 
     Inflection inflectionNamLoc = Inflection(vecNamLoc);
-    inflectionNamLoc.loadInflectionRules("/home/gkubon/Documents/gk/polem/inflection_nam_loc.txt");
+    inflectionNamLoc.loadInflectionRules("inflection_nam_loc.txt");
 
 
     CascadeLemmatizer cascadeLemmatizer = CascadeLemmatizer(pathname,tagset,generator,dictionaryItems,inflection,inflectionNamLoc);

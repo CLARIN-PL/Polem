@@ -13,9 +13,9 @@ string globalMethod = "";
 
 CascadeLemmatizer::CascadeLemmatizer(string pathname, Corpus2::Tagset tagset, morfeusz::Morfeusz* generator,map<UnicodeString,
         pair<UnicodeString, UnicodeString> > dictionaryItems,Inflection inflection,Inflection inflectionNamLoc):
-            nelexLemmatizer("/home/gkubon/Documents/gk/polem/nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt",true),
+            nelexLemmatizer("nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt",true),
                 ruleLemmatizer(pathname,tagset,generator,true, true),
-                    morfGeoLemmatizer("/home/gkubon/Documents/gk/polem/sgjp-20160310-geograficzne.tab", false),
+                    morfGeoLemmatizer("sgjp-20160310-geograficzne.tab", false),
                         namLivPersonLemmatizer(dictionaryItems,inflection),
                             namLocLemmatizer(inflectionNamLoc),
                                 orthLemmatizer(){

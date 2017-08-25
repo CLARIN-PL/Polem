@@ -49,7 +49,6 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname,Corpus2::Tagset tagset,morfe
                 file<<"\n";
             }
             file<<"@b:\""<<name<<"\" ("<<rule.child_value()<<")";
-            cout<<name<<endl;
         }
         rule_no++;
     }
