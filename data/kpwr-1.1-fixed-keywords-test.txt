@@ -1,0 +1,1000 @@
+dc comics	DC Comics	dc comics	subst:sg:nom:m1 subst:sg:nom:m1
+dziennik ustaw	Dziennik Ustaw	dziennik ustawa	subst:sg:nom:m3 subst:pl:gen:f
+rc smoki	RC Smoków	rc smok	subst:sg:gen:m3 subst:pl:gen:m3
+zarząd komisaryczny	zarządu komisarycznego	zarząd komisaryczny	subst:sg:gen:m3 adj:sg:gen:m3:pos
+plan czteroletni	Plan Czteroletni	plan czteroletni	subst:sg:nom:m3 adj:sg:nom:m3:pos
+wyrok trybunału konstytucyjnego	WYROK TRYBUNAŁU KONSTYTUCYJNEGO	wyrok trybunał konstytucyjny	subst:sg:nom:m3 subst:sg:gen:m3 adj:sg:gen:m3:pos
+john naughton	John Naughton	John naughton	subst:sg:nom:m1 subst:sg:nom:m1
+komisja do spraw unii europejskiej	Komisji do Spraw Unii Europejskiej	komisja do sprawa unia europejski	subst:sg:gen:f prep:gen subst:pl:gen:f subst:sg:gen:f adj:sg:gen:f:pos
+kodeks cywilny	Kodeksu cywilnego	kodeks cywilny	subst:sg:gen:m3 adj:sg:gen:m3:pos
+rada naukowa tatrzańskiego parku narodowego	Rady Naukowej Tatrzańskiego Parku Narodowego	rada naukowy tatrzański park narodowy	subst:sg:gen:f adj:sg:gen:f:pos adj:sg:gen:m3:pos subst:sg:gen:m3 adj:sg:gen:m3:pos
+krzyż na krakowskim przedmieściu	krzyża na Krakowskim Przedmieściu	krzyż na krakowski przedmieście	subst:sg:gen:m3 prep:loc adj:sg:loc:n:pos subst:sg:loc:n
+promieniowanie kosmiczne	promieniowania kosmicznego	promieniowanie kosmiczny	subst:pl:acc:n adj:sg:gen:n:pos
+silnik sts	silnikiem STS	silnik sts	subst:sg:inst:m3 subst:sg:nom:m3
+ewa kierzkowska	Ewa Kierzkowska	Ewa Kierzkowska	subst:sg:nom:f subst:sg:nom:f
+miasto stołeczne	miasta stołecznego	miasto stołeczny	subst:sg:gen:n adj:sg:gen:n:pos
+województwo łódzkie	województwie łódzkim	województwo łódzki	subst:sg:loc:n adj:sg:loc:n:pos
+alpy australijskie	Alpach Australijskich	Alpy australijski	subst:pl:loc:n adj:pl:loc:n:pos
+alcácer do sal	Alcácer do Sal	alcácer do Sala	subst:sg:nom:m1 prep:gen subst:pl:gen:f
+komisja samorządu terytorialnego i polityki regionalnej	Komisji Samorządu Terytorialnego i Polityki Regionalnej	komisja samorząd terytorialny i polityka regionalny	subst:sg:gen:f subst:sg:gen:m3 adj:sg:gen:m3:pos conj subst:sg:gen:f adj:sg:gen:f:pos
+philip brickman	Philip Brickman	philip brickman	subst:sg:nom:m3 subst:sg:nom:m3
+bank centralny	banków centralnych	bank centralny	subst:pl:gen:m3 adj:pl:gen:m3:pos
+centrum zarządzania kryzysowego	Centrum Zarządzania Kryzysowego	centrum zarządzanie kryzysowy	subst:sg:nom:n subst:sg:gen:n adj:sg:gen:m3:pos
+anatomia patologiczna	anatomii patologicznej	anatomia patologiczny	subst:sg:gen:f adj:sg:gen:f:pos
+woda płynąca	wodzie płynącej	woda płynąć	subst:sg:loc:f pact:sg:loc:f:imperf:aff
+wysokość dochodu rodziny	wysokość dochodu rodziny	wysokość dochód rodzina	subst:sg:acc:f subst:sg:gen:m3 subst:sg:gen:f
+50 +	50 +	50 +	num:pl:gen:m3:congr interp
+era informacji	Erę Informacji	era informacja	subst:sg:acc:f subst:sg:gen:f
+funkcja powłoki	funkcja powłoki	funkcja powłoka	subst:sg:nom:f subst:sg:gen:f
+jan Łopata	Jan Łopata	Jan łopata	subst:sg:nom:m1 subst:sg:nom:f
+cyfrowy urząd	Cyfrowy Urząd	cyfrowy urząd	adj:sg:nom:m3:pos subst:sg:nom:m3
+gwiezdna kuźnia	Gwiezdnej Kuźni	gwiezdny kuźnia	adj:sg:loc:f:pos subst:sg:loc:f
+drzewo dwumianowe	drzewo dwumianowe	drzewo dwumianowy	subst:sg:nom:n adj:sg:nom:n:pos
+olle hansson	Olle Hansson	olle hansson	subst:sg:nom:m1 subst:sg:nom:m1
+człowiek roku	Człowiekiem roku	człowiek rok	subst:sg:inst:m1 subst:sg:gen:m3
+komunistyczna partia austrii	Komunistyczna Partia Austrii	komunistyczny partia Austria	adj:sg:nom:f:pos subst:sg:nom:f subst:sg:gen:f
+autonomiczne centrum kultury w kopenhadze	autonomicznego centrum kultury w Kopenhadze	autonomiczny centrum kultura w Kopenhaga	adj:sg:gen:n:pos subst:sg:gen:n subst:sg:gen:f prep:loc:nwok subst:sg:loc:f
+równina radomska	Równinie Radomskiej	równina radomski	subst:sg:loc:f adj:sg:loc:f:pos
+system zefir	System ZEFIR	system zefir	subst:sg:nom:m3 subst:sg:nom:m3
+służba poza granicami państwa	służby poza granicami państwa	służba poza granica państwo	subst:sg:gen:f prep:inst subst:pl:inst:f subst:sg:gen:n
+minister zdrowia	MINISTRA ZDROWIA	minister zdrowie	subst:sg:gen:m1 subst:sg:gen:n
+bani bu ali	Bani Bu Ali	Bania bu Ali	subst:sg:dat:m1 interj subst:sg:nom:m1
+wojskowy zakład remontowo - budowlany	Wojskowym Zakładzie Remontowo - Budowlanym	wojskowy zakład remontowo - budowlany	adj:sg:loc:m3:pos subst:sg:loc:m3 adja interp adj:sg:loc:m3:pos
+minister obrony narodowej	Minister Obrony Narodowej	minister obrona narodowy	subst:sg:nom:m1 subst:sg:gen:f adj:sg:gen:f:pos
+rzut dyskiem	rzut dyskiem	rzut dysk	subst:sg:nom:m3 subst:sg:inst:m3
+sto trzydzieści	sto trzydzieści	sto trzydzieści	num:pl:nom:m2:rec num:pl:nom:m2:rec
+obsługa kancelaryjna prezydenta	obsługa kancelaryjna Prezydenta	obsługa kancelaryjny prezydent	subst:sg:nom:f adj:sg:nom:f:pos subst:sg:gen:m1
+abdelaziz buteflika	Abdelaziz Buteflika	abdelaziz buteflika	subst:sg:nom:m1 subst:sg:nom:m1
+euroregion bałtyk	Euroregionu Bałtyk	euroregion Bałtyk	subst:sg:gen:m3 subst:sg:nom:m3
+polska fundacja upowszechniania nauki	Polska Fundacja Upowszechniania Nauki	polski fundacja upowszechniać nauka	adj:sg:nom:f:pos subst:sg:nom:f ger:sg:gen:n:imperf:aff subst:sg:gen:f
+system teleinformatyczny	systemów teleinformatycznych	system teleinformatyczny	subst:pl:gen:m3 adj:pl:gen:m3:pos
+dioda led	diodę LED	dioda Leda	subst:sg:acc:f subst:pl:gen:f
+aleje jerozolimskie	Aleje Jerozolimskie	aleja jerozolimski	subst:pl:acc:f adj:pl:acc:f:pos
+solidarność pokoleń	Solidarność pokoleń	solidarność pokolenie	subst:sg:nom:f subst:pl:gen:n
+ratownictwo medyczne	ratownictwa medycznego	ratownictwo medyczny	subst:sg:gen:n adj:sg:gen:n:pos
+aleje jerozolimskie	Alejach Jerozolimskich	aleja jerozolimski	subst:pl:loc:f adj:pl:loc:f:pos
+craig wolanin	Craig Wolanin	craig Wolanin	subst:sg:nom:m1 subst:sg:nom:m1
+aleje jerozolimskie	Alejach Jerozolimskich	aleja jerozolimski	subst:pl:loc:f adj:pl:loc:f:pos
+państwa członkowskie	Państwa Członkowskie	państwo członkowski	subst:pl:acc:n adj:pl:acc:n:pos
+cyber - atak	cyber - atakiem	cyber - atak	subst:sg:nom:f interp subst:sg:inst:m3
+puchar króla	Puchar Króla	puchar Król	subst:sg:acc:m3 subst:sg:gen:m1
+ministerstwo skarbu państwa	Ministerstwa Skarbu Państwa	ministerstwo skarb państwo	subst:sg:gen:n subst:sg:gen:m3 subst:sg:gen:n
+jerzy szmajdziński	Jerzy Szmajdziński	Jerzy szmajdziński	subst:sg:nom:m1 subst:sg:nom:m1
+bon komunalny	Bon komunalny	bon komunalny	subst:sg:nom:m3 adj:sg:nom:m3:pos
+mina dm	Mina DM	mina DM	subst:sg:nom:f subst:sg:nom:m3
+felicite island	Felicite Island	felicite Island	subst:sg:nom:n subst:sg:nom:n
+grupa kadet	grupie KADET	grupa kadet	subst:sg:loc:f subst:sg:nom:m1
+pompa śmigłowa	Pompa śmigłowa	pompa śmigłowy	subst:sg:nom:f adj:sg:nom:f:pos
+nowa polityka ekonomiczna	Nowa Polityka Ekonomiczna	nowy polityka ekonomiczny	adj:sg:nom:f:pos subst:sg:nom:f adj:sg:nom:f:pos
+strefa zero	STREFA ZERO	strefa zero	subst:sg:nom:f subst:sg:nom:n
+rzeczpospolita polska	Rzeczypospolitej Polskiej	rzeczpospolita polski	subst:sg:gen:f adj:sg:gen:f:pos
+indeks ksiąg zakazanych	Indeksie Ksiąg Zakazanych	indeks księga zakazany	subst:sg:loc:m3 subst:pl:gen:f adj:pl:gen:f:pos
+sto sześćdziesiąt siedem	sto sześćdziesiąt siedem	sto sześćdziesiąt siedem	num:pl:nom:m2:rec num:pl:nom:m2:rec num:pl:nom:m2:rec
+niedziela wielkanocna	Niedziela Wielkanocna	niedziela wielkanocny	subst:sg:nom:f adj:sg:nom:f:pos
+rym rycerski	rym rycerski	rym rycerski	subst:sg:nom:m3 adj:sg:nom:m3:pos
+pytanie prawne	pytania prawnego	pytanie prawny	subst:pl:nom:n adj:sg:gen:m3:pos
+jezioro wąsosze	jeziora Wąsosze	jezioro wąsosze	subst:sg:gen:n subst:sg:gen:n
+służba poza granicami państwa	służby poza granicami państwa	służba poza granica państwo	subst:sg:gen:f prep:inst subst:pl:inst:f subst:sg:gen:n
+rejestracja użytkowników	rejestracji użytkowników	rejestracja użytkownik	subst:sg:gen:f subst:pl:gen:m1
+rada nadzorcza polskiego radia	Rady Nadzorczej Polskiego Radia	rada nadzorczy polski radio	subst:sg:gen:f adj:sg:gen:f:pos adj:sg:gen:n:pos subst:sg:gen:n
+wolna kultura	wolnej kultury	wolny kultura	adj:sg:gen:f:pos subst:sg:gen:f
+jan warzecha	Jan Warzecha	Jan warzecha	subst:sg:nom:m1 subst:sg:nom:f
+kodeks pracy	Kodeks pracy	kodeks praca	subst:sg:nom:m3 subst:sg:gen:f
+arkady fiedler	Arkady Fiedler	Arkady Fiedler	subst:sg:nom:m1 subst:sg:nom:m1
+czysty las	Czysty Las	czysty las	adj:sg:nom:m3:pos subst:sg:nom:m3
+van mitten	Van Mitten	van mitten	subst:sg:nom:m3 subst:sg:nom:m3
+zakład inwestycji organizacji traktatu północnoatlantyckiego	Zakład Inwestycji Organizacji Traktatu Północnoatlantyckiego	zakład inwestycja organizacja traktat północnoatlantyckiego	subst:sg:nom:m3 subst:sg:gen:f subst:sg:gen:f subst:sg:gen:m3 subst:sg:gen:m3
+mount everest	Mount Everest	Mount Everest	burk subst:sg:nom:m3
+ulica nowowiejska	ulicy Nowowiejskiej	ulica nowowiejski	subst:sg:gen:f adj:sg:gen:f:pos
+transport gazu ziemnego	transport gazu ziemnego	transport gaz ziemny	subst:sg:acc:m3 subst:sg:gen:m3 adj:sg:gen:m3:pos
+województwo wielkopolskie	województwie wielkopolskim	województwo wielkopolski	subst:sg:loc:n adj:sg:loc:n:pos
+wolne podręczniki	Wolne Podręczniki	wolny podręcznik	adj:pl:nom:m3:pos subst:pl:nom:m3
+scott adams	Scott Adams	Scott adams	subst:sg:nom:m1 subst:sg:nom:m1
+direct connect	Direct Connect	direct connect	subst:sg:nom:m3 subst:sg:nom:m3
+miasto zielona góra	Miasta Zielona Góra	miasto zielony góra	subst:sg:gen:n adj:sg:nom:f:pos subst:sg:nom:f
+creative commons	Creative Commons	creative commons	subst:sg:nom:f subst:sg:nom:f
+przedsięwzięcie informatyczne	przedsięwzięcia informatycznego	przedsięwzięcie informatyczny	subst:sg:gen:n adj:sg:gen:n:pos
+prawo autorskie	praw autorskich	prawo autorski	subst:pl:gen:n adj:pl:gen:n:pos
+urząd miasta	Urząd Miasta	urząd miasto	subst:sg:acc:m3 subst:sg:gen:n
+anwil włocławek	Anwil Włocławek	anwil Włocławek	subst:sg:nom:m3 subst:sg:nom:m3
+towarzystwo ubezpieczeń i reasekuracji warta	Towarzystwo Ubezpieczeń i Reasekuracji Warta	towarzystwo ubezpieczenie i reasekuracja warta	subst:sg:acc:n subst:pl:gen:n conj subst:sg:gen:f subst:sg:nom:f
+edukacja medialna	edukacji medialnej	edukacja medialny	subst:sg:gen:f adj:sg:gen:f:pos
+państwa członkowskie	Państw Członkowskich	państwo członkowski	subst:pl:gen:n adj:pl:gen:n:pos
+szczęsny kupka	SZCZĘSNY KUPKA	szczęsny kupka	adj:sg:nom:m1:pos subst:sg:nom:f
+axial ax10 scorpion	Axial AX10 Scorpion	axial ax10 scorpion	subst:sg:nom:m3 subst:sg:nom:m3 subst:sg:nom:m3
+a 21	A 21	a 21	conj num:pl:nom:m3:rec
+tożsamość narodowa	tożsamość narodową	tożsamość narodowy	subst:sg:acc:f adj:sg:acc:f:pos
+katalog gromad gwiazd oraz asocjacji	Katalog gromad gwiazd oraz asocjacji	katalog gromada gwiazda oraz asocjacja	subst:sg:nom:m3 subst:pl:gen:f subst:pl:gen:f conj subst:sg:gen:f
+polsko - niemiecka nagroda dziennikarska	Polsko - Niemieckiej Nagrody Dziennikarskiej	polsko - niemiecki nagroda dziennikarski	adv:pos interp adj:sg:gen:f:pos subst:sg:gen:f adj:sg:gen:f:pos
+województwo mazowieckie	województwie mazowieckim	województwo mazowiecki	subst:sg:loc:n adj:sg:loc:n:pos
+hrabstwo van buren	Hrabstwo Van Buren	hrabstwo van buren	subst:sg:nom:n subst:sg:nom:m3 subst:sg:nom:m3
+pko bp	PKO BP	PKO BP	subst:sg:gen:f subst:sg:gen:m3
+szczęsny kupka	SZCZĘSNY KUPKA	szczęsny kupka	adj:sg:nom:m3:pos subst:sg:nom:f
+biblioteka publiczna im . marii konopnickiej	Biblioteka Publiczna im . Marii Konopnickiej	biblioteka publiczny imienia . Maria Konopnicka	subst:sg:nom:f adj:sg:nom:f:pos brev:pun interp subst:sg:gen:f subst:sg:gen:f
+cena produktu	ceny produktu	cena produkt	subst:sg:gen:f subst:sg:gen:m3
+dzielnica wesoła	Dzielnicy Wesoła	dzielnica wesoły	subst:sg:loc:f adj:sg:nom:f:pos
+gmina gołańcz	gminie Gołańcz	gmina gołańcz	subst:sg:loc:f subst:sg:loc:f
+roboty budowlane	roboty budowlane	roboty budowlany	subst:pl:acc:n adj:pl:acc:n:pos
+gra komputerowa	gra komputerowa	gra komputerowy	subst:sg:nom:f adj:sg:nom:f:pos
+mieszkańcy miasta	mieszkańców miasta	mieszkaniec miasto	subst:pl:gen:m1 subst:sg:gen:n
+fundacja nowe media	Fundacji Nowe Media	fundacja nowy media	subst:sg:gen:f adj:sg:nom:n:pos subst:pl:nom:n
+Żółta rzeka	Żółta rzeka	żółty rzeka	adj:sg:nom:f:pos subst:sg:nom:f
+krajowy program przeciwdziałania przemocy	krajowego programu przeciwdziałania przemocy	krajowy program przeciwdziałać przemoc	adj:sg:gen:m3:pos subst:sg:gen:m3 ger:sg:gen:n:imperf:aff subst:sg:gen:f
+biała elstera	Biała Elstera	biały Elstera	adj:sg:nom:f:pos subst:sg:nom:f
+metoda pomiarowa	metod pomiarowych	metoda pomiarowy	subst:pl:gen:f adj:pl:gen:f:pos
+wolne państwo irlandzkie	Wolne Państwo Irlandzkie	wolny państwo irlandzki	adj:pl:nom:m3:pos subst:pl:nom:m1 adj:pl:nom:f:pos
+centrum naukowo - techniczne kolejnictwa	Centrum Naukowo - Technicznego Kolejnictwa	centrum naukowo - techniczny kolejnictwo	subst:sg:gen:n adv:pos interp adj:sg:gen:n:pos subst:sg:gen:n
+biały dom	Białym Domu	biały dom	adj:sg:loc:m3:pos subst:sg:loc:m3
+rzeczpospolita polska	Rzeczypospolitej Polskiej	rzeczpospolita polski	subst:sg:gen:f adj:sg:gen:f:pos
+fundacja nowe media	Fundacji Nowe Media	fundacja nowy media	subst:sg:gen:f adj:sg:nom:n:pos subst:pl:nom:n
+transport kolejowy	transportu kolejowego	transport kolejowy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+komendant główny	komendant główny	komendant główny	subst:sg:nom:m1 adj:sg:nom:m1:pos
+pronar osir hajnówka	Pronar OSiR Hajnówka	pronar osir Hajnówka	subst:sg:nom:f subst:sg:nom:f subst:sg:nom:f
+ośrodek pinia	Ośrodek PINIA	ośrodek pinia	subst:sg:nom:m3 subst:sg:nom:f
+stanisław czajczyński	Stanisław Czajczyński	Stanisław czajczyński	subst:sg:nom:m1 subst:sg:nom:m1
+zabezpieczenie społeczne	zabezpieczenia społecznego	zabezpieczenie społeczny	subst:sg:gen:n adj:sg:gen:n:pos
+dyrekcja poczty polskiej	Dyrekcjami Poczty Polskiej	dyrekcja poczta polski	subst:pl:inst:f subst:sg:gen:f adj:sg:gen:f:pos
+al - kajsuma	Al - Kajsuma	Al - kajsuma	subst:sg:nom:m1 interp subst:sg:nom:m1
+szkoła wyższa psychologii społecznej	Szkole Wyższej Psychologii Społecznej	szkoła wysoki psychologia społeczny	subst:sg:loc:f adj:sg:loc:f:com subst:sg:gen:f adj:sg:gen:f:pos
+drzewo dwumianowe	drzewo dwumianowe	drzewo dwumianowy	subst:sg:acc:n adj:pl:acc:n:pos
+ortografia na wesoło	Ortografia na wesoło	ortografia na wesoło	subst:sg:nom:f prep:acc adv:pos
+sztuka kulinarna	sztuki kulinarnej	sztuka kulinarny	subst:sg:gen:f adj:sg:gen:f:pos
+zwalczanie przestępczości zorganizowanej	zwalczania przestępczości zorganizowanej	zwalczać przestępczość zorganizować	ger:sg:gen:n:imperf:aff subst:sg:gen:f ppas:sg:gen:f:perf:aff
+monte carlo	Monte Carlo	Monte Carlo	burk subst:sg:nom:n
+program budowy dróg krajowych	Programie Budowy Dróg Krajowych	program budowa droga krajowy	subst:sg:loc:m3 subst:sg:gen:f subst:pl:gen:f adj:pl:gen:f:pos
+usługa publiczna	usług publicznych	usługa publiczny	subst:pl:gen:f adj:pl:gen:f:pos
+gmina teresin	gmina Teresin	gmina Teresin	subst:sg:nom:f subst:sg:nom:m3
+wieża pancerna	wieżami pancernymi	wieża pancerny	subst:pl:inst:f adj:pl:inst:f:pos
+stary ratusz	Stary Ratusz	stary ratusz	adj:sg:acc:m3:pos subst:sg:acc:m3
+fundacja nowe media	Fundacja Nowe Media	fundacja nowy media	subst:sg:nom:f adj:sg:nom:n:pos subst:pl:nom:n
+beskid Śląski	Beskid Śląski	Beskid śląski	subst:sg:nom:m3 adj:sg:nom:m3:pos
+edyta graczyk	Edyta Graczyk	Edyta Graczyk	subst:sg:nom:f subst:sg:nom:m1
+województwo wielkopolskie	województwie wielkopolskim	województwo wielkopolski	subst:sg:loc:n adj:sg:loc:n:pos
+mińsk mazowiecki	Mińsku Mazowieckim	Mińsk mazowiecki	subst:sg:loc:m3 adj:sg:loc:m3:pos
+szczęsny kupka	SZCZĘSNY KUPKA	szczęsny kupka	adj:sg:nom:m1:pos subst:sg:nom:f
+saab 96	Saab 96	SAAB 96	subst:sg:nom:m3 num:pl:nom:m3:rec
+intro pub	Intro Pub	intro pub	adj:sg:nom:m3:pos subst:sg:nom:m3
+spółka handlowa	spółek handlowych	spółka handlowy	subst:pl:gen:f adj:pl:gen:f:pos
+web 2 . 0	web 2 . 0	Web 2 . 0	subst:sg:nom:m3 adj:sg:nom:m3:pos interp num:pl:nom:m3:rec
+anshul samar	Anshul Samar	anshul samar	subst:sg:nom:m3 subst:sg:nom:m3
+leszek mazowiecki	Leszek Mazowiecki	Leszek Mazowiecki	subst:sg:nom:m1 subst:sg:nom:m1
+samorząd terytorialny	samorządu terytorialnego	samorząd terytorialny	subst:sg:gen:m3 adj:sg:gen:m3:pos
+samil 20	SAMIL 20	samil 20	subst:sg:gen:m3 num:pl:gen:m3:congr
+pięćset dwadzieścia cztery	pięćset dwadzieścia cztery	pięćset dwadzieścia cztery	num:pl:acc:m3:rec num:pl:acc:m3:rec num:pl:acc:m3:congr
+axial ax10 scorpion	Axial AX10 Scorpion	axial ax10 scorpion	subst:sg:nom:m3 subst:sg:nom:m3 subst:sg:nom:m3
+bitwa pod lublinem	Bitwa pod Lublinem	bitwa pod Lublin	subst:sg:nom:f prep:inst:nwok subst:sg:inst:m3
+akademia rozwoju filantropii	Akademię Rozwoju Filantropii	akademia rozwój filantropia	subst:sg:acc:f subst:sg:gen:m3 subst:sg:gen:f
+alt empordà	Alt Empordà	alt empordà	subst:sg:nom:m3 subst:sg:nom:m3
+masakatsu yoshida	Masakatsu Yoshida	masakatsu yoshida	subst:sg:inst:f subst:sg:inst:f
+creative commons	Creative Commons	creative commons	subst:sg:gen:m3 subst:sg:gen:m3
+technologia komunikowania	technologii komunikowania	technologia komunikować	subst:pl:gen:f ger:sg:gen:n:imperf:aff
+kapitan yarhud	Kapitan Yarhud	kapitan yarhud	subst:sg:nom:m1 subst:sg:nom:m1
+wzorce projektowe	wzorców projektowych	wzorzec projektowy	subst:pl:gen:m3 adj:pl:gen:m3:pos
+klub piłkarski kotan ozorków	Klub Piłkarski KOTAN Ozorków	klub piłkarski kotan ozorek	subst:sg:nom:m3 adj:sg:nom:m3:pos subst:sg:gen:m3 subst:pl:gen:m3
+sejm dzieci i młodzieży	Sejmu Dzieci i Młodzieży	sejm dziecko i młodzież	subst:sg:gen:m3 subst:pl:gen:n conj subst:sg:gen:f
+xv brygada kawalerii	XV Brygada Kawalerii	xv brygada kawaleria	adj:sg:nom:f:pos subst:sg:nom:f subst:sg:gen:f
+diagnoza prospektywna	Diagnozie prospektywnej	diagnoza prospektywny	subst:sg:loc:f adj:sg:loc:f:pos
+media in transition	Media in Transition	media in transition	subst:pl:nom:n subst:sg:nom:n subst:sg:nom:n
+mistrzostwa azji w lekkoatletyce	Mistrzostwa Azji w Lekkoatletyce	mistrzostwo Azja w lekkoatletyka	subst:sg:gen:n subst:sg:gen:f prep:loc:nwok subst:sg:loc:f
+królestwo niderlandów	Królestwa Niderlandów	królestwo Niderlandy	subst:sg:gen:n subst:pl:gen:n
+komendant główny	komendanta głównego	komendant główny	subst:sg:gen:m1 adj:sg:gen:m1:pos
+powiat średzki	Powiat średzki	powiat średzki	subst:sg:nom:m3 subst:sg:nom:m3
+piotrków trybunalski	Piotrków Trybunalski	Piotrków trybunalski	subst:sg:nom:m3 adj:sg:nom:m3:pos
+gordon willis	Gordon Willis	Gordon Willis	subst:sg:nom:m1 subst:sg:nom:m1
+dzień edukacji narodowej	Dnia Edukacji Narodowej	dzień edukacja narodowy	subst:sg:gen:m3 subst:sg:gen:f adj:sg:gen:f:pos
+rzut dyskiem	rzut dyskiem	rzut dysk	subst:sg:nom:m3 subst:sg:inst:m3
+abdelaziz buteflika	Abdelaziz Buteflika	abdelaziz buteflika	subst:sg:nom:m1 subst:sg:nom:m1
+piotr woźniak	Piotr Woźniak	Piotr Woźniak	subst:sg:nom:m1 subst:sg:nom:m1
+miasto stołeczne	Miasto stołeczne	miasto stołeczny	subst:sg:nom:n adj:sg:nom:n:pos
+international mobile subscriber identity	International Mobile Subscriber Identity	international mobil subscriber identity	xxx subst:pl:nom:m3 subst:sg:nom:m3 subst:sg:nom:m3
+kometa okresowa	kometa okresowa	kometa okresowy	subst:sg:nom:f adj:sg:nom:f:pos
+lotnictwo bombowe	Lotnictwo bombowe	lotnictwo bombowy	subst:sg:nom:n adj:sg:nom:n:pos
+pieprz czerwony	pieprz czerwony	pieprz czerwony	subst:sg:nom:m3 adj:sg:nom:m3:pos
+eksploatacja sieci telekomunikacyjnych	Eksploatacja sieci telekomunikacyjnych	eksploatacja sieć telekomunikacyjny	subst:sg:nom:f subst:pl:gen:f adj:pl:gen:f:pos
+urząd bezpieczeństwa	Urząd Bezpieczeństwa	urząd bezpieczeństwo	subst:sg:acc:m3 subst:sg:gen:n
+wola rębkowska kopernik news	Wola Rębkowska Kopernik News	wola rębkowski Kopernik news	subst:sg:nom:f adj:sg:nom:f:pos subst:sg:nom:m1 subst:sg:nom:m3
+republika armenii	Republiki Armenii	republika Armenia	subst:sg:gen:f subst:sg:gen:f
+star trek	Star Trek	star trek	subst:sg:nom:m3 subst:sg:nom:m3
+marek trzciński	Marek Trzciński	Marek Trzciński	subst:sg:nom:m1 subst:sg:nom:m1
+polskie radio	Polskiego Radia	polski radio	adj:sg:gen:n:pos subst:sg:gen:n
+transporter opancerzony	transporter opancerzony	transporter opancerzyć	subst:sg:nom:m3 ppas:sg:nom:m3:perf:aff
+połów ryb	połowu ryb	połów Ryba	subst:sg:gen:m3 subst:pl:gen:f
+członek rodziny	członków rodziny	członek rodzina	subst:pl:acc:m1 subst:sg:gen:f
+radu mischiu	Radu Mischiu	rad mischiu	subst:sg:gen:m3 subst:sg:gen:m3
+departament pożytku publicznego	Departamentu Pożytku Publicznego	departament pożytek publiczny	subst:sg:gen:m3 subst:sg:gen:m3 adj:sg:gen:m3:pos
+zabezpieczenie społeczne	zabezpieczeniu społecznym	zabezpieczenie społeczny	subst:sg:loc:n adj:sg:loc:n:pos
+robert witka	Robert Witka	Robert witka	subst:sg:nom:m1 subst:sg:nom:f
+obowiązek szkolny	obowiązkiem szkolnym	obowiązek szkolny	subst:sg:inst:m3 adj:sg:inst:m3:pos
+sto pięćdziesiąt pięć	sto pięćdziesiąt pięć	sto pięćdziesiąt pięć	num:pl:nom:m3:rec num:pl:nom:m3:rec num:pl:nom:m3:rec
+kamienna góra	Kamienna Góra	kamienny góra	adj:sg:nom:f:pos subst:sg:nom:f
+forum pismaków	Forum Pismaków	forum pismak	subst:sg:gen:n subst:pl:gen:m1
+andrzej ostoja - owsiany	Andrzej Ostoja - Owsiany	Andrzej ostoja - owsiany	subst:sg:nom:m1 subst:sg:nom:f interp adj:sg:nom:m1:pos
+lotnictwo wojskowe	lotnictwa wojskowego	lotnictwo wojskowy	subst:sg:gen:n adj:sg:gen:n:pos
+diecezja koszalińsko - kołobrzeska	diecezji koszalińsko - kołobrzeskiej	diecezja koszalińsko - kołobrzeski	subst:sg:gen:f adv:pos interp adj:sg:gen:f:pos
+badania naukowe	badań naukowych	badanie naukowy	subst:pl:gen:n adj:pl:gen:n:pos
+otwórz książkę	Otwórz książkę	otworzyć książka	impt:sg:sec:perf subst:sg:acc:f
+siedemset trzynaście	siedemset trzynaście	siedemset trzynaście	num:pl:acc:f:rec num:pl:acc:f:rec
+dworzec zachodni	Dworca Zachodniego	dworzec zachodni	subst:sg:gen:m3 adj:sg:gen:m3:pos
+siły zbrojne	Siłach Zbrojnych	siła zbrojny	subst:pl:loc:f adj:pl:loc:f:pos
+henryk bereza	Henryk Bereza	Henryk Bereza	subst:sg:nom:m1 subst:sg:nom:m1
+urząd miejski	Urzędu Miejskiego	urząd miejski	subst:sg:gen:m3 adj:sg:gen:m3:pos
+smardy dolne	Smardy Dolne	smard dolny	depr:pl:nom:m2 adj:pl:nom:m2:pos
+marian subocz	Marian Subocz	Marian subocz	subst:sg:nom:m1 subst:sg:nom:m1
+rzeczpospolita polska	Rzecząpospolitą Polską	rzeczpospolita Polska	subst:sg:inst:f subst:sg:inst:f
+państwo wzywające	Państwo wzywające	państwo wzywać	subst:pl:nom:m1 pact:pl:nom:m3:imperf:aff
+wielkość mierzona	wielkości mierzonej	wielkość mierzyć	subst:sg:gen:f ppas:sg:gen:f:imperf:aff
+a 21	A 21	a 21	conj num:pl:nom:m3:rec
+otton iii	Otton III	Otton iii	subst:sg:nom:m1 interj
+ścieżka rowerowa	ścieżek rowerowych	ścieżka rowerowy	subst:pl:gen:f adj:pl:gen:f:pos
+kawa z mlekiem	kawa z mlekiem	kawa z mleko	subst:sg:nom:f prep:inst:nwok subst:sg:inst:n
+drzewo dwumianowe	drzewo dwumianowe	drzewo dwumianowy	subst:sg:acc:n adj:sg:acc:n:pos
+test stroopa	Test Stroopa	test stroopa	subst:sg:nom:m3 subst:sg:nom:m3
+zabawa harcerska	zabawach harcerskich	zabawa harcerski	subst:pl:loc:f adj:pl:loc:f:pos
+galeria handlowa	galeriach handlowych	galeria handlowy	subst:pl:loc:f adj:pl:loc:f:pos
+reprezentant serbii	reprezentant Serbii	reprezentant Serbia	subst:sg:nom:m1 subst:sg:gen:f
+rzeczpospolita polska	Rzeczypospolitej Polskiej	rzeczpospolita polski	subst:sg:gen:f adj:sg:gen:f:pos
+iskra krótka	iskrę krótką	iskra krótki	subst:sg:acc:f adj:sg:acc:f:pos
+politechnika Łódzka	Politechniką Łódzką	politechnika łódzki	subst:sg:inst:f adj:sg:inst:f:pos
+miesięcznik komputerowy	Miesięcznika Komputerowego	miesięcznik komputerowy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+józef zych	Józef Zych	Józef Zych	subst:sg:nom:m1 subst:sg:nom:m1
+komisja sprawiedliwości i praw człowieka	Komisji Sprawiedliwości i Praw Człowieka	komisja sprawiedliwość i prawo człowiek	subst:sg:gen:f subst:sg:gen:f conj subst:pl:gen:n subst:sg:gen:m1
+rzut oszczepem	rzucie oszczepem	rzut oszczep	subst:sg:loc:m3 subst:sg:inst:m3
+kopiec dwumianowy	kopcu dwumianowym	kopiec dwumianowy	subst:sg:loc:m3 adj:sg:loc:m3:pos
+obliczenia astronomiczne	obliczeniach astronomicznych	obliczenie astronomiczny	subst:pl:loc:n adj:pl:loc:n:pos
+fundacja pgnig	Fundacji PGNiG	fundacja PGNiG	subst:sg:gen:f subst:sg:gen:n
+europa zachodnia	Europie Zachodniej	Europa zachodni	subst:sg:loc:f adj:sg:loc:f:pos
+województwo mazowieckie	województwie mazowieckim	województwo mazowiecki	subst:sg:loc:n adj:sg:loc:n:pos
+henryk paprocki	Henrykiem Paprockim	Henryk Paprocki	subst:sg:inst:m1 subst:sg:inst:m1
+minister obrony narodowej	Minister Obrony Narodowej	minister obrona narodowy	subst:sg:nom:m1 subst:sg:gen:f adj:sg:gen:f:pos
+benedykt xvi	Benedyktem XVI	Benedykt xvi	subst:sg:inst:m1 adj:sg:inst:m1:pos
+oficer policji	oficer policji	oficer policja	subst:sg:nom:m1 subst:sg:gen:f
+stadion punjab	Stadion Punjab	stadion punjab	subst:sg:nom:m3 subst:sg:nom:m3
+wolne państwo irlandzkie	Wolne Państwo Irlandzkie	wolny państwo irlandzki	adj:pl:nom:m3:pos subst:pl:nom:m1 adj:pl:nom:m3:pos
+mkp bzura	MKP Bzura	mkp Bzura	subst:sg:nom:f subst:sg:nom:f
+gwiezdna kuźnia	Gwiezdna Kuźnia	gwiezdny kuźnia	adj:sg:nom:f:pos subst:sg:nom:f
+peer production	peer production	peer production	subst:sg:gen:n subst:sg:gen:n
+mariusz szczygieł	Mariusz Szczygieł	Mariusz Szczygieł	subst:sg:nom:m1 subst:sg:nom:m1
+województwo pomorskie	województwie pomorskim	województwo pomorski	subst:sg:loc:n adj:sg:loc:n:pos
+dostęp do informacji niejawnych	DOSTĘP DO INFORMACJI NIEJAWNYCH	dostęp do informacja niejawny	subst:sg:nom:m3 prep:gen subst:sg:gen:f adj:pl:gen:f:pos
+pomiar odległości	pomiar odległości	pomiar odległość	subst:sg:nom:m3 subst:sg:gen:f
+powiat garwoliński	powiat garwoliński	powiat garwoliński	subst:sg:nom:m3 adj:sg:nom:m3:pos
+stefan niesiołowski	Stefan Niesiołowski	Stefan Niesiołowski	subst:sg:nom:m1 subst:sg:nom:m1
+benvenuto cellini	Benvenuto Cellini	benvenuto Cellini	subst:sg:nom:m1 subst:sg:nom:m1
+szpic miniaturowy	Szpic miniaturowy	szpic miniaturowy	subst:sg:nom:m3 adj:sg:nom:m3:pos
+wzorce projektowe	wzorce projektowe	wzorzec projektowy	subst:pl:nom:m3 adj:pl:nom:m3:pos
+stanisław rydzoń	Stanisław Rydzoń	Stanisław rydzoń	subst:sg:nom:m1 subst:sg:nom:m1
+województwo kujawsko - pomorskie	województwie kujawsko - pomorskim	województwo kujawsko - pomorski	subst:sg:loc:n adv:pos interp adj:sg:loc:n:pos
+piłka nożna	Piłce Nożnej	piłka nożny	subst:sg:loc:f adj:sg:loc:f:pos
+paolo romeo	Paolo Romeo	paolo Romeo	adj:sg:nom:m1:pos subst:sg:nom:m1
+jednostka pływająca	jednostki pływające	jednostka pływać	subst:pl:nom:f pact:pl:nom:f:imperf:aff
+stacja kolejowa	stacja kolejowa	stacja kolejowy	subst:sg:nom:f adj:sg:nom:f:pos
+dyfuzja barwnika	dyfuzja barwnika	dyfuzja barwnik	subst:sg:nom:f subst:sg:gen:m3
+centrum kształcenia inżynierów	Centrum Kształcenia Inżynierów	centrum kształcenie inżynier	subst:sg:nom:n subst:sg:gen:n subst:pl:gen:m1
+janusz kaczmarek	Janusza Kaczmarka	Janusz Kaczmarek	subst:sg:gen:m1 subst:sg:gen:m1
+połów ryb	połowu ryb	połów Ryba	subst:sg:gen:m3 subst:pl:gen:f
+robert witka	Robert Witka	Robert witka	subst:sg:nom:m1 subst:sg:nom:f
+stara wieś	Stara Wieś	stary wieś	adj:sg:nom:f:pos subst:sg:nom:f
+larry lessig	Larry Lessig	Larry lessig	subst:sg:nom:m1 subst:sg:nom:m1
+web 2 . 0	Web 2 . 0	Web 2 . 0	subst:sg:nom:m3 adj:sg:nom:m3:pos interp num:pl:nom:m3:rec
+powiat bytowski	powiecie bytowskim	powiat bytowski	subst:sg:loc:m3 adj:sg:loc:m3:pos
+tp sa	TP SA	TP sa	subst:sg:nom:n subst:sg:nom:n
+warszawska szkoła filmowa	Warszawskiej Szkole Filmowej	warszawski szkoła filmowy	adj:sg:loc:f:pos subst:sg:loc:f adj:sg:loc:f:pos
+teatr wojny	Teatr Wojny	teatr wojna	subst:sg:nom:m3 subst:sg:gen:f
+pan bóg	Pan Bóg	Pan bóg	subst:sg:nom:m1 subst:sg:nom:m1
+poczta polska	Poczty Polskiej	poczta polski	subst:sg:gen:f adj:sg:gen:f:pos
+one step closer	One Step Closer	on step closer	ppron3:pl:nom:m3:ter:akc:npraep subst:sg:nom:m3 subst:sg:nom:m3
+drzewo dwumianowe	Drzewo dwumianowe	drzewo dwumianowy	subst:sg:nom:n adj:sg:nom:n:pos
+młodzi i media	Młodzi i media	młody i media	subst:pl:nom:m1 conj subst:pl:nom:n
+bezpłatne przejazdy	bezpłatnych przejazdów	bezpłatny przejazd	adj:pl:gen:m3:pos subst:pl:gen:m3
+prawo spadkowe	prawa spadkowego	prawo spadkowy	subst:sg:gen:n adj:sg:gen:m3:pos
+yochai benkler	Yochai Benkler	yochai benkler	subst:sg:nom:m1 subst:sg:nom:m1
+gmina złocieniec	gminie Złocieniec	gmina złocieniec	subst:sg:loc:f subst:sg:nom:f
+państwo członkowskie	Państwa Członkowskie	państwo członkowski	subst:pl:nom:n adj:pl:nom:n:pos
+niedziela zmartwychwstania pańskiego	Niedzielą Zmartwychwstania Pańskiego	niedziela Zmartwychwstanie pański	subst:sg:inst:f subst:sg:gen:n adj:sg:gen:n:pos
+aleje jerozolimskie	Alejach Jerozolimskich	aleja jerozolimski	subst:pl:loc:f adj:pl:loc:f:pos
+urząd gminy ozorków	Urzędu Gminy Ozorków	urząd gmina ozorek	subst:sg:gen:m3 subst:sg:gen:f subst:pl:gen:m3
+hpi hellfire	HPI Hellfire	hpi hellfire	subst:sg:nom:f subst:sg:nom:f
+r . inge	R . Inge	rocznik . inge	brev:pun interp subst:sg:nom:m1
+mdb tools	MDB Tools	mdb tools	subst:sg:nom:m3 subst:sg:nom:m3
+british racing motors	British Racing Motors	british racing Motors	subst:sg:nom:n subst:sg:nom:n xxx
+zdobądź flagę	Zdobądź flagę	zdobyć flaga	impt:sg:sec:perf subst:sg:acc:f
+nie zapomnisz nigdy	Nie zapomnisz nigdy	nie zapomnieć nigdy	qub fin:sg:sec:perf adv
+zasada dynamiki newtona	zasada dynamiki Newtona	zasada dynamika Newton	subst:sg:nom:f subst:sg:gen:f subst:sg:gen:m1
+województwo lubelskie	województwie lubelskim	województwo lubelski	subst:sg:loc:n adj:sg:loc:n:pos
+struga lubicka	Struga Lubicka	struga lubicka	subst:sg:nom:f subst:sg:nom:f
+ceremonia pogrzebowa	ceremonii pogrzebowej	ceremonia pogrzebowy	subst:sg:gen:f adj:sg:gen:f:pos
+albert bandura	Albert Bandura	Albert bandura	subst:sg:nom:m1 subst:sg:nom:f
+gutek film	Gutek Film	Gutek film	subst:sg:nom:m1 subst:sg:nom:m3
+sto pięćdziesiąt pięć	sto pięćdziesiąt pięć	sto pięćdziesiąt pięć	num:pl:nom:m2:rec num:pl:nom:m2:rec num:pl:nom:m2:rec
+lidia staroń	Lidia Staroń	Lidia Staroń	subst:sg:nom:f subst:sg:nom:m1
+droga krajowa b210	Droga krajowa B210	droga krajowy b210	subst:sg:nom:f adj:sg:nom:f:pos subst:sg:nom:f
+sto czterdzieści pięć	sto czterdzieści pięć	sto czterdzieści pięć	num:pl:nom:m2:rec num:pl:nom:m2:rec num:pl:nom:m2:rec
+prezydent miasta białegostoku	Prezydent Miasta Białegostoku	prezydent miasto Białystok	subst:sg:nom:m1 subst:sg:gen:n subst:sg:gen:m3
+jednostka pływająca	jednostkę pływającą	jednostka pływać	subst:sg:acc:f pact:sg:acc:f:imperf:aff
+van mitten	Van Mitten	van mitten	subst:sg:nom:m3 subst:sg:nom:m3
+leo beenhakker	Leo Beenhakker	Leo beenhakker	subst:sg:nom:m1 subst:sg:nom:m1
+zakład opieki zdrowotnej	zakładu opieki zdrowotnej	zakład opieka zdrowotny	subst:sg:gen:m3 subst:sg:gen:f adj:sg:gen:f:pos
+gra planszowa	gier planszowych	gra planszowy	subst:pl:gen:f adj:pl:gen:f:pos
+jerzy szmajdziński	Jerzy Szmajdziński	Jerzy szmajdziński	subst:sg:nom:m1 subst:sg:nom:m1
+miejska biblioteka publiczna	Miejską Biblioteką Publiczną	miejski biblioteka publiczny	adj:sg:inst:f:pos subst:sg:inst:f adj:sg:inst:f:pos
+felicite island	Felicite Island	felicite Island	subst:sg:nom:n subst:sg:nom:n
+opłata skarbowa	opłaty skarbowej	opłata skarbowy	subst:sg:gen:f adj:sg:gen:f:pos
+forum ekonomiczne	forum ekonomicznego	forum ekonomiczny	subst:sg:gen:n adj:sg:gen:n:pos
+prezydent miasta gdyni	Prezydent Miasta Gdyni	prezydent miasto Gdynia	subst:sg:nom:m1 subst:sg:gen:n subst:sg:gen:f
+model elektryczny	modele elektryczne	model elektryczny	subst:pl:nom:m3 adj:pl:nom:m3:pos
+operator filmowy	operator filmowy	operator filmowy	subst:sg:nom:m3 adj:sg:nom:m3:pos
+wealth of networks	Wealth of networks	wealth of networks	subst:sg:nom:m3 subst:sg:nom:m3 subst:sg:nom:m3
+know - how	know - how	know - how	adja interp adv:pos
+państwa członkowskie	Państwa Członkowskie	państwo członkowski	subst:pl:nom:n adj:pl:nom:n:pos
+agencja wykonawcza	agencji wykonawczych	agencja wykonawczy	subst:pl:gen:f adj:pl:gen:f:pos
+gmina teresin	gminie Teresin	gmina Teresin	subst:sg:loc:f subst:sg:nom:m3
+wostok władywostok	Wostok Władywostok	wostok Władywostok	subst:sg:gen:m3 subst:sg:nom:m3
+jacek jezierski	Jacek Jezierski	Jacek Jezierski	subst:sg:nom:m1 subst:sg:nom:m1
+jerzy targalski	Jerzy Targalski	Jerzy targalski	subst:sg:nom:m1 subst:sg:nom:m1
+łańcuch satelitarnych wysp la digue	łańcuch satelitarnych wysp La Digue	łańcuch satelitarny wyspa la digue	subst:sg:acc:m3 adj:pl:gen:f:pos subst:pl:gen:f subst:sg:gen:n subst:sg:gen:n
+królestwo niderlandów	Królestwem Niderlandów	królestwo Niderlandy	subst:sg:inst:n subst:pl:gen:n
+gmina ołyka	gminy Ołyka	gmina ołyka	subst:sg:gen:f subst:sg:nom:m3
+konkurs ofert	konkursu ofert	konkurs oferta	subst:sg:gen:m3 subst:pl:gen:f
+region radomski	regionu radomskiego	region radomski	subst:sg:gen:m3 adj:sg:gen:m3:pos
+pięćset dwadzieścia cztery	pięćset dwadzieścia cztery	pięćset dwadzieścia cztery	num:pl:nom:m3:rec num:pl:nom:m3:rec num:pl:nom:m3:congr
+jakub kazimierz haur	Jakub Kazimierz Haur	Jakub Kazimierz haur	subst:sg:nom:m1 subst:sg:nom:m1 subst:sg:nom:m1
+model spalinowy	Modele spalinowe	model spalinowy	subst:pl:nom:m3 adj:pl:nom:m3:pos
+rzut oszczepem	rzucie oszczepem	rzut oszczep	subst:sg:loc:m3 subst:sg:inst:m3
+miejska biblioteka publiczna	Miejska Biblioteka Publiczna	miejski biblioteka publiczny	adj:sg:nom:f:pos subst:sg:nom:f adj:sg:nom:f:pos
+ustawa o ustaleniu i oszacowaniu świadczeń i strat wojennych	Ustawa o ustaleniu i oszacowaniu świadczeń i strat wojennych	ustawa o ustalić i oszacować świadczenie i strata wojenny	subst:sg:nom:f prep:loc ger:sg:loc:n:perf:aff conj ger:sg:loc:n:perf:aff subst:pl:gen:n conj subst:pl:gen:f adj:pl:gen:f:pos
+montezuma ii	Montezuma II	montezuma ii	subst:sg:gen:m3 interj
+kampania społeczna	kampania społeczna	kampania społeczny	subst:sg:nom:f adj:sg:nom:f:pos
+artur ostrowski	Artur Ostrowski	Artur Ostrowski	subst:sg:nom:m1 subst:sg:nom:m1
+powiat wągrowiecki	powiecie wągrowieckim	powiat wągrowiecki	subst:sg:loc:m3 adj:sg:loc:m3:pos
+zwalczanie przestępczości zorganizowanej	zwalczania przestępczości zorganizowanej	zwalczać przestępczość zorganizować	ger:sg:gen:n:imperf:aff subst:sg:gen:f ppas:sg:gen:f:perf:aff
+powiat brzeski	powiecie brzeskim	powiat brzeski	subst:sg:loc:m3 adj:sg:loc:m3:pos
+craig newmark	Craig Newmark	craig newmark	subst:sg:nom:m1 subst:sg:nom:m1
+ochrona zdrowia	ochrony zdrowia	ochrona zdrowie	subst:sg:gen:f subst:sg:gen:n
+actio negatoria	actio negatoria	actio negatoria	subst:sg:gen:m1 subst:sg:gen:m1
+model elektryczny	modelach elektrycznych	model elektryczny	subst:pl:loc:m3 adj:pl:loc:m3:pos
+fundusz spójności	Funduszu Spójności	fundusz spójność	subst:sg:gen:m3 subst:sg:gen:f
+towar masowy	towaru masowego	towar masowy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+prognoza kryminologiczna	prognoza kryminologiczna	prognoza kryminologiczny	subst:sg:nom:f adj:sg:nom:f:pos
+magic the gathering	Magic the Gathering	magic the gathering	subst:sg:loc:n subst:sg:nom:n subst:sg:nom:n
+strefa ochrony	stref ochrony	strefa ochrona	subst:pl:gen:f subst:sg:gen:f
+sto siedemdziesiąt trzy	sto siedemdziesiąt trzy	sto siedemdziesiąt trzy	num:pl:nom:m2:rec num:pl:nom:m2:rec num:pl:nom:m2:congr
+mosty Średzkie	most Średzki	most średzki	subst:sg:nom:m3 subst:sg:nom:m3
+ul . kilińskiego	ul . Kilińskiego	ulica . Kiliński	brev:pun interp subst:sg:gen:m1
+wzorzec wyrobu	wzorca wyrobu	wzorzec wyrób	subst:sg:gen:m3 subst:sg:gen:m3
+stanisław urbańczyk	Stanisława Urbańczyka	Stanisław Urbańczyk	subst:sg:acc:m1 subst:sg:acc:m1
+minister sprawiedliwości	MINISTRA SPRAWIEDLIWOŚCI	minister sprawiedliwość	subst:sg:gen:m1 subst:sg:gen:f
+religia słowian	religii Słowian	religia Słowianin	subst:sg:gen:f subst:pl:gen:m1
+jasność poranka	Jasność poranka	jasność poranek	subst:sg:nom:f subst:sg:gen:m3
+simcity 2000	SimCity 2000	simcity 2000	subst:sg:nom:m3 num:pl:nom:m3:rec
+reprezentacja nigerii	reprezentacji Nigerii	reprezentacja Nigeria	subst:sg:loc:f subst:sg:gen:f
+teoria ewolucji	teorii ewolucji	teoria ewolucja	subst:sg:gen:f subst:sg:gen:f
+elżbieta kruk	Elżbietę Kruk	Elżbieta Kruk	subst:sg:acc:f subst:sg:nom:m1
+wolne podręczniki	Wolne Podręczniki	wolny podręcznik	adj:pl:nom:m3:pos subst:pl:nom:m3
+jarosław urbaniak	Jarosław Urbaniak	Jarosław Urbaniak	subst:sg:nom:m1 subst:sg:nom:m1
+ulica zacisze w katowicach	Ulica Zacisze w Katowicach	ulica zacisze w Katowice	subst:sg:nom:f subst:sg:nom:n prep:loc:nwok subst:pl:loc:n
+wiesław sadurski	Wiesław Sadurski	Wiesław sadurski	subst:sg:nom:m1 subst:sg:nom:m1
+gazeta wyborcza	Gazety Wyborczej	gazeta wyborczy	subst:sg:gen:f adj:sg:gen:f:pos
+toronto dominion gallery of inuit art	Toronto Dominion Gallery of Inuit Art	Toronto dominion gallery of inuit art	subst:sg:nom:n subst:sg:nom:n xxx subst:sg:nom:m3 subst:sg:nom:m3 subst:sg:nom:m3
+pałac augusta haertiga	Pałac Augusta Haertiga	pałac august haertiga	subst:sg:nom:m3 subst:sg:gen:m3 subst:sg:gen:m3
+zbysław owczarski	Zbysława Owczarskiego	Zbysław owczarski	subst:sg:acc:m1 adj:sg:acc:m1:pos
+software 2 . 0	Software 2 . 0	software 2 . 0	subst:sg:nom:m3 adj:sg:nom:m3:pos interp num:pl:nom:m3:rec
+yochai benkler	Yochai Benkler	yochai benkler	subst:sg:nom:m1 subst:sg:nom:m1
+jerzy kozdroń	Jerzy Kozdroń	Jerzy kozdroń	subst:sg:nom:m1 subst:sg:nom:m1
+prawo o adwokaturze	Prawo o adwokaturze	prawo o adwokatura	subst:sg:nom:n prep:loc subst:sg:loc:f
+republika irlandzka	Republiki Irlandzkiej	republika irlandzki	subst:sg:gen:f adj:sg:gen:f:pos
+puchar polski	Pucharu Polski	puchar Polska	subst:sg:gen:m3 subst:sg:gen:f
+zakład opieki zdrowotnej	zakładu opieki zdrowotnej	zakład opieka zdrowotny	subst:sg:gen:m3 subst:sg:gen:f adj:sg:gen:f:pos
+województwo warmińsko - mazurskie	województwie warmińsko - mazurskim	województwo warmińsko - mazurski	subst:sg:loc:n adv:pos interp adj:sg:loc:n:pos
+pius xi	Pius XI	Pius xi	subst:sg:nom:m1 adj:sg:nom:m1:pos
+olaf szewczyk	Olaf Szewczyk	Olaf Szewczyk	subst:sg:nom:m1 subst:sg:nom:m1
+ministerstwo gospodarki	Ministerstwa Gospodarki	ministerstwo gospodarka	subst:sg:gen:n subst:sg:gen:f
+województwo nowosądeckie	województwa nowosądeckiego	województwo nowosądecki	subst:sg:gen:n adj:sg:gen:n:pos
+park nowe rokicie	Park Nowe Rokicie	park nowy rokita	subst:sg:nom:m3 adj:sg:nom:n:pos subst:sg:dat:f
+fundacja nowe media	Fundację Nowe Media	fundacja nowy media	subst:sg:acc:f adj:pl:nom:n:pos subst:pl:nom:n
+dworzec zachodni	Dworca Zachodniego	dworzec zachodni	subst:sg:gen:m3 adj:sg:gen:m3:pos
+sejm prl	Sejm PRL	sejm PRL	subst:sg:acc:m3 subst:sg:gen:f
+dziennik ustaw	Dziennik Ustaw	dziennik ustawa	subst:sg:nom:m3 subst:pl:gen:f
+pielęgnacja systemu informatycznego	pielęgnacji systemu informatycznego	pielęgnacja system informatyczny	subst:sg:gen:f subst:sg:gen:m3 adj:sg:gen:m3:pos
+prowizorium budżetowe	prowizorium budżetowego	prowizorium budżetowy	subst:sg:gen:n adj:sg:gen:n:pos
+ii międzyszkolny turniej bezpieczeństwa w ruchu drogowym	II Międzyszkolny Turniej Bezpieczeństwa w Ruchu Drogowym	ii międzyszkolny turniej bezpieczeństwo w Ruch drogowy	interj adj:sg:nom:m3:pos subst:sg:nom:m3 subst:sg:gen:n prep:loc:nwok subst:sg:loc:m3 adj:sg:loc:m3:pos
+sąd okręgowy	Sądu Okręgowego	sąd okręgowy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+prawo karne	prawem karnym	prawo karny	subst:sg:inst:n adj:sg:inst:n:pos
+strumień cząstek	strumień cząstek	strumień cząstka	subst:sg:nom:m3 subst:pl:gen:f
+powiat limanowski	powiecie limanowskim	powiat limanowski	subst:sg:loc:m3 adj:sg:loc:m3:pos
+bruno mossa rezende	Bruno Mossa Rezende	Bruno mossa rezende	subst:sg:nom:m1 subst:sg:nom:m1 subst:sg:nom:m1
+rzut dyskiem	rzut dyskiem	rzut dysk	subst:sg:nom:m3 subst:sg:inst:m3
+the morning news	the Morning News	the morning news	subst:sg:nom:m3 subst:sg:nom:m3 subst:sg:nom:m3
+pięćset dwa	pięćset dwa	pięćset dwa	num:pl:nom:m3:rec num:pl:nom:m3:congr
+komisja infrastruktury	Komisji Infrastruktury	komisja infrastruktura	subst:sg:gen:f subst:sg:gen:f
+milicja obywatelska	Milicji Obywatelskiej	milicja obywatelski	subst:sg:loc:f adj:sg:loc:f:pos
+wspólnota samorządowa	wspólnotą samorządową	wspólnota samorządowy	subst:sg:inst:f adj:sg:inst:f:pos
+plan nauczania	planie nauczania	plan nauczanie	subst:sg:loc:m3 subst:sg:gen:n
+prawo i sprawiedliwość	Prawo i Sprawiedliwość	prawo i sprawiedliwość	subst:sg:nom:n conj subst:sg:nom:f
+stanisław stec	Stanisław Stec	Stanisław Stec	subst:sg:nom:m1 subst:sg:nom:m1
+rynek starego miasta	Rynek Starego Miasta	rynek stary miasto	subst:sg:nom:m3 adj:sg:gen:n:pos subst:sg:gen:n
+stożek mały	Stożka Małego	stożek mały	subst:sg:gen:m3 adj:sg:gen:m3:pos
+geofity cebulkowe	Geofity cebulkowe	geofit cebulkowy	subst:pl:nom:m3 adj:pl:nom:m3:pos
+pożytek publiczny	pożytku publicznego	pożytek publiczny	subst:sg:gen:m3 adj:sg:gen:m3:pos
+johann baptist cramer	Johann Baptist Cramer	johann baptist cramer	subst:sg:nom:m1 subst:sg:nom:m1 subst:sg:nom:m1
+kultura 2 . 0	kulturze 2 . 0	kultura 2 . 0	subst:sg:loc:f adj:sg:loc:f:pos interp num:pl:nom:m3:rec
+pasza lecznicza	paszami leczniczymi	pasza leczniczy	subst:pl:inst:m1 adj:pl:inst:m1:pos
+towar masowy	towar masowy	towar masowy	subst:sg:acc:m3 adj:sg:acc:m3:pos
+traxxas rustler	Traxxas Rustler	traxxas rustler	subst:sg:nom:m3 subst:sg:nom:m3
+kampania wyborcza	kampanii wyborczych	kampania wyborczy	subst:pl:gen:f adj:pl:gen:f:pos
+rejestr wyborców	rejestru wyborców	rejestr wyborca	subst:sg:gen:m3 subst:pl:gen:m1
+cyber - atak	cyber - ataki	cyber - atak	subst:sg:nom:n interp subst:pl:nom:m3
+miesięcznik komputerowy	Miesięcznika Komputerowego	miesięcznik komputerowy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+r - 33	R - 33	rocznik - 33	brev:pun interp num:pl:nom:m1:rec
+franciszek antoni von goetzen	Franciszka Antoniego von Goetzen	Franciszek Antoni von goetzen	subst:sg:acc:m1 subst:sg:acc:m1 burk subst:sg:nom:m1
+państwo członkowskie	Państwa Członkowskie	państwo członkowski	subst:pl:nom:n adj:pl:nom:n:pos
+komputerowy model układu	komputerowym modelu układu	komputerowy model układ	adj:sg:loc:m3:pos subst:sg:gen:m3 subst:sg:gen:m3
+sant quirze de colera	Sant Quirze de Colera	sant quirze de colera	subst:sg:nom:n subst:sg:nom:n subst:sg:nom:n subst:sg:nom:n
+wielkość wzorcowa	wielkość wzorcowa	wielkość wzorcowy	subst:sg:nom:f adj:sg:nom:f:pos
+województwo mazowieckie	województwie mazowieckim	województwo mazowiecki	subst:sg:loc:n adj:sg:loc:n:pos
+imperium rosyjskie	Imperium Rosyjskiego	imperium rosyjski	subst:sg:gen:n adj:sg:gen:n:pos
+przystanek woodstock	Przystanku Woodstock	przystanek Woodstock	subst:sg:gen:m3 subst:sg:gen:m3
+departament spraw obronnych	Departament Spraw Obronnych	departament sprawa obronny	subst:sg:nom:m3 subst:pl:gen:f adj:pl:gen:f:pos
+media in transition	Media in Transition	media in transition	subst:pl:nom:n subst:sg:nom:n subst:sg:nom:n
+radoslav zabavník	Radoslav Zabavník	radoslav zabavník	subst:sg:nom:m1 subst:sg:nom:m1
+fundacja na rzecz nauki polskie	Fundację na rzecz Nauki Polskiej	fundacja na rzecz nauka polski	subst:sg:acc:f prep:acc subst:sg:acc:f subst:sg:gen:f adj:sg:gen:f:pos
+gustavo kuerten	Gustavo Kuerten	gustavo kuerten	subst:sg:nom:m1 subst:sg:nom:m1
+dziennik ustaw	Dziennik Ustaw	dziennik ustawa	subst:sg:nom:m3 subst:pl:gen:f
+cercle brugge	Cercle Brugge	cercle brugge	subst:sg:gen:n subst:sg:gen:n
+kandydat na aplikanta notarialnego	kandydatów na aplikantów notarialnych	kandydat na aplikant notarialny	subst:pl:gen:m1 prep:acc subst:pl:acc:m1 adj:pl:gen:m1:pos
+the rolling stone	The Rolling Stone	the rolling Stone	subst:sg:nom:m1 subst:sg:nom:m1 subst:sg:nom:m1
+magazyn kryminalny 997	Magazyn Kryminalny 997	magazyn kryminalny 997	subst:sg:nom:m3 adj:sg:nom:m3:pos subst:sg:nom:m3
+rejestr zabytków	rejestru zabytków	rejestr zabytek	subst:sg:gen:m3 subst:pl:gen:m3
+życie pośmiertne	życie pośmiertne	życie pośmiertny	subst:sg:acc:n adj:sg:acc:n:pos
+creative commons	Creative Commons	creative commons	subst:sg:inst:f subst:sg:inst:f
+powiat gryfiński	powiatu gryfińskiego	powiat gryfiński	subst:sg:gen:m3 adj:sg:gen:m3:pos
+segment c	segment C	segment cent	subst:sg:acc:m3 brev:npun
+system informatyczny	system informatyczny	system informatyczny	subst:sg:acc:m3 adj:sg:acc:m3:pos
+artur ostrowski	Artura Ostrowskiego	Artur Ostrowski	subst:sg:acc:m1 subst:sg:acc:m1
+wyborcza akcja katolicka	Wyborczej Akcji Katolickiej	wyborczy akcja katolicki	adj:sg:gen:f:pos subst:sg:gen:f adj:sg:gen:f:pos
+piotr zaremba	Piotr Zaremba	Piotr Zaremba	subst:sg:nom:m1 subst:sg:nom:m1
+podwale grodzkie	Podwale Grodzkie	podwale grodzki	subst:sg:nom:n adj:pl:nom:n:pos
+towarzystwo przyjaciół ozorkowa	Towarzystwo Przyjaciół Ozorkowa	towarzystwo przyjaciel ozorkowy	subst:sg:nom:n subst:pl:gen:m1 adj:sg:nom:f:pos
+strefa oświetlenia ziemi	strefie oświetlenia Ziemi	strefa oświetlić Ziemia	subst:sg:loc:f ger:sg:gen:n:perf:aff subst:sg:gen:f
+pracownik wojska	pracowników wojska	pracownik wojsko	subst:pl:gen:m1 subst:pl:acc:n
+ołeksandr omelczenko	Ołeksandr Omelczenko	ołeksandr omelczenko	subst:sg:nom:m1 subst:sg:nom:m1
+ludwik antoni paszkiewicz	Ludwik Antoni Paszkiewicz	Ludwik Antoni Paszkiewicz	subst:sg:nom:m1 subst:sg:nom:m1 subst:sg:nom:m1
+australia zachodnia	Australia Zachodnia	Australia zachodni	subst:sg:nom:f adj:sg:nom:f:pos
+peer production	peer production	peer production	subst:sg:acc:n subst:sg:acc:n
+okrągły stół	Okrągły Stół	okrągły stół	adj:sg:nom:m3:pos subst:sg:nom:m3
+rc car action	RC Car Action	rc car action	subst:sg:loc:m3 subst:sg:nom:m1 subst:sg:nom:m1
+prymas polski	prymas Polski	prymas Polska	subst:sg:nom:m1 subst:sg:gen:f
+r - 33	R - 33	rocznik - 33	brev:pun interp num:pl:nom:m1:rec
+szkoła podstawowa nr 162 w Łodzi	Szkoły Podstawowej nr 162 w Łodzi	szkoła podstawowy nr 162 w Łódź	subst:sg:gen:f adj:sg:gen:f:pos brev:npun num:pl:nom:m3:rec prep:loc:nwok subst:sg:loc:f
+zębatka odbierająca	zębatki odbierającej	zębatka odbierać	subst:sg:gen:f pact:sg:gen:f:imperf:aff
+akademia krakowska	Akademii Krakowskiej	akademia krakowski	subst:sg:gen:f adj:sg:gen:f:pos
+joshua van sant	Joshua Van Sant	Joshua van sant	subst:sg:nom:m1 subst:sg:nom:m3 subst:sg:nom:m1
+trasa siekierkowska	Trasy Siekierkowskiej	trasa siekierkowski	subst:sg:gen:f adj:sg:gen:f:pos
+nowa heloiza	Nowej Heloizy	nowy Heloiza	adj:sg:gen:f:pos subst:sg:gen:f
+robin haase	Robin Haase	Robin haase	subst:sg:nom:m1 subst:sg:nom:m1
+wynagrodzenie nauczycieli	wynagrodzenia nauczycieli	wynagrodzenie nauczyciel	subst:pl:nom:n subst:pl:gen:m1
+pierogi ruskie	pierogi ruskie	pierog ruski	subst:pl:acc:m3 adj:pl:acc:m3:pos
+fort wola	Fort Wola	fort wola	subst:sg:nom:m3 subst:sg:nom:f
+poezja śpiewana	poezji śpiewanej	poezja śpiewać	subst:sg:gen:f ppas:sg:gen:f:imperf:aff
+prawo budowlane	Prawo budowlane	prawo budowlany	subst:sg:nom:n adj:sg:nom:n:pos
+jarosław kalinowski	Jarosław Kalinowski	Jarosław Kalinowski	subst:sg:nom:m1 subst:sg:nom:m1
+ministerstwo edukacji narodowej	Ministerstwo Edukacji Narodowej	ministerstwo edukacja narodowy	subst:sg:nom:n subst:sg:gen:f adj:sg:gen:f:pos
+web 2 . 0	Web 2 . 0	Web 2 . 0	subst:sg:nom:m3 adj:sg:nom:m3:pos interp num:pl:nom:f:rec
+ministerstwo obrony narodowej	Ministerstwa Obrony Narodowej	ministerstwo obrona narodowy	subst:pl:nom:n subst:sg:gen:f adj:sg:gen:f:pos
+ocena urody	ocenę urody	ocena uroda	subst:sg:acc:f subst:sg:gen:f
+pięćset dwadzieścia cztery	pięćset dwadzieścia cztery	pięćset dwadzieścia cztery	num:pl:nom:m3:rec num:pl:nom:m3:rec num:pl:nom:m3:congr
+stożek mały	Stożka Małego	stożek mały	subst:sg:gen:m3 adj:sg:gen:m3:pos
+podstawa programowa	podstawą programową	podstawa programowy	subst:sg:inst:f adj:sg:inst:f:pos
+rada nieustająca	Rady Nieustającej	rada nieustający	subst:sg:gen:f adj:sg:gen:f:pos
+słabe strony	słabej strony	słaby strona	adj:sg:gen:f:pos subst:sg:gen:f
+tom newman	Tom Newman	Tom Newman	subst:sg:nom:m1 subst:sg:nom:m1
+bezkresne imperium	Bezkresnego Imperium	bezkresny imperium	adj:sg:gen:n:pos subst:sg:gen:n
+john yarmuth	John Yarmuth	John yarmuth	subst:sg:nom:m1 subst:sg:nom:m1
+albert rachner	Albert Rachner	Albert rachner	subst:sg:nom:m1 subst:sg:nom:m1
+plan nauczania	planu nauczania	plan nauczanie	subst:sg:gen:m3 subst:sg:gen:n
+hpi super nitro rs4	HPI Super Nitro RS4	hpi super nitro rs4	subst:sg:nom:n adj:sg:nom:n:pos subst:sg:nom:f subst:sg:nom:f
+polsko - niemiecka nagroda dziennikarska	Polsko - Niemiecka Nagroda Dziennikarska	polsko - niemiecki nagroda dziennikarski	adv:pos interp adj:sg:nom:f:pos subst:sg:nom:f adj:sg:nom:f:pos
+teatr wojny	Teatr wojny	teatr wojna	subst:sg:nom:m3 subst:sg:gen:f
+rzeczpospolita polska	Rzecząpospolitą Polską	rzeczpospolita Polska	subst:sg:inst:f subst:sg:inst:f
+wojciech olejniczak	Wojciecha Olejniczaka	Wojciech Olejniczak	subst:sg:gen:m1 subst:sg:gen:m1
+pasza lecznicza	pasz leczniczych	pasza leczniczy	subst:pl:gen:f adj:pl:gen:m3:pos
+stan wojenny	stanie wojennym	stan wojenny	subst:sg:loc:m3 adj:sg:loc:m3:pos
+prowincja ontario	prowincji Ontario	prowincja Ontario	subst:sg:loc:f subst:sg:nom:n
+gazeta wyborcza	Gazecie Wyborczej	gazeta wyborczy	subst:sg:loc:f adj:sg:loc:f:pos
+dinner plain	Dinner Plain	dinner plain	subst:sg:nom:n subst:sg:nom:n
+gaz ziemny	gazu ziemnego	gaz ziemny	subst:sg:gen:m3 adj:sg:gen:m3:pos
+Światowy przegląd folkloru „ integracje ”	Światowego Przeglądu Folkloru „ Integracje ”	światowy przegląd folklor „ integracja ”	adj:sg:gen:m3:pos subst:sg:gen:m3 subst:sg:gen:m3 interp subst:pl:nom:f interp
+powiat gryfiński	powiatu gryfińskiego	powiat gryfiński	subst:sg:gen:m3 adj:sg:gen:m3:pos
+zakłady górnicze	zakładu górniczego	zakład górniczy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+rada ministrów	Radzie Ministrów	rada minister	subst:sg:loc:f subst:pl:gen:m1
+państwo członkowskie	Państw Członkowskich	państwo członkowski	subst:pl:gen:n adj:pl:gen:n:pos
+federacja bibliotek cyfrowych	Federacji Bibliotek Cyfrowych	federacja biblioteka cyfrowy	subst:sg:loc:f subst:pl:gen:f adj:pl:gen:f:pos
+system wiedzy	systemów wiedzy	system wiedza	subst:pl:gen:m3 subst:sg:gen:f
+piłka ręczna	Piłce Ręcznej	piłka ręczny	subst:sg:loc:f adj:sg:loc:f:pos
+władysław sobolewski	Władysław Sobolewski	Władysław Sobolewski	subst:sg:nom:m1 subst:sg:nom:m1
+państwo wzywające	Państwu wzywającemu	państwo wzywać	subst:sg:dat:n pact:sg:dat:m3:imperf:aff
+konrad i	Konrada I	Konrad i	subst:sg:gen:m1 conj
+strefa oświetlenia ziemi	strefie oświetlenia Ziemi	strefa oświetlenie Ziemia	subst:sg:loc:f subst:sg:gen:n subst:sg:gen:f
+kandydat na aplikanta notarialnego	kandydatów na aplikantów notarialnych	kandydat na aplikant notarialny	subst:pl:gen:m1 prep:acc subst:pl:acc:m1 adj:pl:gen:m1:pos
+wielkość mierzona	wielkości mierzonej	wielkość mierzyć	subst:sg:gen:f ppas:sg:gen:f:imperf:aff
+mińsk mazowiecki	Mińsku Mazowieckim	Mińsk mazowiecki	subst:sg:loc:m3 adj:sg:loc:m3:pos
+claude piron	Claude Piron	Claude piron	subst:sg:nom:m1 subst:sg:nom:m1
+r - 33	R - 33	rocznik - 33	brev:pun interp num:pl:nom:m1:congr
+ruś czerwona	Rusi Czerwonej	Ruś czerwony	subst:sg:gen:f adj:sg:gen:f:pos
+jednostka wojskowa	jednostki wojskowej	jednostka wojskowy	subst:sg:gen:f adj:sg:gen:f:pos
+inwersja obsadzeń	inwersja obsadzeń	inwersja obsadzenie	subst:sg:nom:f subst:pl:gen:n
+reprezentant polski	Reprezentant Polski	reprezentant Polska	subst:sg:nom:m1 subst:sg:gen:f
+połów ryb	połowu ryb	połów Ryba	subst:sg:gen:m3 subst:pl:gen:f
+stronnictwo demokratyczne	Stronnictwa Demokratycznego	stronnictwo demokratyczny	subst:sg:gen:n adj:sg:gen:n:pos
+gmina skandawa	Gmina Skandawa	gmina skandawa	subst:sg:nom:f subst:sg:nom:f
+johann baptist cramer	Johann Baptist Cramer	johann baptist cramer	subst:sg:nom:m1 subst:sg:nom:m1 subst:sg:nom:m1
+organ pierwszej instancji	organu pierwszej instancji	organ pierwszy instancja	subst:sg:gen:m3 adj:sg:gen:f:pos subst:sg:gen:f
+kurs walutowy	Kurs walutowy	kurs walutowy	subst:sg:nom:m3 adj:sg:nom:m3:pos
+piotr giziński	Piotr Giziński	Piotr Giziński	subst:sg:nom:m1 subst:sg:nom:m1
+konkurs ofert	konkursu ofert	konkurs oferta	subst:sg:gen:m3 subst:pl:gen:f
+xxiv międzynarodowy turniej o puchar syrenki	XXIV Międzynarodowy Turniej o Puchar Syrenki	xxiv międzynarodowy turniej o puchar syrenka	subst:sg:nom:m3 adj:sg:nom:m3:pos subst:sg:nom:m3 prep:acc subst:sg:acc:m3 subst:sg:gen:f
+metoda pomiarowa	Metoda pomiarowa	metoda pomiarowy	subst:sg:nom:f adj:sg:nom:f:pos
+należność zagraniczna	należności zagranicznej	należność zagraniczny	subst:sg:gen:f adj:sg:gen:f:pos
+james boyle	Jamesa Boyle	James Boyle	subst:sg:gen:m1 subst:sg:nom:m1
+géza - dzieciak	Géza - dzieciak	géza - dzieciak	subst:sg:nom:m1 interp subst:sg:nom:m2
+simcity 3000	SimCity 3000	simcity 3000	subst:sg:nom:m3 num:pl:nom:m3:rec
+kurs walutowy	kursu walutowego	kurs walutowy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+wydział szkoleń	Wydział Szkoleń	wydział szkolenie	subst:sg:nom:m3 subst:pl:gen:n
+podstawa programowa	podstawy programowe	podstawa programowy	subst:pl:acc:f adj:pl:acc:f:pos
+tur ozorków	TUR Ozorków	TUR ozorek	subst:pl:nom:n subst:pl:gen:m3
+obiekty gwiazdowe	obiektów gwiazdowych	obiekt gwiazdowy	subst:pl:gen:m3 adj:pl:gen:m3:pos
+dinner plain	Dinner Plain	dinner plain	subst:sg:nom:m1 subst:sg:nom:m1
+fundacja nowe media	Fundacja Nowe Media	fundacja nowy media	subst:sg:nom:f adj:pl:nom:n:pos subst:pl:nom:n
+toronto dominion centre	Toronto Dominion Centre	Toronto dominion centre	subst:sg:nom:n subst:sg:nom:n subst:sg:nom:n
+grzegorz braun	Grzegorz Braun	Grzegorz Braun	subst:sg:nom:m1 subst:sg:nom:m1
+skłodowska - curie	Skłodowska - Curie	Skłodowska - Curie	subst:sg:nom:f interp subst:sg:nom:f
+sto pięćdziesiąt dziewięć	sto pięćdziesiąt dziewięć	sto pięćdziesiąt dziewięć	num:pl:nom:m2:rec num:pl:nom:m2:rec num:pl:nom:m2:rec
+sea legends	Sea Legends	sea legends	subst:sg:nom:m1 subst:sg:nom:m1
+british racing motors	British Racing Motors	british racing Motors	subst:sg:nom:m3 subst:sg:nom:m3 xxx
+rzeka moskwa	rzeki Moskwy	rzeka Moskwa	subst:sg:gen:f subst:sg:gen:f
+kubuś puchatek	Kubusia Puchatka	Kubuś Puchatek	subst:sg:gen:m1 subst:sg:gen:m1
+marek wikiński	Marek Wikiński	Marek Wikiński	subst:sg:nom:m1 subst:sg:nom:m1
+6 szczep harcerskiego	6 Szczepu Harcerskiego	6 szczep harcerski	adj:sg:nom:m3:pos subst:sg:gen:m3 adj:sg:gen:m3:pos
+plan czteroletni	Plan Czteroletni	plan czteroletni	subst:sg:nom:m3 adj:sg:nom:m3:pos
+ludwik antoni paszkiewicz	Ludwik Antoni Paszkiewicz	Ludwik Antoni Paszkiewicz	subst:sg:nom:m1 subst:sg:nom:m1 subst:sg:nom:m1
+china northwest airlines 2303	China Northwest Airlines 2303	china northwest airlines 2303	subst:sg:nom:f subst:sg:nom:m3 subst:sg:nom:m3 num:pl:nom:m3:rec
+stowarzyszenie badaczy pisma Świętego	Stowarzyszenie Badaczy Pisma Świętego	stowarzyszenie badacz pismo święty	subst:sg:nom:n subst:pl:gen:m1 subst:sg:gen:n adj:sg:gen:n:pos
+wymiar podatku	wymiar podatku	wymiar podatek	subst:sg:nom:m3 subst:sg:gen:m3
+san francisco	San Francisco	San Francisco	subst:sg:acc:m3 subst:sg:gen:n
+rondo radosława	Ronda Radosława	rondo Radosław	subst:sg:gen:n subst:sg:gen:m1
+kwalifikacje zawodowe	kwalifikacji zawodowych	kwalifikacje zawodowy	subst:pl:gen:n adj:pl:gen:n:pos
+gwiezdna kuźnia	Gwiezdna Kuźnia	gwiezdny kuźnia	adj:sg:nom:f:pos subst:sg:nom:f
+imperium rosyjskie	Imperium Rosyjskiego	imperium rosyjski	subst:sg:gen:n subst:sg:gen:m3
+pielęgnacja systemu informatycznego	Pielęgnacja systemu informatycznego	pielęgnacja system informatyczny	subst:sg:nom:f subst:sg:gen:m3 adj:sg:gen:m3:pos
+peer production	peer production	peer production	subst:sg:acc:f subst:sg:acc:f
+amatorski połów ryb	amatorskiego połowu ryb	amatorski połów Ryba	adj:sg:gen:m3:pos subst:sg:gen:m3 subst:pl:gen:f
+administracja rządowa	administracji rządowej	administracja rządowy	subst:sg:gen:f adj:sg:gen:f:pos
+unia europejska	Unii Europejskiej	unia europejski	subst:sg:gen:f adj:sg:gen:f:pos
+obwód penisa	obwód penisa	obwód penis	subst:sg:nom:m3 subst:sg:gen:m3
+kultura ludowa słowian	Kultura ludowa Słowian	kultura ludowy Słowianin	subst:sg:nom:f adj:sg:nom:f:pos subst:pl:gen:m1
+fundacja nowe media	Fundacją Nowe Media	fundacja nowy media	subst:sg:inst:f adj:sg:nom:n:pos subst:pl:nom:n
+województwo bielskie	województwa bielskiego	województwo bielski	subst:sg:gen:n adj:sg:gen:n:pos
+siła nabywcza	siły nabywczej	siła nabywczy	subst:sg:gen:f adj:sg:gen:f:pos
+wspólnota europejska	Wspólnotę Europejską	wspólnota europejski	subst:sg:acc:f adj:sg:acc:f:pos
+uniwersytetu w cornell	Uniwersytetu w Cornell	uniwersytet w cornell	subst:sg:gen:m3 prep:loc:nwok subst:sg:loc:m3
+plan czteroletni	Plan Czteroletni	plan czteroletni	subst:sg:nom:m3 adj:sg:nom:m3:pos
+zakład ubezpieczeń społecznych	Zakładu Ubezpieczeń Społecznych	zakład ubezpieczenie społeczny	subst:sg:gen:m3 subst:pl:gen:n adj:pl:gen:n:pos
+państwo członkowskie	Państw Członkowskich	państwo członkowski	subst:pl:gen:n adj:pl:gen:n:pos
+czesław miłosz	Czesława Miłosza	Czesław Miłosz	subst:sg:gen:m1 subst:sg:gen:m1
+minister infrastruktury	Minister Infrastruktury	minister infrastruktura	subst:sg:nom:m1 subst:sg:gen:f
+creative commons	Creative Commons	creative commons	subst:sg:nom:f subst:sg:nom:f
+platforma obywatelska	Platformy Obywatelskiej	platforma obywatelski	subst:sg:gen:f adj:sg:gen:f:pos
+morski korpus kadecki	Morski Korpus Kadecki	morski korpus kadecki	adj:sg:nom:m3:pos subst:sg:nom:m3 adj:sg:nom:m3:pos
+deep purple	Deep Purple	deep purple	subst:sg:nom:m3 subst:sg:nom:m3
+szpic miniaturowy	szpicem miniaturowym	szpic miniaturowy	subst:sg:inst:m3 adj:sg:inst:m3:pos
+transfer wosku	transfer wosku	transfer wosk	subst:sg:nom:m3 subst:sg:gen:m3
+creative commons	Creative Commons	creative commons	subst:sg:gen:f subst:sg:gen:f
+wyspy wewnętrzne	Wysp Wewnętrznych	wyspa wewnętrzny	subst:pl:gen:f adj:pl:gen:f:pos
+nadzieja królestwa	Nadzieja Królestwa	Nadzieja królestwo	subst:sg:nom:f subst:sg:gen:n
+orłów murowany	Orłów Murowany	Orłowo murowany	subst:pl:gen:n adj:sg:nom:m3:pos
+dzieci wszechświata	dziećmi wszechświata	dziecko wszechświat	subst:pl:inst:n subst:sg:gen:m3
+szczęsny kupka	SZCZĘSNY KUPKA	szczęsny kupka	adj:sg:nom:m1:pos subst:sg:nom:f
+bzura ozorków	Bzury Ozorków	Bzura ozorek	subst:pl:nom:f subst:pl:gen:m3
+klasa abstrakcyjna	klasy abstrakcyjnej	klasa abstrakcyjny	subst:sg:gen:f adj:sg:gen:f:pos
+pałac w smardach	pałac w Smardach	pałac w smard	subst:sg:nom:m3 prep:loc:nwok subst:pl:loc:m1
+szkoła chaosu	Szkoła Chaosu	szkoła chaos	subst:sg:nom:f subst:sg:gen:m3
+book search	Book Search	book search	subst:sg:gen:f subst:sg:gen:f
+zespół szkół nr 2 w wałbrzychu	Zespołu Szkół nr 2 w Wałbrzychu	zespół szkoła nr 2 w Wałbrzych	subst:sg:gen:m3 subst:pl:gen:f brev:npun num:pl:nom:m3:congr prep:loc:nwok subst:sg:loc:m3
+starosta zgierski	Starosta Zgierski	starosta zgierski	subst:sg:nom:m1 adj:sg:nom:m1:pos
+długość penisa	długość penisa	długość penis	subst:sg:acc:f subst:sg:gen:m3
+drzewo dwumianowe	Drzewo dwumianowe	drzewo dwumianowy	subst:sg:nom:n adj:sg:nom:n:pos
+druk termotransferowy	Druk termotransferowy	druk termotransferowy	subst:sg:nom:m3 subst:sg:nom:m3
+feliks krzemiński	Feliks Krzemiński	Feliks Krzemiński	subst:sg:nom:m1 subst:sg:nom:m1
+radio rebelia	Radio Rebelia	radio rebelia	subst:sg:nom:n subst:sg:nom:f
+stratosphere las vegas	Stratosphere Las Vegas	stratosphere las Vegas	subst:sg:nom:m3 subst:sg:nom:m3 burk
+katarzyna hall	Katarzyny Hall	Katarzyna hall	subst:sg:gen:f subst:sg:nom:m3
+hamulec elektrodynamiczny	Hamulec elektrodynamiczny	hamulec elektrodynamiczny	subst:sg:nom:m3 adj:sg:nom:m3:pos
+scott berkun	Scott Berkun	Scott berkun	subst:sg:nom:m1 subst:sg:nom:m1
+stożek mały	Stożek Mały	stożek mały	subst:sg:nom:m3 adj:sg:nom:m3:pos
+jednostka miary	jednostkach miary	jednostka miara	subst:pl:loc:f subst:sg:gen:f
+dyrektor naczelny miejskiego teatru „ miniatura ” w gdańsku	Dyrektora Naczelnego Miejskiego Teatru „ Miniatura ” w Gdańsku	dyrektor naczelny miejski teatr „ miniatura ” w Gdańsk	subst:sg:gen:m1 adj:sg:gen:m1:pos adj:sg:gen:m1:pos subst:sg:gen:m3 interp subst:sg:nom:f interp prep:loc:nwok subst:sg:loc:m3
+mosty Średzkie	most Średzki	most średzki	subst:sg:nom:m3 subst:sg:nom:m3
+nowa heloiza	Nowej Heloizy	nowy Heloiza	adj:sg:gen:f:pos subst:sg:gen:f
+konrad zuse	Konrada Zuse	Konrad zuse	subst:sg:gen:m1 subst:sg:gen:m1
+państwa członkowskie	Państwa Członkowskiego	państwo członkowski	subst:sg:gen:n adj:sg:gen:n:pos
+człowiek roku	człowiekiem roku	człowiek rok	subst:sg:inst:m1 subst:sg:gen:m3
+stadion punjab	Stadion Punjab	stadion punjab	subst:sg:nom:m3 subst:sg:nom:m3
+wzorce projektowe	wzorców projektowych	wzorzec projektowy	subst:pl:gen:m3 adj:pl:gen:m3:pos
+województwo mazowieckie	województwie mazowieckim	województwo mazowiecki	subst:sg:loc:n adj:sg:loc:n:pos
+szkoła podstawowa nr 1	Szkoła Podstawowa nr 1	szkoła podstawowy nr 1	subst:sg:nom:f adj:sg:nom:f:pos brev:npun adj:sg:nom:m3:pos
+jerzy szmajdziński	Jerzy Szmajdziński	Jerzy szmajdziński	subst:sg:nom:m1 subst:sg:nom:m1
+eliot van buskirk	Eliot Van Buskirk	Eliot van buskirk	subst:sg:nom:m1 subst:sg:nom:m3 subst:sg:nom:m3
+creative commons	Creative Commons	creative commons	subst:sg:nom:n subst:sg:nom:n
+zmienne środowiskowe	Zmienne środowiskowe	zmienny środowiskowy	adj:pl:nom:m3:pos adj:pl:nom:m3:pos
+open business	Open Business	open business	subst:sg:nom:m3 subst:sg:nom:m3
+nowy Świat	Nowym Świecie	nowy Świat	adj:sg:loc:m3:pos subst:sg:loc:m3
+marino perani	Marino Perani	Marino perani	subst:sg:nom:n subst:sg:nom:n
+polska agencja prasowa	Polska Agencja Prasowa	polski agencja prasowy	adj:sg:nom:f:pos subst:sg:nom:f adj:sg:nom:f:pos
+live in europe	Live in Europe	live in europe	subst:sg:nom:n subst:sg:nom:n subst:sg:nom:n
+dzielnica wesoła	Dzielnicy Wesoła	dzielnica wesoły	subst:sg:loc:f adj:sg:nom:f:pos
+polska telefonia cyfrowa	Polskiej Telefonii Cyfrowej	polski telefonia cyfrowy	adj:sg:gen:f:pos subst:sg:gen:f adj:sg:gen:f:pos
+prowizorium budżetowe	Prowizorium budżetowe	prowizorium budżetowy	subst:sg:nom:n adj:sg:nom:n:pos
+polskie radio	Polskiego Radia	polski radio	adj:sg:gen:n:pos subst:sg:gen:n
+województwo sieradzkie	województwa sieradzkiego	województwo sieradzki	subst:sg:gen:n adj:sg:gen:n:pos
+real saragossa	Real Saragossa	real Saragossa	subst:sg:nom:m2 subst:sg:nom:f
+rejestr wyborców	rejestr wyborców	rejestr wyborca	subst:sg:nom:m3 subst:pl:gen:m1
+ministerstwo skarbu państwa	Ministerstwo Skarbu Państwa	ministerstwo skarb państwo	subst:sg:nom:n subst:sg:gen:m3 subst:sg:gen:n
+wzorce projektowe	wzorca projektowego	wzorzec projektowy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+państwo członkowskie	Państwa Członkowskie	państwo członkowski	subst:pl:nom:n adj:pl:nom:n:pos
+międzynarodowa organizacja pracy	Międzynarodowej Organizacji Pracy	międzynarodowy organizacja praca	adj:sg:gen:f:pos subst:sg:gen:f subst:sg:gen:f
+karol linneusz	Karola Linneusza	Karol Linneusz	subst:sg:gen:m1 subst:sg:gen:m1
+uniwersytet w klagenfurcie	Uniwersytecie w Klagenfurcie	uniwersytet w klagenfurcie	subst:sg:loc:m3 prep:loc:nwok subst:sg:loc:m3
+ocena ratingowa	ocenę ratingową	ocena ratingowy	subst:sg:acc:f adj:sg:acc:f:pos
+jana rosoła	Jana Rosoła	Jan Rosół	subst:sg:acc:m1 subst:sg:acc:m1
+cesarz rosji	cesarza Rosji	cesarz Rosja	subst:sg:gen:m1 subst:sg:gen:f
+republika armenii	Republiki Armenii	republika Armenia	subst:sg:gen:f subst:sg:gen:f
+dzienna gwiazda	Dziennej Gwiazdy	dzienny gwiazda	adj:sg:gen:f:pos subst:sg:gen:f
+trybunał konstytucyjny	trybunału konstytucyjnego	trybunał konstytucyjny	subst:sg:gen:m3 adj:sg:gen:m3:pos
+ul . tuwima	ul . Tuwima	ulica . Tuwim	brev:pun interp subst:sg:gen:m1
+magazyn kryminalny 997	Magazyn Kryminalny 997	magazyn kryminalny 997	subst:sg:nom:m3 adj:sg:nom:m3:pos adj:sg:nom:m3:pos
+open source	Open Source	open source	subst:sg:gen:f subst:sg:gen:f
+xbox 360	Xbox 360	xbox 360	subst:sg:nom:m1 num:pl:nom:m1:rec
+język skryptowy	język skryptowy	język skryptowy	subst:sg:nom:m3 adj:sg:nom:m3:pos
+bitwa pod suchodołem	Bitwa pod Suchodołem	bitwa pod suchodołem	subst:sg:nom:f prep:inst:nwok subst:sg:inst:f
+zjednoczone królestwo wielkiej brytanii i irlandii	Zjednoczonego Królestwa Wielkiej Brytanii i Irlandii	zjednoczyć królestwo wielki Brytania i Irlandia	ppas:sg:gen:n:perf:aff subst:sg:gen:n adj:sg:gen:f:pos subst:sg:gen:f conj subst:sg:gen:f
+ustawa o radcach prawnych	ustawy o radcach prawnych	ustawa o radca prawny	subst:sg:gen:f prep:loc subst:pl:loc:m1 adj:pl:loc:f:pos
+ewa kierzkowska	Ewa Kierzkowska	Ewa Kierzkowska	subst:sg:nom:f subst:sg:nom:f
+e - learning	e - learning	e - learning	interj interp qub
+bariera odpornościowa	barier odpornościowych	bariera odpornościowy	subst:pl:gen:f adj:pl:gen:f:pos
+pale - prača	Pale - Prača	pała - prača	subst:sg:dat:f interp subst:sg:nom:m1
+jconcepts j82	JConcepts J82	jconcepts j82	subst:sg:nom:m3 subst:sg:nom:m3
+zabezpieczenie społeczne	zabezpieczenia społecznego	zabezpieczenie społeczny	subst:sg:gen:n adj:sg:gen:n:pos
+piotr i	Piotra I	Piotr i	subst:sg:acc:m1 conj
+uniwersytetu colorado w boulder	Uniwersytetu Colorado w Boulder	uniwersytet Colorado w boulder	subst:sg:gen:m3 subst:sg:gen:f prep:loc:nwok subst:sg:loc:f
+niedziela wielkanocna	Niedzielą Wielkanocną	niedziela wielkanocny	subst:sg:inst:f adj:sg:inst:f:pos
+wypadki i incydenty lotnicze	wypadków i incydentów lotniczych	wypadek i incydent lotniczy	subst:pl:gen:m3 conj subst:pl:gen:m3 adj:pl:gen:m3:pos
+sworzeń zwrotnicy	sworznia zwrotnicy	sworzeń zwrotnica	subst:sg:gen:m3 subst:sg:gen:f
+skra bełchatów	Skrą Bełchatów	skra Bełchatów	subst:sg:inst:f subst:sg:nom:m3
+polska rodzina szlachecka	Polska rodzina szlachecka	polski rodzina szlachecki	adj:sg:nom:f:pos subst:sg:nom:f adj:sg:nom:f:pos
+cimed florianópolis	Cimed Florianópolis	cimed florianópolis	subst:sg:gen:f subst:sg:gen:f
+steeple morden	Steeple Morden	steeple morden	subst:sg:nom:m1 subst:sg:nom:m1
+copyright summit	Copyright Summit	copyright summit	subst:sg:acc:m3 subst:sg:gen:m3
+robin haase	Robin Haase	Robin haase	subst:sg:nom:m1 subst:sg:nom:m1
+droga ekspresowa	drogi ekspresowej	droga ekspresowy	subst:sg:gen:f adj:sg:gen:f:pos
+krzyż na krakowskim przedmieściu	krzyż na Krakowskim Przedmieściu	krzyż na krakowski przedmieście	subst:sg:acc:m3 prep:loc adj:sg:loc:n:pos subst:sg:loc:n
+europejski trybunał sprawiedliwości	Europejskiego Trybunału Sprawiedliwości	europejski trybunał sprawiedliwość	adj:sg:gen:m3:pos subst:sg:gen:m3 subst:sg:gen:f
+trzęsawka owiec	trzęsawką owiec	trzęsawka owca	subst:sg:inst:f subst:pl:gen:f
+david irving	David Irving	David irving	subst:sg:nom:m1 subst:sg:nom:m1
+artur Ławniczak	Artur Ławniczak	Artur Ławniczak	subst:sg:nom:m1 subst:sg:nom:m1
+friuli - wenecja julijska	Friuli - Wenecja Julijska	friuli - Wenecja julijski	subst:sg:nom:m3 interp subst:sg:nom:f adj:sg:nom:f:pos
+kapelan honorowy papieża	kapelan honorowy papieża	kapelan honorowy papież	subst:sg:nom:m1 adj:sg:nom:m1:pos subst:sg:gen:m1
+ambasador prl	ambasador PRL	ambasador PRL	subst:sg:nom:m1 subst:sg:gen:f
+Środek probacyjny	Środek probacyjny	środek probacyjny	subst:sg:nom:m3 adj:sg:nom:m3:pos
+magazyn kryminalny 997	Magazynu Kryminalnego 997	magazyn kryminalny 997	subst:sg:gen:m3 subst:sg:gen:m1 num:pl:gen:m3:congr
+plan informatyzacji państwa	Plan Informatyzacji Państwa	plan informatyzacja państwo	subst:sg:nom:m3 subst:sg:gen:f subst:sg:gen:n
+fundacja nowe media	Fundacji Nowe Media	fundacja nowy media	subst:sg:gen:f adj:sg:nom:n:pos subst:pl:nom:n
+van mitten	Van Mitten	van mitten	subst:sg:nom:m3 subst:sg:nom:m3
+służba poza granicami państwa	służby poza granicami państwa	służba poza granica państwo	subst:sg:gen:f prep:inst subst:pl:inst:f subst:sg:gen:n
+lori glazier	Lori Glazier	lori glazier	subst:sg:nom:f subst:sg:nom:f
+województwo małopolskie	województwie małopolskim	województwo małopolski	subst:sg:loc:n adj:sg:loc:n:pos
+bzura ozorków	Bzury Ozorków	Bzura ozorek	subst:sg:gen:f subst:pl:gen:m3
+standard reference method	Standard Reference Method	standard reference method	subst:sg:nom:m3 subst:sg:nom:m3 subst:sg:nom:m3
+aleksandrów Łódzki	Aleksandrowa Łódzkiego	Aleksandrów łódzki	subst:sg:gen:m3 adj:sg:gen:m3:pos
+unia europejska	Unii Europejskiej	unia europejski	subst:sg:gen:f adj:sg:gen:f:pos
+era wodnika	Era Wodnika	era Wodnik	subst:sg:nom:f subst:sg:gen:m2
+system informatyczny	systemu informatycznego	system informatyczny	subst:sg:gen:m3 adj:sg:gen:m3:pos
+symbole kanady	Symbole Kanady	symbol Kanada	subst:pl:nom:m3 subst:sg:gen:f
+organ centralny państwa	Organ Centralny Państwa	organ centralny państwo	subst:sg:nom:m3 adj:sg:nom:m3:pos subst:sg:gen:n
+forum pismaków	Forum Pismaków	forum pismak	subst:sg:nom:n subst:pl:gen:m1
+rzeczpospolita polska	Rzeczpospolita Polska	Rzeczpospolita polski	subst:sg:nom:f adj:sg:nom:f:pos
+centralne biuro antykorupcyjne	Centralne Biuro Antykorupcyjne	centralny biuro antykorupcyjne	adj:sg:nom:n:pos subst:sg:nom:n adj:sg:nom:n:pos
+sankt petersburg	Sankt Petersburgu	Sankt Petersburg	burk subst:sg:loc:m3
+skra bełchatów	Skry Bełchatów	skra Bełchatów	subst:sg:gen:f subst:sg:nom:m3
+audio physic	Audio Physic	audio physic	adj:sg:nom:n:pos subst:sg:nom:n
+hal varian	Hal Varian	Hala varian	subst:pl:gen:f subst:sg:gen:f
+szczęsny kupka	SZCZĘSNY KUPKA	szczęsny kupka	adj:sg:nom:m1:pos subst:sg:nom:f
+instytucja zarządzająca podstawami wsparcia wspólnoty	Instytucja Zarządzająca Podstawami Wsparcia Wspólnoty	instytucja zarządzać podstawa wsparcie wspólnota	subst:sg:nom:f pact:sg:nom:f:imperf:aff subst:pl:inst:f subst:sg:gen:n subst:sg:gen:f
+otwarta edukacja	otwartą edukację	otwarty edukacja	adj:sg:acc:f:pos subst:sg:acc:f
+moritz wesel	Moritz Wesel	moritz wesele	adj:sg:nom:n:pos subst:pl:gen:n
+przyczyna wypadku	Przyczyna wypadku	przyczyna wypadek	subst:sg:nom:f subst:sg:gen:m3
+student partner	Student Partnerem	student partner	subst:sg:nom:m1 subst:sg:inst:m1
+fundusz adaptacyjny	Fundusz Adaptacyjny	fundusz adaptacyjny	subst:sg:nom:m3 adj:sg:nom:m3:pos
+instytut kolejnictwa	Instytutu Kolejnictwa	instytut kolejnictwo	subst:sg:gen:m3 subst:sg:gen:n
+gte entertainment	GTE Entertainment	gte entertainment	subst:sg:acc:m3 subst:sg:acc:m3
+puchar polski	Pucharze Polski	puchar Polska	subst:sg:loc:m3 subst:sg:gen:f
+science fiction	Science Fiction	science fiction	subst:sg:nom:m3 subst:sg:nom:m3
+fzab - 500m	FZAB - 500M	fzab - 500m	subst:sg:nom:m1 interp num:pl:nom:m3:rec
+bogumił luft	Bogumił Luft	Bogumił luft	subst:sg:nom:m1 subst:sg:nom:m3
+kształcenie ogólne	kształcenie ogólne	kształcenie ogólny	subst:sg:nom:n adj:sg:nom:n:pos
+umowa przesyłowa	umową przesyłową	umowa przesyłowy	subst:sg:inst:f adj:sg:inst:f:pos
+fundusze strukturalne	funduszy strukturalnych	fundusz strukturalny	subst:pl:gen:m3 adj:pl:gen:m3:pos
+informacje niejawne	INFORMACJI NIEJAWNYCH	informacja niejawny	subst:sg:gen:f adj:pl:gen:f:pos
+mariusz grabowski	Mariusz Grabowski	Mariusz Grabowski	subst:sg:nom:m1 subst:sg:nom:m1
+szczęsny kupka	SZCZĘSNY KUPKA	szczęsny kupka	adj:sg:nom:m1:pos subst:sg:nom:f
+kultura polska	kulturze polskiej	kultura polski	subst:sg:dat:f adj:sg:dat:f:pos
+zygmunt hohenzollern	Zygmunt Hohenzollern	Zygmunt Hohenzollern	subst:sg:nom:m1 subst:sg:nom:m1
+pompa śmigłowa	Pompy śmigłowe	pompa śmigłowy	subst:pl:nom:f adj:pl:nom:f:pos
+linia sto dwadzieścia jeden	linia sto dwadzieścia jeden	linia sto dwadzieścia jeden	subst:sg:nom:f num:pl:nom:m3:rec num:pl:nom:m3:rec num:pl:nom:m3:rec
+konkurs ofert	konkursu ofert	konkurs oferta	subst:sg:gen:m3 subst:pl:gen:f
+forum pismaków	Forum Pismaków	forum pismak	subst:sg:acc:n subst:pl:gen:m1
+szczęsny kupka	SZCZĘSNY KUPKA	szczęsny kupka	adj:sg:nom:m1:pos subst:sg:nom:f
+przestępczość zorganizowana	przestępczości zorganizowanej	przestępczość zorganizować	subst:sg:gen:f ppas:sg:gen:f:perf:aff
+charles darwin	Charles Darwin	Charles Darwin	subst:sg:nom:m1 subst:sg:nom:m1
+województwo wielkopolskie	województwie wielkopolskim	województwo wielkopolski	subst:sg:loc:n adj:sg:loc:n:pos
+asz - szarkija	Asz - Szarkija	asz - szarkija	subst:sg:nom:f interp subst:sg:nom:m1
+stany zjednoczone	Stanach Zjednoczonych	Stany zjednoczyć	subst:pl:loc:n ppas:pl:loc:n:perf:aff
+firma zarządzająca	firmy zarządzającej	firma zarządzać	subst:sg:gen:f pact:sg:gen:f:imperf:aff
+niewidzialny różowy jednorożec	Niewidzialny Różowy Jednorożec	niewidzialny różowy Jednorożec	adj:sg:nom:m2:pos adj:sg:nom:m2:pos subst:sg:nom:m2
+otwarta edukacja	otwartej edukacji	otwarty edukacja	adj:sg:gen:f:pos subst:sg:gen:f
+zapobieganie katastrofom naturalnym i awariom technicznym	zapobiegania katastrofom naturalnym i awariom technicznym	zapobiegać katastrofa naturalny i awaria techniczny	ger:sg:gen:n:imperf:aff subst:pl:dat:f adj:pl:dat:f:pos conj subst:pl:dat:f adj:pl:dat:f:pos
+50 +	50 +	50 +	num:pl:gen:f:congr interp
+powiat ciechanowski	powiecie ciechanowskim	powiat ciechanowski	subst:sg:loc:m3 adj:sg:loc:m3:pos
+brydż sportowy	Brydża Sportowego	brydż sportowy	subst:sg:gen:m2 adj:sg:gen:m2:pos
+predrag pavlović	Predrag Pavlović	predrag pavlović	subst:sg:nom:m1 subst:sg:nom:m1
+mistrzostwa ameryki południowej w lekkoatletyce	Mistrzostw Ameryki Południowej w lekkoatletyce	mistrzostwa Ameryka południowy w lekkoatletyka	subst:pl:gen:n subst:sg:gen:f adj:sg:gen:f:pos prep:loc:nwok subst:sg:loc:f
+wielkość mierzona	wielkości mierzonej	wielkość mierzyć	subst:sg:gen:f ppas:sg:gen:f:imperf:aff
+sokół syguła aleksandrów	Sokół Syguła Aleksandrów	sokół Syguła Aleksandrów	subst:sg:nom:m1 subst:sg:nom:m1 subst:sg:nom:m3
+wojciech mann	Wojciech Mann	Wojciech Mann	subst:sg:nom:m1 subst:sg:nom:m1
+henry jenkins	Henry Jenkins	henr jenkins	subst:pl:nom:m3 subst:sg:nom:m3
+historia i media	Historia i media	historia i media	subst:sg:nom:f conj subst:pl:nom:n
+plac zbawiciela	Placu Zbawiciela	plac Zbawiciel	subst:sg:gen:m3 subst:sg:acc:m1
+wzorce projektowe	wzorców projektowych	wzorzec projektowy	subst:pl:gen:m3 adj:pl:gen:m3:pos
+teatr wojny	Teatr wojny	teatr wojna	subst:sg:nom:m3 subst:sg:gen:f
+program ożywienia dróg wodnych w gdańsku	PROGRAM OŻYWIENIA DRÓG WODNYCH W GDAŃSKU	program ożywienie drogi wodny w Gdańsk	subst:sg:nom:m3 subst:sg:gen:n subst:pl:gen:n adj:pl:gen:n:pos prep:loc:nwok subst:sg:loc:m3
+unia europejska	Unia Europejska	unia europejski	subst:sg:nom:f adj:sg:nom:f:pos
+wzajemne oszukiwanie	Wzajemne oszukiwanie	wzajemny oszukiwać	adj:sg:nom:n:pos ger:sg:nom:n:imperf:aff
+procedura urzędowa	procedur urzędowych	procedura urzędowy	subst:pl:gen:f adj:pl:gen:f:pos
+dyrekcja poczty polskiej	Dyrekcji Poczty Polskiej	dyrekcja poczta polski	subst:sg:gen:f subst:sg:gen:f adj:sg:gen:f:pos
+prawo i sprawiedliwość	Prawa i Sprawiedliwości	prawo i sprawiedliwość	subst:sg:gen:n conj subst:sg:gen:f
+województwo warmińsko - mazurskie	województwie warmińsko - mazurskim	województwo warmińsko - mazurski	subst:sg:loc:n adv:pos interp adj:sg:loc:n:pos
+pan bóg	Pan Bóg	Pan bóg	subst:sg:nom:m1 subst:sg:nom:m1
+komisja szacunkowa	Komisji Szacunkowych	komisja szacunkowy	subst:sg:gen:f adj:pl:gen:f:pos
+hpi e - firestorm	HPI E - Firestorm	hpi e - firestorm	subst:sg:nom:m1 interj interp subst:sg:nom:m1
+dziadowa kłoda	Dziadowa Kłoda	dziadowy kłoda	adj:sg:nom:f:pos subst:sg:nom:f
+województwo pomorskie	województwie pomorskim	województwo pomorski	subst:sg:loc:n adj:sg:loc:n:pos
+pasza lecznicza	pasz leczniczych	pasza leczniczy	subst:pl:gen:f adj:pl:gen:f:pos
+plac bankowy	Placu Bankowego	plac bankowy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+exide technologies s . a .	Exide Technologies S . A .	exide technologies siostra . a .	subst:sg:nom:f subst:sg:nom:f brev:pun interp conj interp
+województwo elbląskie	województwie elbląskim	województwo elbląski	subst:sg:loc:n adj:sg:loc:n:pos
+geofity cebulkowe	geofitów cebulkowych	geofit cebulkowy	subst:pl:gen:m3 adj:pl:gen:m3:pos
+pytanie prawne	pytanie prawne	pytanie prawny	subst:sg:acc:n adj:sg:acc:n:pos
+urząd miasta	Urzędzie Miasta	urząd miasto	subst:sg:loc:m3 subst:sg:gen:n
+bośnia i hercegowina	Bośni i Hercegowinie	Bośnia i Hercegowina	subst:sg:loc:f conj subst:sg:loc:f
+modern talking	Modern Talking	modern talking	subst:sg:nom:m3 subst:sg:nom:m3
+józef sare	Józef Sare	Józef sare	subst:sg:nom:m1 subst:sg:nom:m1
+publiczne gimnazjum nr 13 w wałbrzychu	Publicznego Gimnazjum nr 13 w Wałbrzychu	publiczny gimnazjum nr 13 w Wałbrzych	adj:sg:gen:n:pos subst:sg:gen:n brev:npun num:pl:nom:m3:rec prep:loc:nwok subst:sg:loc:m3
+krzysztof putra	Krzysztof Putra	Krzysztof putra	subst:sg:nom:m1 subst:sg:nom:m1
+unia europejska	Unii Europejskiej	unia europejski	subst:sg:gen:f adj:sg:gen:f:pos
+festiwal vena	festiwalu Vena	festiwal vena	subst:sg:gen:m3 subst:sg:gen:m3
+anatomia patologiczna	Anatomia patologiczna	anatomia patologiczny	subst:sg:nom:f adj:sg:nom:f:pos
+organ odwoławczy	Organ odwoławczy	organ odwoławczy	subst:sg:nom:m3 adj:sg:nom:m3:pos
+narodowe zjednoczenie wojskowe	Narodowym Zjednoczeniem Wojskowym	narodowy zjednoczenie wojskowy	adj:sg:inst:n:pos subst:sg:inst:n adj:sg:inst:n:pos
+informacji i promocji	Informacji i Promocji	informacja i promocja	subst:pl:gen:f conj subst:sg:gen:f
+european research area	European Research Area	european research area	xxx subst:sg:nom:m1 subst:sg:nom:m1
+umowa o pracę	umowę o pracę	umowa o praca	subst:sg:acc:f prep:acc subst:sg:acc:f
+kodeks cywilny	Kodeksu cywilnego	kodeks cywilny	subst:sg:gen:m3 adj:sg:gen:m3:pos
+stan wiktoria	stanie Wiktoria	stan Wiktoria	subst:sg:loc:m3 subst:sg:nom:f
+trasa siekierkowska	Trasa Siekierkowska	trasa siekierkowski	subst:sg:nom:f adj:sg:nom:f:pos
+republika federalna niemiec	Republiki Federalnej Niemiec	republika federalny Niemiec	subst:sg:gen:f adj:sg:gen:f:pos subst:sg:nom:m1
+noc ślubna	noc ślubną	noc ślubny	subst:sg:acc:f adj:sg:acc:f:pos
+liryka i polityka	Liryka i polityka	liryka i polityk	subst:sg:nom:f conj subst:sg:gen:m1
+maciej woroch	Maciej Woroch	Maciej woroch	subst:sg:nom:m1 subst:sg:nom:m1
+serie a	Serie A	seria a	subst:pl:acc:f conj
+komisja etyki	Komisji Etyki	komisja etyka	subst:sg:gen:f subst:sg:gen:f
+liu chao - shiuan	Liu Chao - shiuan	liu chao - shiuan	subst:sg:nom:m1 subst:sg:nom:m1 interp interj
+paolo romeo	Paolo Romeo	paolo Romeo	adj:sg:nom:m1:pos subst:sg:nom:m1
+sejm prl	Sejm PRL	sejm PRL	subst:sg:acc:m3 subst:sg:gen:f
+rada miasta opola	Rady Miasta Opola	rada miasto opole	subst:sg:gen:f subst:sg:gen:n subst:sg:gen:n
+holenderska modelka	holenderska modelka	holenderski modelka	adj:sg:nom:f:pos subst:sg:nom:f
+minister finansów	Ministra Finansów	minister finanse	subst:sg:gen:m1 subst:pl:gen:n
+mina dm	Miny DM	mina DM	subst:sg:gen:f subst:sg:nom:m3
+skok o tyczce kobiet	skok o tyczce kobiet	SKOK o tyczka kobieta	subst:sg:nom:m3 prep:loc subst:sg:loc:f subst:pl:gen:f
+adam abramowicz	Adam Abramowicz	Adam Abramowicz	subst:sg:nom:m1 subst:sg:nom:m1
+dziennik ustaw	Dziennik Ustaw	dziennik ustawa	subst:sg:nom:m3 subst:pl:gen:f
+monte carlo	Monte Carlo	Monte Carlo	burk subst:sg:nom:n
+składka rentowa	składki rentowej	składka rentowy	subst:sg:gen:f adj:sg:gen:f:pos
+sto pięćdziesiąt dziewięć	stu pięćdziesięciu dziewięciu	sto pięćdziesiąt dziewięć	num:pl:gen:m3:congr num:pl:gen:m3:congr num:pl:gen:m3:congr
+brydż sportowy	Brydża Sportowego	brydż sportowy	subst:sg:gen:m2 adj:sg:gen:m2:pos
+prace konserwatorskie	prace konserwatorskie	praca konserwatorski	subst:pl:acc:f adj:pl:acc:f:pos
+simcity 3000	SimCity 3000	simcity 3000	subst:sg:loc:m3 adj:sg:loc:m3:pos
+festiwal machinimy	festiwal machinimy	festiwal machinimy	subst:sg:nom:m3 subst:sg:nom:m3
+organ odwoławczy	Organ odwoławczy	organ odwoławczy	subst:sg:nom:m3 adj:sg:nom:m3:pos
+teatr rampa	Teatru Rampa	teatr rampa	subst:sg:gen:m3 subst:sg:nom:f
+gość niedzielny	Gościa Niedzielnego	gościa niedzielny	subst:sg:nom:f adj:sg:gen:m3:pos
+przystanek orzeł	przystanku Orzeł	przystanek Orzeł	subst:sg:gen:m3 subst:sg:nom:m1
+bon komunalny	bonów komunalnych	bon komunalny	subst:pl:gen:m3 adj:pl:gen:m3:pos
+adam gawęda	Adam Gawęda	Adam gawęda	subst:sg:nom:m1 subst:sg:nom:f
+ii rp	II RP	ii RP	interj subst:sg:gen:f
+creative commons	Creative Commons	creative commons	subst:sg:gen:f subst:sg:gen:f
+osiedle Śródmieście południe	Osiedle Śródmieście Południe	osiedle śródmieście południ	subst:sg:nom:n subst:sg:nom:n adj:sg:nom:n:pos
+catalogue of star clusters and associations	Catalogue of Star Clusters and Associations	catalogue of star clusters Anda associations	subst:sg:nom:m3 subst:sg:nom:m3 subst:sg:nom:m3 subst:sg:gen:m3 subst:pl:gen:f subst:sg:gen:f
+red hat	Red Hat	reda hat	subst:pl:gen:f subst:sg:gen:f
+saint - domingue	Saint - Domingue	Saint - domingue	subst:sg:nom:m1 interp subst:sg:nom:m1
+plac bankowy	Placu Bankowego	plac bankowy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+buddyzm tybetański	buddyzmie tybetańskim	buddyzm tybetański	subst:sg:loc:m3 adj:sg:loc:m3:pos
+zespół szkół ogólnokształcących w słomnikach	Zespołu Szkół Ogólnokształcących w Słomnikach	zespół szkoła ogólnokształcący w Słomniki	subst:sg:gen:m3 subst:pl:gen:f adj:pl:gen:f:pos prep:loc:nwok subst:pl:loc:n
+badania kultury	badania kultury	badanie kultura	subst:sg:gen:n subst:sg:gen:f
+bitwa pod suchodołem	Bitwa pod Suchodołem	bitwa pod suchodołem	subst:sg:nom:f prep:inst:nwok subst:sg:inst:f
+miejska biblioteka publiczna	Miejska Biblioteka Publiczna	miejski biblioteka publiczny	adj:sg:nom:f:pos subst:sg:nom:f adj:sg:nom:f:pos
+młodzi i media	Młodzi i media	młody i media	subst:pl:nom:m1 conj subst:pl:nom:n
+puchar Świata w wioślarstwie	Pucharu Świata w Wioślarstwie	puchar świat w wioślarstwo	subst:sg:gen:m3 subst:sg:gen:m3 prep:loc:nwok subst:sg:loc:n
+prezydent rzeczypospolitej polskiej	PREZYDENT RZECZYPOSPOLITEJ POLSKIEJ	prezydent rzeczpospolita polski	subst:sg:nom:m1 subst:sg:gen:f adj:sg:gen:f:pos
+kwalifikacje zawodowe	kwalifikacji zawodowych	kwalifikacje zawodowy	subst:pl:gen:n adj:pl:gen:n:pos
+powstanie listopadowe	powstania listopadowego	powstanie listopadowy	subst:sg:gen:n adj:sg:gen:n:pos
+kodeks spółek handlowych	Kodeks spółek handlowych	kodeks spółka handlowy	subst:sg:nom:m3 subst:pl:gen:f adj:pl:gen:f:pos
+beata koszyka	Beaty Koszyki	Beata koszyk	subst:sg:gen:f subst:pl:nom:m3
+kazimierz wielki	Kazimierz Wielki	Kazimierz wielki	subst:sg:nom:m1 adj:sg:nom:m1:pos
+pale - prača	Pale - Prača	pała - prača	subst:sg:dat:f interp subst:sg:nom:m1
+roboty budowlane	robotach budowlanych	robot budowlany	subst:pl:loc:m1 adj:pl:loc:m3:pos
+drzewo dwumianowe	drzew dwumianowych	drzewo dwumianowy	subst:pl:gen:n adj:pl:gen:n:pos
+senator stany zjednoczone	senator Stanów Zjednoczonych	senator Stany zjednoczyć	subst:sg:nom:m1 subst:pl:gen:n ppas:pl:gen:n:perf:aff
+zielonki - wieś	Zielonki - Wieś	zielonka - wieś	subst:sg:gen:f interp subst:sg:nom:f
+minister sprawiedliwości	Ministra Sprawiedliwości	minister sprawiedliwość	subst:sg:gen:m1 subst:sg:gen:f
+chrystus pan	Chrystusa Pana	Chrystus Pan	subst:sg:gen:m1 subst:sg:gen:m1
+biały dom	Białego Domu	biały dom	adj:sg:gen:m3:pos subst:sg:gen:m3
+ryuichi sakamoto	Ryuichi Sakamoto	ryuichi sakamoto	subst:sg:nom:m1 subst:sg:nom:m1
+zasiłek rodzinny	zasiłek rodzinny	zasiłek rodzinny	subst:sg:acc:m3 adj:sg:acc:m3:pos
+chorwacki lekkoatleta	chorwacki lekkoatleta	chorwacki lekkoatleta	adj:sg:nom:m1:pos subst:sg:nom:m1
+adam ciołkosz	Adamem Ciołkoszem	Adam Ciołkosz	subst:sg:inst:m1 subst:sg:inst:m1
+las bielawski	Las Bielawski	las bielawski	subst:sg:nom:m3 adj:sg:nom:m3:pos
+vincent ogé	Vincent Ogé	Vincent ogé	subst:sg:nom:m1 subst:sg:nom:m1
+aglomeracja szczecińska	Aglomeracji Szczecińskiej	aglomeracja szczeciński	subst:sg:gen:f adj:sg:gen:f:pos
+człowiek roku	ludzi roku	człowiek rok	subst:pl:gen:m1 subst:sg:gen:m3
+oliwa z oliwek	oliwy z oliwek	oliwa z oliwka	subst:pl:acc:f prep:gen:nwok subst:pl:gen:f
+piłka nożna	piłce nożnej	piłka nożny	subst:sg:loc:f adj:sg:loc:f:pos
+minister zdrowia	Ministra Zdrowia	minister zdrowie	subst:sg:gen:m1 subst:sg:gen:n
+gabriela masłowska	Gabriela Masłowska	Gabriela Masłowska	subst:sg:nom:f subst:sg:nom:f
+waldemar andzel	Waldemar Andzel	Waldemar andzel	subst:sg:nom:m1 subst:sg:nom:m1
+thomas gilovich	Thomas Gilovich	Thomas gilovich	subst:sg:nom:m1 subst:sg:nom:m1
+kształcenie ogólne	kształcenia ogólnego	kształcenie ogólny	subst:sg:gen:n adj:sg:gen:n:pos
+jednostka pływająca	jednostka pływająca	jednostka pływać	subst:sg:nom:f pact:sg:nom:f:imperf:aff
+jerzy sulima - kamiński	Jerzy Sulima - Kamiński	Jerzy Sulima - Kamiński	subst:sg:nom:m1 subst:sg:nom:m1 interp subst:sg:nom:m1
+system ubezpieczeń społecznych	systemu ubezpieczeń społecznych	system ubezpieczenie społeczny	subst:sg:gen:m3 subst:pl:gen:n adj:pl:gen:n:pos
+park krajobrazowy doliny baryczy	Parku Krajobrazowego Doliny Baryczy	park krajobrazowy dolina baryczy	subst:sg:gen:m3 adj:sg:gen:m3:pos subst:sg:gen:f subst:sg:gen:f
+wieża szybowa	wieży szybowej	wieża szybowy	subst:sg:gen:f adj:sg:gen:f:pos
+lewis hamilton	Lewisa Hamiltona	Lewis Hamilton	subst:sg:acc:m1 subst:sg:acc:m1
+poczta polska	Poczty Polskiej	poczta polski	subst:sg:gen:f adj:sg:gen:f:pos
+ulica tadeusza kościuszki	Ulica Tadeusza Kościuszki	ulica Tadeusz Kościuszko	subst:sg:nom:f subst:sg:gen:m1 subst:sg:gen:m1
+jonas gunnarsson	Jonas Gunnarsson	jonas gunnarsson	subst:sg:nom:m1 subst:sg:nom:m1
+trasa siekierkowska	Trasa Siekierkowska	trasa siekierkowski	subst:sg:nom:f adj:sg:nom:f:pos
+prokurator generalny	Prokuratora Generalnego	prokurator generalny	subst:sg:gen:m1 adj:sg:gen:m1:pos
+konkurs dla kandydatów na aplikantów notarialnych	konkursu dla kandydatów na aplikantów notarialnych	konkurs dla kandydat na aplikant notarialny	subst:sg:gen:m3 prep:gen subst:pl:gen:m1 prep:acc subst:pl:acc:m1 adj:pl:gen:m1:pos
+bartek chaciński	Bartek Chaciński	Bartek chaciński	subst:sg:nom:m1 subst:sg:nom:m1
+teatr nowy w Łodzi	Teatru Nowego w Łodzi	teatr nowy w Łódź	subst:sg:gen:m3 adj:sg:gen:m3:pos prep:loc:nwok subst:sg:loc:f
+de gaulle	de Gaulle'a	de Gaulle	subst:sg:gen:n subst:sg:gen:m1
+diametrical pitch	Diametrical pitch	diametrical pitch	subst:sg:nom:m3 subst:sg:nom:m3
+zapis windykacyjny	zapisu windykacyjnego	zapis windykacyjny	subst:sg:gen:m3 adj:sg:gen:m3:pos
+manchester united	Manchesterem United	Manchester united	subst:sg:inst:m3 subst:sg:gen:m3
+bogactwo sieci	Bogactwo sieci	bogactwo sieć	subst:sg:nom:n subst:sg:gen:f
+państwa członkowskie	Państwa Członkowskie	państwo członkowski	subst:pl:acc:n adj:pl:acc:n:pos
+nasza ukraina	Nasza Ukraina	nasz Ukraina	adj:sg:nom:f:pos subst:sg:nom:f
+redukcja emisji gazów cieplarnianych	redukcja emisji gazów cieplarnianych	redukcja emisja gaz cieplarniany	subst:sg:nom:f subst:sg:gen:f subst:pl:gen:m3 adj:pl:gen:m3:pos
+r / c modelsport	R / C Modelsport	rocznik / cent modelsport	brev:pun interp brev:npun subst:sg:nom:m1
+interfax central europe	Interfax Central Europe	Interfax centrala europe	subst:sg:nom:m3 subst:pl:gen:f subst:sg:gen:f
+dworzec centralny	Dworcem Centralnym	dworzec centralny	subst:sg:inst:m3 adj:sg:inst:m2:pos
+ustawa budżetowa	ustawy budżetowej	ustawa budżetowy	subst:sg:gen:f adj:sg:gen:f:pos
+marek wikiński	Marek Wikiński	Marek Wikiński	subst:sg:nom:m1 subst:sg:nom:m1
+osvaldo ardiles	Osvaldo Ardiles	osvaldo ardiles	subst:sg:nom:m1 subst:sg:nom:m1
+symetryczność twarzy	symetryczności twarzy	symetryczność twarz	subst:sg:gen:f subst:sg:gen:f
+organizacje pozarządowe	organizacji pozarządowych	organizacja pozarządowy	subst:sg:gen:f adj:pl:gen:f:pos
+jana olbrachta	Jana Olbrachta	Jan Olbracht	subst:sg:acc:m1 subst:sg:acc:m1
+wielka brytania	Wielką Brytanię	wielki Brytania	adj:sg:acc:f:pos subst:sg:acc:f
+minister finansów	Ministra Finansów	minister finanse	subst:sg:gen:m1 subst:pl:gen:n
+jesse helms	Jesse Helms	jesse helms	subst:sg:nom:m3 subst:sg:nom:m3
+bzura ozorków	Bzura Ozorków	Bzura ozorek	subst:sg:nom:f subst:pl:gen:m3
+science fiction	science fiction	science fiction	subst:sg:nom:f adj:sg:nom:f:pos
+adam wajrak	Adam Wajrak	Adam wajrak	subst:sg:nom:m1 subst:sg:nom:m1
+david villa sánchez	David Villa Sánchez	David villa sánchez	subst:sg:nom:m1 subst:sg:nom:m1 subst:sg:nom:m1
+aleksandrów Łódzki	Aleksandrowie Łódzkim	Aleksandrów łódzki	subst:sg:loc:m3 adj:sg:loc:m3:pos
+dziennik ustaw	Dzienniku Ustaw	dziennik ustawa	subst:sg:loc:m3 subst:pl:gen:f
+urząd miasta poznania	Urząd Miasta Poznania	urząd miasto Poznań	subst:sg:nom:m3 subst:sg:gen:n subst:sg:gen:m3
+karta nauczyciela	Karta Nauczyciela	karta nauczyciel	subst:sg:nom:f subst:sg:gen:m1
+ulica lindleya	ulicy Lindleya	ulica Lindley	subst:sg:loc:f subst:sg:gen:m1
+warren buffet	Warren Buffet	Warren buffet	subst:sg:nom:m1 subst:sg:nom:m1
+zębatka odbierająca	Zębatka odbierająca	zębatka odbierać	subst:sg:nom:f pact:sg:nom:f:imperf:aff
+rzeczpospolita polska	Rzeczypospolitej Polskiej	rzeczpospolita polski	subst:sg:gen:f adj:sg:gen:f:pos
+cyfrowy urząd	Cyfrowy Urząd	cyfrowy urząd	adj:sg:nom:m3:pos subst:sg:nom:m3
+plac zbawiciela	Placu Zbawiciela	plac Zbawiciel	subst:sg:gen:m3 subst:sg:gen:m1
+koszt przejazdu	kosztów przejazdu	koszt przejazd	subst:pl:gen:m3 subst:sg:gen:m3
+pzl . 13	PZL . 13	pzl . 13	brev:pun interp num:pl:nom:m3:rec
+euro 2012	Euro 2012	euro 2012	subst:sg:nom:n num:pl:nom:n:rec
+narodowy fundusz ochrony Środowiska i gospodarki wodnej	Narodowym Funduszu Ochrony Środowiska i Gospodarki Wodnej	narodowy fundusz ochrona środowisko i gospodarka wodny	adj:sg:loc:m3:pos subst:sg:loc:m3 subst:sg:gen:f subst:sg:gen:n conj subst:sg:gen:f adj:sg:gen:f:pos
+luigi scala	Luigi Scala	luigi scalać	subst:sg:nom:m1 fin:sg:ter:imperf
+góry Świętokrzyskie	Górach Świętokrzyskich	góry świętokrzyski	subst:pl:loc:n adj:pl:loc:n:pos
+zabezpieczenie społeczne	zabezpieczenia społecznego	zabezpieczenie społeczny	subst:sg:gen:n adj:sg:gen:n:pos
+media społeczne	media społeczne	media społeczny	subst:pl:nom:n adj:pl:nom:n:pos
+jerzy szmajdziński	Jerzy Szmajdziński	Jerzy szmajdziński	subst:sg:nom:m1 subst:sg:nom:m1
+legionowo rewelacje	Legionowo Rewelacje	Legionowo rewelacja	subst:sg:nom:n subst:pl:nom:f
+ministerstwo sprawiedliwości	Ministerstwie Sprawiedliwości	ministerstwo sprawiedliwość	subst:sg:loc:n subst:sg:gen:f
+nasza ukraina	Nasza Ukraina	nasz Ukraina	adj:sg:nom:f:pos subst:sg:nom:f
+gabinet prezydenta	Gabinetu Prezydenta	gabinet prezydent	subst:sg:gen:m3 subst:sg:gen:m1
+minister obrony narodowej	Ministrowi Obrony Narodowej	minister obrona narodowy	subst:sg:dat:m1 subst:sg:gen:f adj:sg:gen:f:pos
+bożena kotkowska	Bożena Kotkowska	Bożena Kotkowska	subst:sg:nom:f subst:sg:nom:f
+kodeks karny	Kodeks karny	kodeks karny	subst:sg:nom:m3 adj:sg:nom:m3:pos
+państwa członkowskie	Państwa Członkowskie	państwo członkowski	subst:pl:acc:n adj:pl:acc:n:pos
+czas pracy	czasu pracy	czas praca	subst:sg:gen:m3 subst:sg:gen:f
+wzorce projektowe	wzorca projektowego	wzorzec projektowy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+unia europejska	Unii Europejskiej	unia europejski	subst:sg:gen:f adj:sg:gen:f:pos
+amerykanie rosyjskiego pochodzenia	Amerykanie rosyjskiego pochodzenia	Amerykanin rosyjski pochodzenie	subst:pl:nom:m1 adj:sg:gen:n:pos subst:sg:gen:n
+akademia muzyczna im . karola szymanowskiego	Akademia Muzyczna im . Karola Szymanowskiego	akademia muzyczny imienia . Karol Szymanowski	subst:sg:nom:f adj:sg:nom:f:pos brev:pun interp subst:sg:gen:m1 subst:sg:gen:m1
+afera hazardowa	afery hazardowej	afera hazardowy	subst:sg:gen:f adj:sg:gen:f:pos
+historia i media	Historia i Media	historia i media	subst:sg:nom:f conj subst:pl:nom:n
+stadium truck 2wd	stadium truck 2WD	stadium truck 2wd	subst:sg:nom:n subst:sg:nom:m2 num:pl:nom:m2:rec
+krajowe władze bezpieczeństwa	KRAJOWE WŁADZE BEZPIECZEŃSTWA	krajowy władza bezpieczeństwo	adj:pl:nom:f:pos subst:pl:nom:f subst:sg:gen:n
+komisja do spraw unii europejskiej	Komisji do Spraw Unii Europejskiej	komisja do sprawa unia europejski	subst:sg:loc:f prep:gen subst:pl:gen:f subst:sg:gen:f adj:sg:gen:f:pos
+jerzy szmajdziński	Jerzy Szmajdziński	Jerzy szmajdziński	subst:sg:nom:m1 subst:sg:nom:m1
+organ bezpieczeństwa	organ bezpieczeństwa	organ bezpieczeństwo	subst:sg:acc:m3 subst:sg:gen:n
+pogórze przemyskie	Pogórza Przemyskiego	pogórze przemyski	subst:sg:gen:n adj:sg:gen:n:pos
+losi xxx - cr	Losi XXX - CR	losi xxx - cr	subst:sg:gen:m1 subst:sg:gen:m1 interp subst:sg:inst:n
+wüstewaltersdorfer kleinbahn	Wüstewaltersdorfer Kleinbahn	wüstewaltersdorfer kleinbahn	subst:sg:gen:n subst:sg:gen:n
+forum polsko - czeskie	Forum Polsko - Czeskiego	forum polsko - czeski	subst:sg:gen:n adv:pos interp subst:sg:gen:m3
+pałac augusta haertiga	Pałac Augusta Haertiga	pałac august haertiga	subst:sg:nom:m3 subst:sg:gen:m3 subst:sg:gen:m3
+mpk Łódź	MPK Łódź	MPK Łódź	subst:sg:gen:n subst:sg:nom:f
+stacja metra	stacja metra	stacja metro	subst:sg:nom:f subst:sg:gen:n
+osiedle zielone	Osiedle Zielone	osiedle zielony	subst:sg:nom:n adj:sg:nom:n:pos
+lublin r - viii	Lublin R - VIII	Lublin rocznik - viii	subst:sg:nom:m3 brev:pun interp adj:sg:nom:m3:pos
+ryszard krajewski	Ryszard Krajewski	Ryszard Krajewski	subst:sg:nom:m1 subst:sg:nom:m1
+pzl - 13	PZL - 13	pzl - 13	subst:sg:nom:m1 interp num:pl:nom:m3:rec
+castel san pietro terme	Castel San Pietro Terme	castel San pietro terme	subst:sg:nom:m3 subst:sg:nom:m3 subst:sg:nom:m3 subst:sg:nom:m3
+11 pułk piechoty liniowej królestwa kongresowego	11 Pułk Piechoty Liniowej Królestwa Kongresowego	11 pułk piechota liniowy królestwo kongresowy	adj:sg:nom:m3:pos subst:sg:nom:m3 subst:sg:gen:f adj:sg:gen:f:pos subst:sg:gen:n adj:sg:gen:n:pos
+gwardia imperium rosyjskiego	Gwardia Imperium Rosyjskiego	gwardia imperium rosyjski	subst:sg:nom:f subst:sg:gen:n subst:sg:gen:m3
+jan paweł ii	Jana Pawła II	Jan Paweł ii	subst:sg:gen:m1 subst:sg:gen:m1 interj
+św . mikołaj	Św . Mikołaja	świadek . Mikołaj	brev:pun interp subst:sg:gen:m1
+województwo mazowieckie	województwie mazowieckim	województwo mazowiecki	subst:sg:loc:n adj:sg:loc:n:pos
+pojezierze drawskie	pojezierzy Drawskiego	pojezierze drawski	subst:pl:gen:n adj:sg:gen:n:pos
+prezydent m . st . warszawa	Prezydent m . st . Warszawy	prezydent miasto . staro . Warszawa	subst:sg:nom:m1 brev:pun interp brev:pun interp subst:sg:gen:f
+kultura i historia	Kultura i Historia	kultura i historia	subst:sg:nom:f conj subst:sg:nom:f
+czas pracy	czasu pracy	czas praca	subst:sg:gen:m3 subst:sg:gen:f
+fc košice	FC Košice	FC košice	subst:sg:nom:m3 subst:sg:nom:m3
+bóg słowian	Bogiem Słowian	bóg Słowianin	subst:sg:inst:m1 subst:pl:gen:m1
+województwo kujawsko - pomorskie	województwie kujawsko - pomorskim	województwo kujawsko - pomorski	subst:sg:loc:n adv:pos interp adj:sg:loc:n:pos
+szkoła młodzieżowej akcji multimedialnej	Szkoły Młodzieżowej Akcji Multimedialnej	szkoła młodzieżowy akcja multimedialny	subst:sg:gen:f adj:sg:gen:f:pos subst:sg:gen:f adj:sg:gen:f:pos
+podział administracyjny danii	podziału administracyjnego Danii	podział administracyjny Dania	subst:sg:gen:m3 adj:sg:gen:m3:pos subst:sg:gen:f
+piotr woźniak	Piotr Woźniak	Piotr Woźniak	subst:sg:nom:m1 subst:sg:nom:m1
+crime story	Crime Story	crime stora	subst:sg:gen:f subst:sg:gen:f
+dowód osobisty	dowód osobisty	dowód osobisty	subst:sg:acc:m3 adj:sg:acc:m3:pos
+bzura ozorków	Bzury Ozorków	Bzura ozorek	subst:sg:gen:f subst:pl:gen:m3
+nasza klasa	nasza klasa	nasz klasa	adj:sg:nom:f:pos subst:sg:nom:f
+powiat średzki	Powiat średzki	powiat średzki	subst:sg:nom:m3 subst:sg:nom:m3
+pożytek publiczny	pożytku publicznego	pożytek publiczny	subst:sg:gen:m3 adj:sg:gen:m3:pos
+szczęsny kupka	SZCZĘSNY KUPKA	szczęsny kupka	adj:sg:nom:m1:pos subst:sg:nom:f
+wyrok trybunału konstytucyjnego	WYROK TRYBUNAŁU KONSTYTUCYJNEGO	wyrok trybunał konstytucyjny	subst:sg:nom:m3 subst:sg:gen:m3 adj:sg:gen:m3:pos
+dostęp do informacji niejawnych	dostępu do informacji niejawnych	dostęp do informacja niejawny	subst:sg:gen:m3 prep:gen subst:pl:gen:f adj:pl:gen:f:pos
+gmina janów	gminie Janów	gmina Janów	subst:sg:loc:f subst:sg:nom:m3
+springer show	SPRINGER SHOW	Springer show	subst:sg:nom:m1 subst:sg:nom:m3
+ul . fabryczna	ul . Fabrycznej	ulica . fabryczny	brev:pun interp adj:sg:gen:f:pos
+british racing motors	British Racing Motors	british racing Motors	subst:sg:nom:m1 subst:sg:nom:m1 xxx
+szkoła podstawowa	szkoły podstawowej	szkoła podstawowy	subst:sg:gen:f adj:sg:gen:f:pos
+minister zdrowia	Ministra Zdrowia	minister zdrowie	subst:sg:gen:m1 subst:sg:gen:n
+pięć i pół	Pięć i pół	pięć i pół	num:pl:nom:m3:rec conj num:pl:nom:m3:rec
+bariery rozwojowe	bariery rozwojowej	bariera rozwojowy	subst:sg:gen:f adj:sg:gen:f:pos
+centrum arkady	centrum arkady	centrum arkada	subst:sg:inst:n subst:sg:gen:f
+jarosław kalinowski	Jarosław Kalinowski	Jarosław Kalinowski	subst:sg:nom:m1 subst:sg:nom:m1
+partia pracy	Partia Pracy	partia praca	subst:sg:nom:f subst:sg:gen:f
+kino niezależne	kino niezależne	kino niezależny	subst:sg:nom:n adj:sg:nom:n:pos
+osvaldo ardiles	Osvaldo Ardiles	osvaldo ardiles	subst:sg:nom:m1 subst:sg:nom:m1
+podatek bankowy	podatku bankowego	podatek bankowy	subst:sg:gen:m3 adj:sg:gen:m3:pos
+kuchenne bajki	Kuchenne bajki	kuchenny bajka	adj:pl:nom:f:pos subst:pl:nom:f
+sezon wiosenny	sezonu wiosennego	sezon wiosenny	subst:sg:gen:m3 adj:sg:gen:m3:pos
+internet explorer	Internet Explorerem	Internet Explorer	subst:sg:nom:m3 subst:sg:inst:m2
+xv bk	XV BK	xv bk	adj:sg:nom:m3:pos subst:sg:nom:m3
+copyright alliance	Copyright Alliance	copyright alliance	subst:sg:nom:m3 subst:sg:nom:m3
+nierozsądne śluby	Nierozsądne śluby	nierozsądny ślub	adj:pl:nom:m3:pos subst:pl:nom:m3
+stacja telewizyjna	Stacje telewizyjne	stacja telewizyjny	subst:pl:nom:f adj:pl:nom:f:pos
+prawo budowlane	Prawo budowlane	prawo budowlany	subst:sg:nom:n adj:sg:nom:n:pos
+gmina żydowska	gminy żydowskiej	gmina żydowski	subst:sg:gen:f adj:sg:gen:f:pos
+turniej finałowy	Turniej finałowy	turniej finałowy	subst:sg:nom:m3 adj:sg:nom:m3:pos
