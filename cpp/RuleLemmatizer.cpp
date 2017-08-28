@@ -192,9 +192,18 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string
         for(int i = 1; i < lemmas.size() ; i=i+2){
 
             //TODO ZNALEZC LEPSZY ALGORYTM WYBIERANIA REGUŁY
-            if(lemmas[i].size()>14){
+
+            if(lemmas[i].find("Fix")!=string::npos||lemmas[i].find("Flex")!=string::npos){
                 counter=lemmas[i].size();
                index = i-1;
+            }
+        }
+        if(index==0){
+            for(int i = 1 ; i < lemmas.size() ; i = i +2){
+                if(lemmas[i].size()>14){
+                 counter = lemmas[i].size();
+                    index = i - 1;
+                }
             }
         }
         globalMethod = "RuleLemmatizer::"+lemmas[index+1];
@@ -209,7 +218,7 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
 
     bool keepuc;
 
-    if(kw_category=="nam"||kw_category.find("nam_")==(size_t)0){//||b!=sentence->tokens().front()->orth()){ //TODO sprawdzić czy 0 nie zmienić na 1
+    if(kw_category=="nam"||kw_category.find("nam_")==(size_t)0){
         keepuc=true;
     }else keepuc=false;
 
@@ -269,22 +278,22 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
              base.toUTF8String(basestr);
              ctag = this->tagset.tag_to_string(tag);
 
-             //int tagId = this->generator->getIdResolver().getTagId(ctag);
+          //   int tagId = this->generator->getIdResolver().getTagId(ctag);
 
 
              this->generator->generate(basestr,res);
 
 
-           //  this->generator->generate(basestr,this->generator->getIdResolver().getTagId(ctag),res);
+          //   this->generator->generate(basestr,this->generator->getIdResolver().getTagId(ctag),res);
          }catch(morfeusz::MorfeuszException e){
 
-                cout<<e.what()<<endl;
+         //       cout<<e.what()<<endl<<ctag<<" "<<basestr<<endl;
          }
 
         UnicodeString form="";
         if(res.size()>0){
 
-            int var = 0;
+            double var = 0;
             for(auto kek:res){
                 var = evaluateSharedTag(kek.getTag(*generator),ctag);
                 if(var==100){
@@ -314,14 +323,19 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
                 return "";
             }
         }
+        if((form.indexOf("´")>1&&sentence->tokens().size()==1)||(form.indexOf("´")>1&&sentence->tokens().size()>1&&position==sentence->tokens().size())){
+            form = form.tempSubStringBetween(0,form.indexOf("´"));
+        }
         if((form.indexOf("'")>1&&sentence->tokens().size()==1)||(form.indexOf("'")>1&&sentence->tokens().size()>1&&position==sentence->tokens().size())){
             form = form.tempSubStringBetween(0,form.indexOf("'"));
         }
+
         lemmas.push_back(form);
 
 
     }
     UnicodeString lemma = "";
+    UnicodeString lemma1= "";
 
     if(sentence->tokens().size()>lemmas.size()){
         for(int i = lemmas.size(); i < sentence->tokens().size(); ++i){
@@ -331,9 +345,10 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
             lemmas.push_back(sentence->tokens()[i]->orth());
         }
     }
-
+    bool first=true;
     for(int i = 0 ; i < lemmas.size() ; ++i){
-        if(lemmas[i]==","||lemmas[i]==":"||lemmas[i]=="'"){
+
+        if(lemmas[i]==","||lemmas[i]==":"||lemmas[i]=="'"||lemmas[i]=="+"){
             lemma = lemma.trim();
             lemma.append(lemmas[i]);
             lemma.append(" ");
@@ -342,36 +357,59 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
             lemma = lemma.trim();
             lemma.append(lemmas[i]);
             continue;
-        }else if(i+1<lemmas.size()){
+        }else if(lemmas[i]=="\""){
+            if(!first){
+                lemma = lemma.trim();
+            }
+            lemma.append(lemmas[i]);
+            first = false;
+            continue;
             //TODO ???
         }
-
-        //TODO case sensitive \/
-        wchar_t abc,bcd,cde,cdeLow,efg;
-        abc = sentence->tokens()[i]->orth().charAt(0);
-        bcd = lemmas[i].charAt(0);
-        cde = sentence->tokens()[i]->orth().charAt(2);
-        UnicodeString xyz = sentence->tokens()[i]->orth();
-        cdeLow = xyz.toLower().charAt(2);
-        efg = lemmas[i].charAt(2);
-        UnicodeString ifs = sentence->tokens()[i]->orth();
-        if(cde!=efg&&efg==cdeLow){
-            lemma.append(lemmas[i].toUpper()+" ");
-        }else if(abc!=bcd&&kw_category.find("nam_adj")!=0){
-            lemma.append(abc);
-            lemma.append(lemmas[i].tempSubStringBetween(1,lemmas[i].length()).trim());
+            int sameLetter = 0;
+            int sameLetterCaseIns = 0;
+            int isAlfa = 0;
+            string a,b;
+            lemmas[i].toUTF8String(a);
+            sentence->tokens()[i]->orth().toUTF8String(b);
+            int ii = 0;
+            for(ii = 0 ; ii<lemmas[i].length()&&ii<sentence->tokens()[i]->orth().length() ; ++ii){
+                wchar_t inchar,outchar;
+                wchar_t inlowchar, outlowchar;
+                inchar = sentence->tokens()[i]->orth().charAt(ii);
+                outchar = lemmas[i].charAt(ii);
+                UnicodeString xyz = sentence->tokens()[i]->orth();
+                inlowchar = xyz.toLower().charAt(ii);
+                outlowchar = lemmas[i].toLower().charAt(ii);
+                if(outlowchar>='a'&&outlowchar<='z'){
+                    isAlfa++;
+                }
+                if(kw_category.find("nam_adj")==0){
+                    lemma.append(outchar);
+                }else if(inchar==outchar){
+                    lemma.append(outchar);
+                    sameLetter++;
+                    sameLetterCaseIns++;
+                }else if(outlowchar==inlowchar&&kw_category.find("nam_adj")!=0){
+                    lemma.append(inchar);
+                    sameLetterCaseIns++;
+                }else{
+                    lemma.append(outchar);
+                }
+            }
+            if(ii<lemmas[i].length()){
+                for(ii ; ii < lemmas[i].length() ; ++ii){
+                    lemma.append(lemmas[i].trim().charAt(ii));
+                }
+            }
             lemma.append(" ");
-        }else{
-            lemma.append(lemmas[i].trim());
-            lemma.append(" ");
-        }
     }
 
     lemma.trim();
     return lemma;
 }
 
-int RuleLemmatizer::evaluateSharedTag(const std::string& generatorTag, std::string cTag) {
+double RuleLemmatizer::evaluateSharedTag(const std::string& generatorTag, std::string cTag) {
 
     int result=0;
     string abc = generatorTag;

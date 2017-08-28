@@ -29,7 +29,7 @@ public:
     icu::UnicodeString generate(Corpus2::Sentence::Ptr sentence,std::map<int, std::vector<std::string> > operations, std::vector<std::string> spaces,std::string kw_category);
     icu::UnicodeString lemmatize(std::vector<std::vector<std::string>> kw, std::string kw_category);
 
-    int evaluateSharedTag(const std::string &basic_string, std::string basicString);
+    double evaluateSharedTag(const std::string &basic_string, std::string basicString);
 };
 
 

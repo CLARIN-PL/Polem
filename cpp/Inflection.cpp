@@ -229,7 +229,7 @@ void Inflection::loadInflectionRules(std::string pathname) {
             this->inflections[ctag].push_back(row);
 
         }else{
-            cout<<"Przypałowa linia"<<endl;
+            cout<<"Zła linia"<<endl;
         }
     }
     rules.close();

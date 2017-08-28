@@ -58,8 +58,6 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<std::string> > keyword
         return "";
     }
 
-
-
     UnicodeString orth;
     for(int i = 0; i < keyword.size(); ++i){
         orth.append(keyword[i][0].c_str());
@@ -88,7 +86,9 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<std::string> > keyword
             name.append(orth);
         }else if(this->names.find(orth.toLower())!=this->names.end()){
            if(i>0)name.append(" ");
-            name.append(this->names[orth.toLower()]);
+            if(this->names[orth.toLower()]=="Teofil"&&keyword[i][0].find("J")==0&&keyword[i][2].find(":m")!=string::npos){
+                name.append("Józef");
+            }else name.append(this->names[orth.toLower()]);
         }else {
             name = "";
             break;

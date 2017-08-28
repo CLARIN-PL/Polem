@@ -120,6 +120,7 @@ int main(int argc, char* argv[]) {
 
     ifstream infile(pathname.c_str());
 
+    int line_no = 0;
 
     while (getline(infile, line,'\n'))
     {
@@ -214,8 +215,17 @@ int main(int argc, char* argv[]) {
                 tfByCategory.insert(make_pair(keyword_category,make_pair(0,1)));
             }
         }
+        string lemmaprnt,keywordprnt;
+        lemma.toUTF8String(lemmaprnt);
+        keywrd.toUTF8String(keywordprnt);
 
+        if(lemma==keywrd){
+        //    cout<< line_no << "\t\t"<<"TRUE"<<"\t\t"<< keyword_orth <<"\t\t" <<lemmaprnt<<"\t\t"<<keywordprnt<<"\t\t"<<keyword_category<<"\t\t"<<globalMethod<<"\t\t"<< keyword_base<<"\t\t"<<keyword_ctag<<endl;
+        }else if(globalMethod=="OrthLemmatizer"){
+            cout<< line_no << "\t\t"<<"FALSE"<<"\t\t" <<lemmaprnt<<"\t\t"<<keywordprnt<<"\t\t"<<keyword_category<<"\t\t"<<globalMethod<<"\t\t"<< keyword_ctag<<endl;
 
+        }
+        line_no++;
     }
     int cats = 0,catf=0;
     int ms = 0,mf=0;
@@ -229,7 +239,7 @@ int main(int argc, char* argv[]) {
         ms = ms + it->second.first;
         mf = mf + it->second.second;
     }
-
+    cout<<cats<<" "<<catf<<endl;
     cout<<acc(cats,catf)<<endl;
 
     infile.close();
