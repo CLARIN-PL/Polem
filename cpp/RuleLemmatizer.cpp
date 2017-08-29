@@ -81,10 +81,15 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string
     }
     file<<endl;
 
-    vector<string> lemmas;
 
-    boost::shared_ptr<Corpus2::TokenReader> rdr = Corpus2::TokenReader::create_path_reader("iob-chan", this->tagset, temp);
-    boost::shared_ptr<Corpus2::Sentence> sentence= rdr ->get_next_sentence();
+    vector<string> lemmas;
+    boost::shared_ptr<Corpus2::TokenReader> rdr;
+    try{
+        rdr = Corpus2::TokenReader::create_path_reader("iob-chan",this->tagset,temp);
+    }catch(exception e){
+        cout<<e.what()<<endl;
+    }
+    boost::shared_ptr<Corpus2::Sentence> sentence = rdr->get_next_sentence();
 
     for(vector<pair<string,boost::shared_ptr<Wccl::FunctionalOperator>>>::iterator it=this->wccl_operators.begin();
         it!=this->wccl_operators.end();++it){
@@ -209,7 +214,6 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string
         globalMethod = "RuleLemmatizer::"+lemmas[index+1];
         return lemmas[index].c_str();
     }
-
     return "";
 }
 
@@ -229,6 +233,7 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
 
         int position = it->first;
         Corpus2::Token *token = sentence->tokens()[position-1];
+
         icu::UnicodeString orth = token->orth();
         if(spaces[position-1]=="t"){
             lemmaspaces.push_back(true);
@@ -242,7 +247,7 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
         try{
             tag = token->get_preferred_lexeme(this->tagset).tag();
         }catch(exception e){
-          //  cout<<e.what();
+        //    cout<<e.what();
         }
 
         for(vector<string>::iterator itt = it->second.begin();itt!=it->second.end();++itt){
@@ -267,7 +272,7 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
             base = token->get_preferred_lexeme(this->tagset).lemma();
 
         } catch (exception e){
-         //   cout<<e.what();
+        //    cout<<e.what();
         }
 
         vector<morfeusz::MorphInterpretation> res;
@@ -372,6 +377,9 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
             string a,b;
             lemmas[i].toUTF8String(a);
             sentence->tokens()[i]->orth().toUTF8String(b);
+            if(b=="Polska"){
+                cout<<"";
+            }
             int ii = 0;
             for(ii = 0 ; ii<lemmas[i].length()&&ii<sentence->tokens()[i]->orth().length() ; ++ii){
                 wchar_t inchar,outchar;

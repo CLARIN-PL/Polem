@@ -4,6 +4,7 @@
 
 #include "CascadeLemmatizer.h"
 #include <armadillo>
+#include <utility>
 
 
 using namespace std;
@@ -14,10 +15,10 @@ string globalMethod = "";
 CascadeLemmatizer::CascadeLemmatizer(string pathname, Corpus2::Tagset tagset, morfeusz::Morfeusz* generator,map<UnicodeString,
         pair<UnicodeString, UnicodeString> > dictionaryItems,Inflection inflection,Inflection inflectionNamLoc):
             nelexLemmatizer("nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt",true),
-                ruleLemmatizer(pathname,tagset,generator,true, true),
+                ruleLemmatizer(std::move(pathname),tagset,generator,true, true),
                     morfGeoLemmatizer("sgjp-20160310-geograficzne.tab", false),
-                        namLivPersonLemmatizer(dictionaryItems,inflection),
-                            namLocLemmatizer(inflectionNamLoc),
+                        namLivPersonLemmatizer(std::move(dictionaryItems),inflection),
+                            namLocLemmatizer(std::move(inflectionNamLoc)),
                                 orthLemmatizer(){
 
 
@@ -32,7 +33,7 @@ icu::UnicodeString CascadeLemmatizer::lemmatize(std::vector<std::vector<std::str
     UnicodeString lemma = this->nelexLemmatizer.lemmatize(kw,kw_category);
 
     if(lemma=="") {
-       lemma = this->morfGeoLemmatizer.lemmatize(kw,kw_category);
+        lemma = this->morfGeoLemmatizer.lemmatize(kw,kw_category);
     }else{//
         globalMethod = "DictionaryLemmatizer::NelexiconInfobox";
 

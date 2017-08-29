@@ -64,7 +64,6 @@ int main(int argc, char* argv[]) {
     map<string,pair<int,int> > tfByMethod;
     map<string,pair<int,int> > tfByCategory;
 
-
     Corpus2::Tagset tagset = Corpus2::get_named_tagset(argTagset);
 
     string line;
@@ -180,6 +179,9 @@ int main(int argc, char* argv[]) {
 
         UnicodeString keywrd = keyword.c_str();
 
+        string lemmaprnt;
+        lemma.toUTF8String(lemmaprnt);
+
         if(caseInsensitive){
                 lemma = lemma.toLower();
                 keywrd = keywrd.toLower();
@@ -215,14 +217,12 @@ int main(int argc, char* argv[]) {
                 tfByCategory.insert(make_pair(keyword_category,make_pair(0,1)));
             }
         }
-        string lemmaprnt,keywordprnt;
-        lemma.toUTF8String(lemmaprnt);
-        keywrd.toUTF8String(keywordprnt);
+
 
         if(lemma==keywrd){
-        //    cout<< line_no << "\t\t"<<"TRUE"<<"\t\t"<< keyword_orth <<"\t\t" <<lemmaprnt<<"\t\t"<<keywordprnt<<"\t\t"<<keyword_category<<"\t\t"<<globalMethod<<"\t\t"<< keyword_base<<"\t\t"<<keyword_ctag<<endl;
-        }else if(globalMethod=="OrthLemmatizer"){
-            cout<< line_no << "\t\t"<<"FALSE"<<"\t\t" <<lemmaprnt<<"\t\t"<<keywordprnt<<"\t\t"<<keyword_category<<"\t\t"<<globalMethod<<"\t\t"<< keyword_ctag<<endl;
+            cout<< line_no << "\t\t"<<"TRUE"<<"\t\t" <<lemmaprnt<<"\t\t"<<keyword<<"\t\t"<<keyword_category<<"\t\t"<<globalMethod<<"\t\t"<< keyword_ctag<<endl;
+        }else{
+            cout<< line_no << "\t\t"<<"FALSE"<<"\t\t" <<lemmaprnt<<"\t\t"<<keyword<<"\t\t"<<keyword_category<<"\t\t"<<globalMethod<<"\t\t"<< keyword_ctag<<endl;
 
         }
         line_no++;
@@ -230,7 +230,7 @@ int main(int argc, char* argv[]) {
     int cats = 0,catf=0;
     int ms = 0,mf=0;
     for(map<string,pair<int,int> >::iterator it = tfByCategory.begin();it!=tfByCategory.end();++it){
-        cout << it->first <<"\t"<< " Success: " << it->second.first <<"\t"<< " Fail: " << it->second.second <<"\t"<< " Percetange: "<< acc(it->second.first,it->second.second) << endl;
+        cout << it->first <<"\t"<< " Success: " << it->second.first <<"\t"<< " Fail: " << it->second.second <<"\t"<< " Percentage: "<< acc(it->second.first,it->second.second) << endl;
         cats = cats +it->second.first;
         catf = catf +it->second.second;
     }

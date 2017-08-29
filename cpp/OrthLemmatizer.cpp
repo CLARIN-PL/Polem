@@ -15,15 +15,25 @@ icu::UnicodeString OrthLemmatizer::lemmatize(std::vector<std::vector<std::string
     bool first = true;
     //TODO znaki "" / ; ++ w orth \/
     for(int i = 0 ; i < keyword.size() ; ++i){
-        if(i>0){
-            if(keyword[i-1][0].find("-")==string::npos){
-                lemma.append(" ");
-            }
-        }
-        if(keyword[i][0].find("-")!=string::npos||keyword[i][0].find(".")!=string::npos){
+
+        if(keyword[i][0].find("-")!=string::npos||keyword[i][0].find(".")!=string::npos||keyword[i][0].find("+")!=string::npos
+           ||keyword[i][0].find("?")!=string::npos||keyword[i][0].find(")")!=string::npos||keyword[i][0].find(":")!=string::npos){
+            lemma = lemma.trim();
+        }else if(!first&&keyword[i][0].find("\"")!=string::npos){
             lemma = lemma.trim();
         }
+
         lemma.append(keyword[i][0].c_str());
+
+        if(keyword[i][0].find("-")==string::npos&&keyword[i][0].find("#")==string::npos&&keyword[i][0].find("+")==string::npos
+           &&keyword[i][0].find("(")==string::npos&&keyword[i][0].find("\"")==string::npos){
+            lemma.append(" ");
+        }else if(keyword[i][0].find("\"")!=string::npos&&first){
+            //lemma.append(" ");
+            first = false;
+        }else if(keyword[i][0].find("\"")!=string::npos&&!first){
+            lemma.append(" ");
+        }
     }
     lemma = lemma.trim();
     return lemma;
