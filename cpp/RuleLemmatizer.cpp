@@ -62,7 +62,7 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname,Corpus2::Tagset tagset,morfe
 
 }
 
-icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string>> kw, std::string kw_category) {
+icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string>> kw, std::string kw_category){
 
 
     char temp[] = "/tmp/fileXXXXXXX";
@@ -86,7 +86,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string
     boost::shared_ptr<Corpus2::TokenReader> rdr;
     try{
         rdr = Corpus2::TokenReader::create_path_reader("iob-chan",this->tagset,temp);
-    }catch(exception e){
+    }catch(exception e){//Corpus2::Corpus2Error e){
         cout<<e.what()<<endl;
     }
     boost::shared_ptr<Corpus2::Sentence> sentence = rdr->get_next_sentence();
@@ -377,9 +377,6 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
             string a,b;
             lemmas[i].toUTF8String(a);
             sentence->tokens()[i]->orth().toUTF8String(b);
-            if(b=="Polska"){
-                cout<<"";
-            }
             int ii = 0;
             for(ii = 0 ; ii<lemmas[i].length()&&ii<sentence->tokens()[i]->orth().length() ; ++ii){
                 wchar_t inchar,outchar;

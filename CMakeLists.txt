@@ -80,7 +80,7 @@ set(LIBS ${LIBS} ${Boost_LIBRARIES})
 
 
 
-set(SOURCE_FILES data/kpwr-1.2-ne-tune-fix.tsv data/kpwr-1.2-ne-train-fix.tsv data/kpwr-1.2-ne-test-fix.tsv data/kpwr-1.1-fixed-keywords-train.txt data/kpwr-1.1-fixed-keywords-test.txt cpp/main.cpp cpp/pugixml-1.8/src/pugixml.cpp cpp/CascadeLemmatizer.cpp cpp/CascadeLemmatizer.h cpp/RuleLemmatizer.cpp cpp/RuleLemmatizer.h cpp/DictionaryLemmatizer.cpp cpp/DictionaryLemmatizer.h cpp/Inflection.cpp cpp/Inflection.h cpp/NamLivPersonLemmatizer.cpp cpp/NamLivPersonLemmatizer.h cpp/NamLocLemmatizer.cpp cpp/NamLocLemmatizer.h cpp/OrthLemmatizer.cpp cpp/OrthLemmatizer.h)
+set(SOURCE_FILES cmake-build-debug/polem data/kpwr-1.2-ne-tune-fix.tsv data/kpwr-1.2-ne-train-fix.tsv data/kpwr-1.2-ne-test-fix.tsv data/kpwr-1.1-fixed-keywords-train.txt data/kpwr-1.1-fixed-keywords-test.txt cpp/main.cpp cpp/pugixml-1.8/src/pugixml.cpp cpp/CascadeLemmatizer.cpp cpp/CascadeLemmatizer.h cpp/RuleLemmatizer.cpp cpp/RuleLemmatizer.h cpp/DictionaryLemmatizer.cpp cpp/DictionaryLemmatizer.h cpp/Inflection.cpp cpp/Inflection.h cpp/NamLivPersonLemmatizer.cpp cpp/NamLivPersonLemmatizer.h cpp/NamLocLemmatizer.cpp cpp/NamLocLemmatizer.h cpp/OrthLemmatizer.cpp cpp/OrthLemmatizer.h)
 add_executable( polem ${SOURCE_FILES} ${LIBS})
 
 
