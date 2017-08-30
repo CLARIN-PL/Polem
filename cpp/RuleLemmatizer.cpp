@@ -65,13 +65,17 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname,Corpus2::Tagset tagset,morfe
 icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string>> kw, std::string kw_category){
 
 
-    char temp[] = "/tmp/fileXXXXXXX";
-    int fd;
+    //char temp[] = "/tmp/fffffXDXXXXXXXX";
+    //int fd;
 
-    fd=mkstemp(temp);
+    //fd=mkstemp(temp);
 
-    fstream file;
-    file.open(temp);
+    char buffer[L_tmpnam];
+    tmpnam(buffer);
+
+    fstream file(buffer);
+    file.open(buffer,ios_base::out);
+
 
     vector<string> spaces;
     for(auto &word:kw){
@@ -81,13 +85,16 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string
     }
     file<<endl;
 
-
     vector<string> lemmas;
     boost::shared_ptr<Corpus2::TokenReader> rdr;
     try{
-        rdr = Corpus2::TokenReader::create_path_reader("iob-chan",this->tagset,temp);
-    }catch(exception e){//Corpus2::Corpus2Error e){
+        rdr = Corpus2::TokenReader::create_path_reader("iob-chan",this->tagset,buffer);
+
+    }catch(Corpus2::Corpus2Error e){
+
         cout<<e.what()<<endl;
+        cout<<e.scope()<<endl;
+        cout<<e.info()<<endl;
     }
     boost::shared_ptr<Corpus2::Sentence> sentence = rdr->get_next_sentence();
 
@@ -137,7 +144,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string
                       if(lemma=="")goto second;
                       string err;
                       lemma.toUTF8String(err);
-                      file.close();
+                      //file.close();
 
                       lemmas.push_back(err);
                       lemmas.push_back(it->first.c_str());
@@ -182,7 +189,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string
                         if(lemma=="")continue;
                         string err;
                         lemma.toUTF8String(err);
-                        file.close();
+                        //file.close();
                         lemmas.push_back(err);
                         lemmas.push_back(it->first.c_str());
                     }
@@ -191,6 +198,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string
 
     }
     file.close();
+    std::remove(buffer);
     if(lemmas.size()>0){
         unsigned long counter = 0;
         int index=0;
