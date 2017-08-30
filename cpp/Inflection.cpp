@@ -184,13 +184,14 @@ UnicodeString Inflection::_generate_base(UnicodeString ctag, UnicodeString form)
                 string comp;
                 (*it2)[2].toUTF8String(comp);
                 if(form.endsWith((*it2)[0])//){
-                        &&stoi(comp)>220
+                        &&stoi(comp)>900
                            &&(*it2)[0].length()>1){
                     UnicodeString possible_form;
                     if((*it2)[0]==""){
                         possible_form = form;
                     }else{
                         possible_form = form.tempSubString(0,form.length()-(*it2)[0].length());
+                        possible_form.append((*it2)[1]);
                     }
                     if(stoi(comp)>maxCount){
                         string view;
