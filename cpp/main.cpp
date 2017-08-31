@@ -20,7 +20,7 @@ string trim(string &line) {
 }
 
 
-vector<string> split(string &line, string delimiter) {
+vector<string> split(string &line, const string &delimiter) {
     vector<string> result;
     size_t pos = 0;
     string token;
@@ -49,21 +49,17 @@ int main(int argc, char *argv[]) {
 
     UnicodeString cs = argv[3];
     bool caseInsensitive;
-    if (cs.toLower() == "true") {
-        caseInsensitive = true;
-    } else caseInsensitive = false;
+    caseInsensitive = cs.toLower() == "true" != 0;
 
     UnicodeString ss = argv[4];
     bool spaceInsensitive;
-    if (ss.toLower() == "true") {
-        spaceInsensitive = true;
-    } else spaceInsensitive = false;
+    spaceInsensitive = ss.toLower() == "true" != 0;
 
 
     map<string, pair<int, int> > tfByMethod;
     map<string, pair<int, int> > tfByCategory;
 
-    Corpus2::Tagset tagset = Corpus2::get_named_tagset(argTagset);
+    const Corpus2::Tagset &tagset = Corpus2::get_named_tagset(argTagset);
 
     string line;
 
@@ -71,13 +67,13 @@ int main(int argc, char *argv[]) {
 
     ifstream lastNames("nelexicon2_nam_liv_person_last.txt");
     while (getline(lastNames, line)) {
-        vecLastNames.push_back(line.substr(line.find("\t") + 1).c_str());
+        vecLastNames.emplace_back(line.substr(line.find("\t") + 1).c_str());
     }
     lastNames.close();
 
     ifstream firstNames("nelexicon2_nam_liv_person_first.txt");
     while (getline(firstNames, line)) {
-        vecLastNames.push_back(line.substr(line.find("\t") + 1).c_str());
+        vecLastNames.emplace_back(line.substr(line.find("\t") + 1).c_str());
     }
     firstNames.close();
 
@@ -85,7 +81,7 @@ int main(int argc, char *argv[]) {
 
     ifstream namLoc("nelexicon2-infobox-nam_loc.txt");
     while (getline(namLoc, line)) {
-        vecNamLoc.push_back(line.substr(line.find("\t") + 1).c_str());
+        vecNamLoc.emplace_back(line.substr(line.find("\t") + 1).c_str());
     }
     namLoc.close();
 
@@ -190,6 +186,7 @@ int main(int argc, char *argv[]) {
         }
 
 
+
         UnicodeString lemma = cascadeLemmatizer.lemmatize(kw, keyword_category);
 
         UnicodeString keywrd = keyword.c_str();
@@ -234,8 +231,8 @@ int main(int argc, char *argv[]) {
 
 
         if (lemma == keywrd) {
-            cout << line_no << "\t\t" << "TRUE" << "\t\t" << lemmaprnt << "\t\t" << keyword << "\t\t"
-                 << keyword_category << "\t\t" << globalMethod << "\t\t" << keyword_ctag << endl;
+            // cout << line_no << "\t\t" << "TRUE" << "\t\t" << lemmaprnt << "\t\t" << keyword << "\t\t"
+            //      << keyword_category << "\t\t" << globalMethod << "\t\t" << keyword_ctag << endl;
             output << line_no << "\t" << "TRUE" << "\t" << lemmaprnt << "\t" << keyword << "\t" << keyword_category
                    << "\t" << globalMethod << "\t" << keyword_ctag << endl;
 

@@ -206,11 +206,12 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string
         for (int i = 1; i < lemmas.size(); i = i + 2) {
 
             //TODO ZNALEZC LEPSZY ALGORYTM WYBIERANIA REGUŁY
-
             if (lemmas[i].find("Fix") != string::npos || lemmas[i].find("Flex") != string::npos) {
                 counter = lemmas[i].size();
                 index = i - 1;
             }
+
+
         }
         if (index == 0) {
             for (int i = 1; i < lemmas.size(); i = i + 2) {
@@ -218,6 +219,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string
                     counter = lemmas[i].size();
                     index = i - 1;
                 }
+
             }
         }
         globalMethod = "RuleLemmatizer::" + lemmas[index + 1];
@@ -325,7 +327,8 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
             if (form.indexOf(":") != (-1)) {
                 form = form.tempSubStringBetween(0, form.indexOf(":"));
             }
-            if (form.indexOf("-") != (-1) && position == sentence->tokens().size() - 1) {
+            if (form.indexOf("-") != (-1) && position == sentence->tokens().size() - 1 &&
+                form.indexOf("-") + 3 > form.length()) {
                 form = form.tempSubStringBetween(0, form.indexOf("-"));
             }
 
