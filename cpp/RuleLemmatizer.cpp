@@ -65,11 +65,6 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, mor
 icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string>> kw, std::string kw_category) {
 
 
-    //char temp[] = "/tmp/fffffXDXXXXXXXX";
-    //int fd;
-
-    //fd=mkstemp(temp);
-
     char buffer[L_tmpnam];
     tmpnam(buffer);
 
@@ -89,13 +84,10 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string
     boost::shared_ptr<Corpus2::TokenReader> rdr;
     try {
         rdr = Corpus2::TokenReader::create_path_reader("iob-chan", this->tagset, buffer);
-
     } catch (Corpus2::Corpus2Error e) {
-
         cout << e.what() << endl;
-        cout << e.scope() << endl;
-        cout << e.info() << endl;
     }
+
     boost::shared_ptr<Corpus2::Sentence> sentence = rdr->get_next_sentence();
 
     for (vector<pair<string, boost::shared_ptr<Wccl::FunctionalOperator>>>::iterator it = this->wccl_operators.begin();
@@ -289,19 +281,12 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
         string ctag;
         string basestr;
         try {
-
             base.toUTF8String(basestr);
             ctag = this->tagset.tag_to_string(tag);
-
             //   int tagId = this->generator->getIdResolver().getTagId(ctag);
-
-
             this->generator->generate(basestr, res);
-
-
             //   this->generator->generate(basestr,this->generator->getIdResolver().getTagId(ctag),res);
         } catch (morfeusz::MorfeuszException e) {
-
             //       cout<<e.what()<<endl<<ctag<<" "<<basestr<<endl;
         }
 
@@ -314,23 +299,12 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
                 if (var == 100) {
                     form = kek.orth.c_str();
                 }
-
             }
             if (res.size() == 1 && res.front().tagId == 0 && ctag.find("m1") != string::npos &&
                 token->orth().endsWith("a")) {
                 form = res.front().lemma.c_str();
             }
 
-            if (keepuc && orth != orth.toLower()) {
-                form = form.tempSubString(0, 1).toUpper().append(form.tempSubString(1, form.length()));
-            }
-            if (form.indexOf(":") != (-1)) {
-                form = form.tempSubStringBetween(0, form.indexOf(":"));
-            }
-            if (form.indexOf("-") != (-1) && position == sentence->tokens().size() - 1 &&
-                form.indexOf("-") + 3 > form.length()) {
-                form = form.tempSubStringBetween(0, form.indexOf("-"));
-            }
 
         }
         if (form == "") {
@@ -340,90 +314,22 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
                 return "";
             }
         }
-        if ((form.indexOf("´") > 1 && sentence->tokens().size() == 1) ||
-            (form.indexOf("´") > 1 && sentence->tokens().size() > 1 && position == sentence->tokens().size())) {
-            form = form.tempSubStringBetween(0, form.indexOf("´"));
-        }
-        if ((form.indexOf("'") > 1 && sentence->tokens().size() == 1) ||
-            (form.indexOf("'") > 1 && sentence->tokens().size() > 1 && position == sentence->tokens().size())) {
-            form = form.tempSubStringBetween(0, form.indexOf("'"));
-        }
+
 
         lemmas.push_back(form);
 
 
     }
     UnicodeString lemma = "";
-    UnicodeString lemma1 = "";
 
     if (sentence->tokens().size() > lemmas.size()) {
         for (int i = lemmas.size(); i < sentence->tokens().size(); ++i) {
-            if (sentence->tokens()[i]->orth().indexOf("’") > -1 && i + 2 == sentence->tokens().size()) {
-                break;
-            }
+
             lemmas.push_back(sentence->tokens()[i]->orth());
         }
     }
-    bool first = true;
-    for (int i = 0; i < lemmas.size(); ++i) {
 
-        if (lemmas[i] == "," || lemmas[i] == ":" || lemmas[i] == "'" || lemmas[i] == "+") {
-            lemma = lemma.trim();
-            lemma.append(lemmas[i]);
-            lemma.append(" ");
-            continue;
-        } else if (lemmas[i] == "." || lemmas[i] == "-" || lemmas[i] == "’") {
-            lemma = lemma.trim();
-            lemma.append(lemmas[i]);
-            continue;
-        } else if (lemmas[i] == "\"") {
-            if (!first) {
-                lemma = lemma.trim();
-            }
-            lemma.append(lemmas[i]);
-            first = false;
-            continue;
-            //TODO ???
-        }
-        int sameLetter = 0;
-        int sameLetterCaseIns = 0;
-        int isAlfa = 0;
-        string a, b;
-        lemmas[i].toUTF8String(a);
-        sentence->tokens()[i]->orth().toUTF8String(b);
-        int ii = 0;
-        for (ii = 0; ii < lemmas[i].length() && ii < sentence->tokens()[i]->orth().length(); ++ii) {
-            wchar_t inchar, outchar;
-            wchar_t inlowchar, outlowchar;
-            inchar = sentence->tokens()[i]->orth().charAt(ii);
-            outchar = lemmas[i].charAt(ii);
-            UnicodeString xyz = sentence->tokens()[i]->orth();
-            inlowchar = xyz.toLower().charAt(ii);
-            outlowchar = lemmas[i].toLower().charAt(ii);
-            if (outlowchar >= 'a' && outlowchar <= 'z') {
-                isAlfa++;
-            }
-            if (kw_category.find("nam_adj") == 0) {
-                lemma.append(outchar);
-            } else if (inchar == outchar) {
-                lemma.append(outchar);
-                sameLetter++;
-                sameLetterCaseIns++;
-            } else if (outlowchar == inlowchar && kw_category.find("nam_adj") != 0) {
-                lemma.append(inchar);
-                sameLetterCaseIns++;
-            } else {
-                lemma.append(outchar);
-            }
-        }
-        if (ii < lemmas[i].length()) {
-            for (ii; ii < lemmas[i].length(); ++ii) {
-                lemma.append(lemmas[i].trim().charAt(ii));
-            }
-        }
-        lemma.append(" ");
-    }
-
+    lemma = Handler::sensitivityModule(lemmas, sentence, kw_category);
     lemma.trim();
     return lemma;
 }

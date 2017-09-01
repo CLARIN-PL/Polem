@@ -12,6 +12,7 @@
 #include "OrthLemmatizer.h"
 #include <string>
 #include <vector>
+#include "Handler.h"
 
 
 extern std::string globalMethod;
