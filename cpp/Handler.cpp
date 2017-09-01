@@ -112,36 +112,24 @@ Handler::filter(std::vector<std::vector<std::string>> kw, icu::UnicodeString lem
 
     if (lemma.indexOf("ii") != -1 && lemma.indexOf(" ") == -1) {
         lemma.findAndReplace("ii", "ia");
-    }
-
-
-    if (lemma.indexOf(" ") == -1 && lemma.endsWith("ego")) {
+    } else if (lemma.indexOf(" ") == -1 && lemma.endsWith("ego")) {
         lemma.findAndReplace("ego", "");
-    }
-
-    if (lemma.endsWith("scy") && kw_category.find("nam_liv_person") == std::string::npos) {
+    } else if (lemma.endsWith("scy") && kw_category.find("nam_liv_person") == std::string::npos) {
         lemma.findAndReplace("scy", "ski");
-    }
-
-    if (lemma.endsWith("ę")) {
+    } else if (lemma.endsWith("ę")) {
         lemma.findAndReplace("ę", "a");
-    }
-
-    if (lemma.endsWith("ą")) {
+    } else if (lemma.endsWith("ą")) {
         lemma.findAndReplace("ą", "a");
-    }
-
-    if (kw_category == "nam_loc_gpe_city" && lemma.endsWith("u")) {
+    } else if (kw_category.find("nam_loc") == 0 && lemma.endsWith("u")) {
         lemma = lemma.tempSubString(0, lemma.length() - 1);
-    }
-
-    if (kw_category == "nam_liv_god" && lemma.endsWith("em")) {
+    } else if (kw_category == "nam_liv_god" && lemma.endsWith("em")) {
+        lemma.findAndReplace("em", "");
+    } else if (lemma.endsWith("owi")) {
+        lemma.findAndReplace("owi", "");
+    } else if (lemma.endsWith("em")) {
         lemma.findAndReplace("em", "");
     }
 
-    if (lemma.endsWith("owi")) {
-        lemma.findAndReplace("owi", "");
-    }
 
     lemma.findAndReplace("  ", " ");
     return lemma;
