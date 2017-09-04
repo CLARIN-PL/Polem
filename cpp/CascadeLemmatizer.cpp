@@ -29,19 +29,19 @@ icu::UnicodeString CascadeLemmatizer::lemmatize(std::vector<std::vector<std::str
 
     globalMethod = "";
 
-    UnicodeString lemma = this->nelexLemmatizer.lemmatize(kw,kw_category);
+    UnicodeString lemma = this->morfGeoLemmatizer.lemmatize(kw, kw_category);
 
     if(lemma=="") {
-        lemma = this->morfGeoLemmatizer.lemmatize(kw,kw_category);
+        lemma = this->nelexLemmatizer.lemmatize(kw, kw_category);
     }else{//
-        globalMethod = "DictionaryLemmatizer::NelexiconInfobox";
+        globalMethod = "DictionaryLemmatizer::MorfGeo";
 
     }
 
     if(lemma==""){
         lemma = this->namLivPersonLemmatizer.lemmatize(kw,kw_category);
-    }else if(globalMethod!="DictionaryLemmatizer::NelexiconInfobox"){
-        globalMethod = "DictionaryLemmatizer::MorfGeo";
+    } else if (globalMethod != "DictionaryLemmatizer::MorfGeo") {
+        globalMethod = "DictionaryLemmatizer::NelexiconInfobox";
     }
 
     if(lemma==""){

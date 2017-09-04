@@ -26,7 +26,7 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, mor
     this->tagset = tagset;
 
     xml_document doc;
-    doc.load_file("/home/gkubon/Documents/gk/polem/lemmatization-rules-azon2.xml", parse_default | parse_declaration);
+    doc.load_file("lemmatization-rules-azon2.xml", parse_default | parse_declaration);
     xml_node rules = doc.child("rules");
 
     char temp[] = "/tmp/fileXXXXXX";

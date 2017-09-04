@@ -31,14 +31,18 @@ Handler::filter(std::vector<std::vector<std::string>> kw, icu::UnicodeString lem
                 break;
             }
         }
-    } else if (globalMethod.find("RuleLemmatizer") == 0) {
+    }
 
+
+    for (int i = 0; i < 1; ++i) {
 
         if ((lemma.indexOf("´") > 1 && kw.size() == 1) ||
             (lemma.indexOf("´") > 1 && kw.size() > 1 && lemma.indexOf("´") > lemma.lastIndexOf(" "))) {
             lemma = lemma.tempSubStringBetween(0, lemma.indexOf("´"));
         } else if ((lemma.indexOf("'") > 1 && kw.size() == 1) ||
                    (lemma.indexOf("'") > 1 && kw.size() > 1 && lemma.indexOf("'") - 2 > lemma.lastIndexOf(" "))) {
+            std::string view;
+            lemma.toUTF8String(view);
             lemma = lemma.tempSubStringBetween(0, lemma.indexOf("'"));
         } else if (lemma.indexOf("’") > -1 && kw_category.find("nam_pro") != 0) {
             UnicodeString part1 = lemma.tempSubStringBetween(0, lemma.indexOf("’"));
@@ -49,26 +53,23 @@ Handler::filter(std::vector<std::vector<std::string>> kw, icu::UnicodeString lem
             } else {
                 lemma = part1;
             }
-        }
-
-        if (lemma.indexOf(",") != -1) {
+        } else if (lemma.indexOf(",") != -1) {
             lemma.findAndReplace(" ,", ",");
             lemma.findAndReplace(",", ", ");
         } else if (lemma.indexOf(":") != -1) {
             lemma.findAndReplace(" :", ":");
-            lemma.findAndReplace(":", ": ");
-        } else if (lemma.indexOf("'") != -1) {
-            lemma.findAndReplace(" '", "'");
-            lemma.findAndReplace("'", "' ");
-        } else if (lemma.indexOf("+") != -1) {
-            lemma.findAndReplace(" +", "+");
-            lemma.findAndReplace("+", "+ ");
-        } else if (lemma.indexOf(".") != -1) {
-            lemma.findAndReplace(" .", ".");
+            lemma.findAndReplace(": ", ": ");
         } else if (lemma.indexOf("-") != -1) {
             lemma.findAndReplace(" -", "-");
+            lemma.findAndReplace("- ", "-");
+        } else if (lemma.indexOf(" '") != -1) {
+            lemma.findAndReplace(" '", "'");
+        } else if (lemma.indexOf("+") != -1) {
+            lemma.findAndReplace(" +", "+");
+            lemma.findAndReplace("+ ", "+");
         } else if (lemma.indexOf("’") != -1) {
             lemma.findAndReplace(" ’", "’");
+            lemma.findAndReplace("’ ", "’");
         } else if (lemma.indexOf("\"") != -1 && lemma.lastIndexOf("\"") != lemma.indexOf("\"")) {
             UnicodeString part = "";
             lemma.extractBetween(lemma.indexOf("\""), lemma.lastIndexOf("\""), part);
@@ -76,37 +77,23 @@ Handler::filter(std::vector<std::vector<std::string>> kw, icu::UnicodeString lem
             part.findAndReplace(part.length() - 3, part.length(), " ", "");
             part.insert(0, " ");
             lemma.handleReplaceBetween(lemma.indexOf("\""), lemma.lastIndexOf("\""), part);
+        } else if (lemma.indexOf("\"") != -1) {
+            lemma.findAndReplace("\" ", "\"");
+        } else if (lemma.indexOf(" ?") != -1) {
+            lemma.findAndReplace(" ?", "?");
+        } else if (lemma.indexOf(" )") != -1) {
+            lemma.findAndReplace(" )", ")");
+        } else if (lemma.indexOf(" :") != -1) {
+            lemma.findAndReplace(" :", ":");
+        } else if (lemma.indexOf("# ") != -1) {
+            lemma.findAndReplace("# ", "#");
         }
-
-
-    }
-
-    if (lemma.indexOf(" -") != -1) {
-        lemma.findAndReplace(" -", "-");
-    } else if (lemma.indexOf(" .") != -1) {
-        lemma.findAndReplace(" .", ".");
-    } else if (lemma.indexOf(" +") != -1) {
-        lemma.findAndReplace(" +", "+");
-    } else if (lemma.indexOf(" ?") != -1) {
-        lemma.findAndReplace(" ?", "?");
-    } else if (lemma.indexOf(" )") != -1) {
-        lemma.findAndReplace(" )", ")");
-    } else if (lemma.indexOf(" :") != -1) {
-        lemma.findAndReplace(" :", ":");
-    } else if (lemma.indexOf(" \"") != -1) {
-        lemma.findAndReplace(" \"", "\"");
-    }
-
-    if (lemma.indexOf("- ") != -1) {
-        lemma.findAndReplace("- ", "-");
-    } else if (lemma.indexOf("# ") != -1) {
-        lemma.findAndReplace("# ", "#");
-    } else if (lemma.indexOf("+ ") != -1) {
-        lemma.findAndReplace("+ ", "+");
-    } else if (lemma.indexOf("( ") != -1) {
-        lemma.findAndReplace("( ", "(");
-    } else if (lemma.indexOf("\" ") != -1) {
-        lemma.findAndReplace("\" ", "\"");
+        if (lemma.indexOf("( ") != -1) {
+            lemma.findAndReplace("( ", "(");
+        } else if (lemma.indexOf(".") != -1) {
+            lemma.findAndReplace(" .", ".");
+            lemma.findAndReplace(". ", ".");
+        }
     }
 
 
@@ -130,8 +117,10 @@ Handler::filter(std::vector<std::vector<std::string>> kw, icu::UnicodeString lem
         lemma.findAndReplace("em", "");
     }
 
+    do {
+        lemma.findAndReplace("  ", " ");
+    } while (lemma.indexOf("  ") != -1);
 
-    lemma.findAndReplace("  ", " ");
     return lemma;
 
 }
@@ -161,6 +150,7 @@ icu::UnicodeString Handler::sensitivityModule(std::vector<icu::UnicodeString> le
             if (outlowchar >= 'a' && outlowchar <= 'z') {
                 isAlfa++;
             }
+            std::string view = globalMethod;
             if (kw_category.find("nam_adj") == 0) {
                 lemma.append(outchar);
             } else if (inchar == outchar) {

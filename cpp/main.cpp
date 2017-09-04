@@ -1,6 +1,8 @@
 #include <iostream>
 #include <libcorpus2/tagsetmanager.h>
 #include <fstream>
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 
 #include "CascadeLemmatizer.h"
 
@@ -17,20 +19,6 @@ string trim(string &line) {
     } else if (last != -1) {
         return line.substr(0, last);
     } else return line;
-}
-
-
-vector<string> split(string &line, const string &delimiter) {
-    vector<string> result;
-    size_t pos = 0;
-    string token;
-    while ((pos = line.find(delimiter)) != string::npos) {
-        token = line.substr(0, pos);
-        result.push_back(token);
-        line.erase(0, pos + delimiter.length());
-    }
-    result.push_back(line);
-    return result;
 }
 
 
@@ -55,14 +43,12 @@ int main(int argc, char *argv[]) {
     bool spaceInsensitive;
     spaceInsensitive = ss.toLower() == "true" != 0;
 
-
     map<string, pair<int, int> > tfByMethod;
     map<string, pair<int, int> > tfByCategory;
 
     const Corpus2::Tagset &tagset = Corpus2::get_named_tagset(argTagset);
 
     string line;
-
     vector<UnicodeString> vecLastNames;
 
     ifstream lastNames("nelexicon2_nam_liv_person_last.txt");
@@ -101,7 +87,6 @@ int main(int argc, char *argv[]) {
     }
     dictFile.close();
 
-    morfeusz::Morfeusz *generator = morfeusz::Morfeusz::createInstance(morfeusz::GENERATE_ONLY);
 
     Inflection inflection = Inflection(vecLastNames);
     inflection.loadInflectionRules("inflection_nam_liv_person_last.txt");
@@ -109,6 +94,7 @@ int main(int argc, char *argv[]) {
     Inflection inflectionNamLoc = Inflection(vecNamLoc);
     inflectionNamLoc.loadInflectionRules("inflection_nam_loc.txt");
 
+    morfeusz::Morfeusz *generator = morfeusz::Morfeusz::createInstance(morfeusz::GENERATE_ONLY);
 
     CascadeLemmatizer cascadeLemmatizer = CascadeLemmatizer(pathname, tagset, generator, dictionaryItems, inflection,
                                                             inflectionNamLoc);
@@ -127,7 +113,6 @@ int main(int argc, char *argv[]) {
     if (!spaceInsensitive) {
         outname.append("ss-");
     }
-
     outname.append(pathname);
 
 
@@ -137,10 +122,9 @@ int main(int argc, char *argv[]) {
     while (getline(infile, line, '\n')) {
         line = trim(line);
 
-        vector<string> fields = split(line, "\t");
-
+        vector<string> fields;
+        boost::split(fields, line, boost::is_any_of("\t"));
         if (fields.size() < 4)continue;
-
 
         string keyword = fields[0];
         string keyword_orth = fields[1];
@@ -165,11 +149,14 @@ int main(int argc, char *argv[]) {
         keyword_base = trim(keyword_base);
         keyword_ctag = trim(keyword_ctag);
 
-        vector<string> orths = split(keyword_orth, " ");
-        vector<string> bases = split(keyword_base, " ");
-        vector<string> ctags = split(keyword_ctag, " ");
-        vector<string> spaces = split(keyword_spaces, " ");
-
+        vector<string> orths;
+        boost::split(orths, keyword_orth, boost::is_any_of(" "));
+        vector<string> bases;
+        boost::split(bases, keyword_base, boost::is_any_of(" "));
+        vector<string> ctags;
+        boost::split(ctags, keyword_ctag, boost::is_any_of(" "));
+        vector<string> spaces;
+        boost::split(spaces, keyword_spaces, boost::is_any_of(" "));
 
         vector<vector<string> > kw;
 
@@ -231,12 +218,14 @@ int main(int argc, char *argv[]) {
 
 
         if (lemma == keywrd) {
+            output.clear();
             // cout << line_no << "\t\t" << "TRUE" << "\t\t" << lemmaprnt << "\t\t" << keyword << "\t\t"
             //      << keyword_category << "\t\t" << globalMethod << "\t\t" << keyword_ctag << endl;
             output << line_no << "\t" << "TRUE" << "\t" << lemmaprnt << "\t" << keyword << "\t" << keyword_category
                    << "\t" << globalMethod << "\t" << keyword_ctag << endl;
 
         } else {
+            output.clear();
             cout << line_no << "\t\t" << "FALSE" << "\t\t" << lemmaprnt << "\t\t" << keyword << "\t\t"
                  << keyword_category << "\t\t" << globalMethod << "\t\t" << keyword_ctag << endl;
             output << line_no << "\t" << "FALSE" << "\t" << lemmaprnt << "\t" << keyword << "\t" << keyword_category
