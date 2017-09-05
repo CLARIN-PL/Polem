@@ -272,7 +272,6 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
         icu::UnicodeString base;
         try {
             base = token->get_preferred_lexeme(this->tagset).lemma();
-
         } catch (exception e) {
             //    cout<<e.what();
         }
@@ -340,7 +339,7 @@ double RuleLemmatizer::evaluateSharedTag(const std::string &generatorTag, std::s
     string abc = generatorTag;
     vector<string> tags;
     boost::split(tags, cTag, boost::is_any_of(":"));
-    for (auto kek:tags) {
+    for (const auto &kek:tags) {
         if (abc.find(":" + kek + ":") != string::npos) result++;
         else if (abc.find("." + kek + ":") != string::npos) result++;
         else if (abc.find(":" + kek + ".") != string::npos) result++;

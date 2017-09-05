@@ -20,15 +20,18 @@ CascadeLemmatizer::CascadeLemmatizer(string pathname, Corpus2::Tagset tagset, mo
                             namLocLemmatizer(std::move(inflectionNamLoc)),
                                 orthLemmatizer(){
 
-
+//constructor launches different lemmatizers constructors
 
 }
 
 icu::UnicodeString CascadeLemmatizer::lemmatize(std::vector<std::vector<std::string>> kw, std::string kw_category) {
 
 
-    globalMethod = "";
 
+    globalMethod = "";
+    //indicates what is used to lemmatize
+
+    //launching lemmatizers in order morfgeo - nelex - namliv - namloc - rule - orth
     UnicodeString lemma = this->morfGeoLemmatizer.lemmatize(kw, kw_category);
 
     if(lemma=="") {
@@ -63,5 +66,7 @@ icu::UnicodeString CascadeLemmatizer::lemmatize(std::vector<std::vector<std::str
     }
 
     lemma = Handler::filter(kw, lemma, kw_category);
+    //filter the results, adding few % points
+
     return lemma;
 }

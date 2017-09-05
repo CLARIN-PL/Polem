@@ -13,7 +13,7 @@ using namespace std;
 
 DictionaryLemmatizer::DictionaryLemmatizer(std::string pathname,
                                            bool typed) {
-
+    //constructor stores dictionary in its own structure
     ifstream dictFile(pathname);
 
     string line;
@@ -46,6 +46,9 @@ DictionaryLemmatizer::DictionaryLemmatizer(std::string pathname,
 
 icu::UnicodeString DictionaryLemmatizer::lemmatize(std::vector<std::vector<std::string> > keyword,
                                                    std::string category) {
+
+
+    //dictionary lemmatizer checks dictionary files for a lemma for given orth
     icu::UnicodeString orth ="";
     icu::UnicodeString key = "";
 
