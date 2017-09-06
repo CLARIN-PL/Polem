@@ -16,7 +16,8 @@ class DictionaryLemmatizer {
 
 public:
     DictionaryLemmatizer(std::string name, bool typed);
-    icu::UnicodeString lemmatize(std::vector<std::vector<std::string> > keyword, std::string category);
+
+    icu::UnicodeString lemmatize(std::vector<std::vector<icu::UnicodeString> > keyword, std::string category);
 
 };
 

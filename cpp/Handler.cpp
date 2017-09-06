@@ -8,27 +8,21 @@
 
 
 icu::UnicodeString
-Handler::filter(std::vector<std::vector<std::string>> kw, icu::UnicodeString lemma, std::string kw_category) {
+Handler::filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::UnicodeString lemma, std::string kw_category) {
 
 
     lemma = lemma.trim();
     if (globalMethod == "NamLivPersonLemmatizer::Dictionary" &&
         (lemma.indexOf("Teofil") != -1 || lemma.indexOf("Jan") != -1)) {
         for (auto it:kw) {
-            if (it[0].find("J") == 0 && it[2].find(":m") != std::string::npos && lemma.indexOf("Teofil") != -1) {
-                std::string view;
-                lemma.toUTF8String(view);
+            if (it[0].indexOf("J") == 0 && it[2].indexOf(":m") != -1 && lemma.indexOf("Teofil") != -1) {
                 lemma.findAndReplace("Teofil", "Józef");
-                lemma.toUTF8String(view);
                 break;
             }
-            if (it[0].find("Michał") != std::string::npos && it[2].find(":m") != std::string::npos
+            if (it[0].indexOf("Michał") != -1 && it[2].indexOf(":m") != -1
                 && lemma.indexOf("Jan") != -1) {
-                bool m = it[0].front() == ('M');
-                std::string view;
-                lemma.toUTF8String(view);
+                bool m = it[0].charAt(0) == ('M');
                 lemma.findAndReplace("Jan", "Michał");
-                lemma.toUTF8String(view);
                 break;
             }
         }
@@ -37,7 +31,7 @@ Handler::filter(std::vector<std::vector<std::string>> kw, icu::UnicodeString lem
 
 
 
-
+    /*
     for (int i = 0; i < 1; ++i) {
 
         if ((lemma.indexOf("´") > 1 && kw.size() == 1) ||
@@ -98,7 +92,7 @@ Handler::filter(std::vector<std::vector<std::string>> kw, icu::UnicodeString lem
         } else if (lemma.indexOf(".") != -1) {
             lemma.findAndReplace(" .", ".");
         }
-    }
+    }*/
     //handling special characters and spaces around them
 
 
@@ -121,9 +115,9 @@ Handler::filter(std::vector<std::vector<std::string>> kw, icu::UnicodeString lem
     }
     //handling some of not lemmatized phrases
 
-    do {
+    while (lemma.indexOf("  ") != -1) {
         lemma.findAndReplace("  ", " ");
-    } while (lemma.indexOf("  ") != -1);
+    }
 
     return lemma;
 
@@ -181,5 +175,6 @@ icu::UnicodeString Handler::sensitivityModule(std::vector<icu::UnicodeString> le
         }
         lemma.append(" ");
     }
+
     return lemma;
 }

@@ -22,36 +22,30 @@ Inflection::Inflection(vector<UnicodeString> known_bases){
 }
 
 
+UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString form) {
 
-UnicodeString Inflection::_generate_base(UnicodeString ctag, UnicodeString form) {
 
-    UnicodeString del = " ";
-    string a,b;
-    ctag.toUTF8String(a);
-    form.toUTF8String(b);
-
-    //vector<UnicodeString> forms = split(form," ");
 
     UnicodeString forms[10];
     UErrorCode status =  U_ZERO_ERROR;
     RegexMatcher m("\\s+",0,status);
-    int numwords = m.split(form,forms,10,status);
+    int split1 = m.split(form, forms, 10, status);
 
 
     UnicodeString base ="";
     UnicodeString lem;
 
-    if(this->inflections.find(ctag)!=this->inflections.end()&&numwords>1){
+    if (this->inflections.find(ctagInf) != this->inflections.end() && split1 > 1) {
         map<UnicodeString, int> part_candidates;
-        for(int i = 0; i < numwords; i++) {
-        part_candidates.insert(make_pair(forms[i],0));
+        for (int i = 0; i < split1; i++) {
+            part_candidates.insert(make_pair(forms[i], 0));
         }
-        if(ctag == ""){
+        if (ctagInf == "") {
             for(map<UnicodeString,vector<vector<UnicodeString> > >::iterator it = this->inflections.begin(); it != this->inflections.end(); ++it) {
                 for (vector<vector<UnicodeString> >::iterator it2 = it->second.begin();
                      it2 != it->second.end(); ++it2) {
                     int i = -1;
-                    for (int ii = 0; ii < numwords; ii++) {
+                    for (int ii = 0; ii < split1; ii++) {
                         i++;
                         if (forms[ii].endsWith(it2->front())) {
                             if (it2->front() == "") {
@@ -72,25 +66,25 @@ UnicodeString Inflection::_generate_base(UnicodeString ctag, UnicodeString form)
                 }
             }
         }else{
-                for (vector<vector<UnicodeString> >::iterator it = this->inflections[ctag].begin();
-                     it != this->inflections[ctag].end(); ++it) {
-                    int i = -1;
-                    for(int ii = 0; ii < numwords; ii++){
-                        i++;
-                        if(forms[ii].endsWith(it->front())){
-                            if(it->front()==""){
-                                lem = forms[ii];
-                            }else{
-                                lem = forms[ii].tempSubString(0,forms[ii].length()-it->front().length());
-                            }
-                            lem.append((*it)[1]);
-                            string comp;
-                            (*it)[2].toUTF8String(comp);
-                            if (part_candidates.find(lem) == part_candidates.end() ||
-                                part_candidates.find(lem)->second < stoi(comp)) {
-                                part_candidates.find(lem)->second = stoi(comp);
-                            }
+            for (vector<vector<UnicodeString> >::iterator it = this->inflections[ctagInf].begin();
+                 it != this->inflections[ctagInf].end(); ++it) {
+                int i = -1;
+                for (int ii = 0; ii < split1; ii++) {
+                    i++;
+                    if (forms[ii].endsWith(it->front())) {
+                        if (it->front() == "") {
+                            lem = forms[ii];
+                        } else {
+                            lem = forms[ii].tempSubString(0, forms[ii].length() - it->front().length());
                         }
+                        lem.append((*it)[1]);
+                        string comp;
+                        (*it)[2].toUTF8String(comp);
+                        if (part_candidates.find(lem) == part_candidates.end() ||
+                            part_candidates.find(lem)->second < stoi(comp)) {
+                            part_candidates.find(lem)->second = stoi(comp);
+                        }
+                    }
                 }
             }
 
@@ -112,12 +106,12 @@ UnicodeString Inflection::_generate_base(UnicodeString ctag, UnicodeString form)
         }
 
         return "";
-    }else if(this->inflections.find(ctag)!=this->inflections.end()&&numwords==1){
+    } else if (this->inflections.find(ctagInf) != this->inflections.end() && split1 == 1) {
         int maxCount = 0;
         UnicodeString maxEndingForm = "";
         UnicodeString possible_form;
-        for (vector<vector<UnicodeString> >::iterator it = this->inflections[ctag].begin();
-             it != this->inflections[ctag].end(); ++it){
+        for (vector<vector<UnicodeString> >::iterator it = this->inflections[ctagInf].begin();
+             it != this->inflections[ctagInf].end(); ++it) {
             string ends;
             (*it).front().toUTF8String(ends);
             int c =form.indexOf((*it).front());
@@ -137,7 +131,7 @@ UnicodeString Inflection::_generate_base(UnicodeString ctag, UnicodeString form)
                  (*it)[1].toUTF8String(tmp2);
                  string comp;
                  (*it)[2].toUTF8String(comp);
-                 ctag.toUTF8String(tmp3);
+                 ctagInf.toUTF8String(tmp3);
                  form.toUTF8String(tmp4);
 
                  if(this->known_bases.end()!=find(this->known_bases.begin(),this->known_bases.end(),possible_form.toLower())
@@ -156,8 +150,8 @@ UnicodeString Inflection::_generate_base(UnicodeString ctag, UnicodeString form)
             maxCount=0;
             maxEndingForm="";
 
-            for(vector<vector<UnicodeString> >::iterator it = this->inflections[ctag].begin();
-                it != this->inflections[ctag].end(); ++it){
+            for (vector<vector<UnicodeString> >::iterator it = this->inflections[ctagInf].begin();
+                 it != this->inflections[ctagInf].end(); ++it) {
                 string comp;
                 (*it)[2].toUTF8String(comp);
                 if(form.endsWith((*it)[0])
@@ -174,8 +168,8 @@ UnicodeString Inflection::_generate_base(UnicodeString ctag, UnicodeString form)
             }
         }
 
-    }else if(ctag==""
-        &&numwords==1){
+    } else if (ctagInf == ""
+               && split1 == 1) {
         int maxCount = 0;
         UnicodeString maxEndingForm = "";
         for(map<UnicodeString,vector<vector<UnicodeString> > >::iterator it = this->inflections.begin(); it != this->inflections.end(); ++it) {
