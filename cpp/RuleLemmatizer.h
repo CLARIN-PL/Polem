@@ -23,16 +23,17 @@ class RuleLemmatizer {
     std::vector<std::pair<std::string, boost::shared_ptr<Wccl::FunctionalOperator>>> wccl_operators;
     bool useOrthForOov;
 
+    double evaluateSharedTag(const std::string &basic_string, std::string basicString);
+
+    icu::UnicodeString generate(Corpus2::Sentence::Ptr sentence, std::map<int, std::vector<std::string> > operations,
+                                std::vector<icu::UnicodeString> spaces, std::string kw_category);
 
 public:
     RuleLemmatizer(std::string rulespathname,Corpus2::Tagset tagset,morfeusz::Morfeusz *generator, bool fix,bool useOrthForOov);
 
-    icu::UnicodeString generate(Corpus2::Sentence::Ptr sentence, std::map<int, std::vector<std::string> > operations,
-                                std::vector<std::string> spaces, std::string kw_category);
+    icu::UnicodeString lemmatize(std::vector<std::vector<icu::UnicodeString>> kw, std::string kw_category);
 
-    icu::UnicodeString lemmatize(std::vector<std::vector<std::string>> kw, std::string kw_category);
 
-    double evaluateSharedTag(const std::string &basic_string, std::string basicString);
 };
 
 

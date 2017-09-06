@@ -52,7 +52,7 @@ NamLivPersonLemmatizer::NamLivPersonLemmatizer(
 }
 
 icu::UnicodeString
-NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<std::string> > keyword, std::string category) {
+NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > keyword, std::string category) {
 
     if(find(this->categories.begin(),this->categories.end(),category.c_str())==this->categories.end()){
         return "";
@@ -60,32 +60,31 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<std::string> > keyword
 
     UnicodeString orth;
     for(int i = 0; i < keyword.size(); ++i){
-        orth.append(keyword[i][0].c_str());
+        orth.append(keyword[i][0]);
     }
 
     UnicodeString name;
 
-    if (keyword.size() == 1 &&
-        find(this->forceSingleBases.begin(), this->forceSingleBases.end(), keyword[0][1].c_str()) !=
-        this->forceSingleBases.end()) {
+    if (keyword.size() == 1 && find(this->forceSingleBases.begin(), this->forceSingleBases.end(), keyword[0][1]) !=
+                               this->forceSingleBases.end()) {
         globalMethod="NamLivPersonLemmatizer::Dictionary";
-        return keyword[0][1].c_str();
+        return keyword[0][1];
     }
 
 
     if (keyword.size() == 3 &&
-        find(this->inflectionSeparators.begin(), this->inflectionSeparators.end(), keyword[1][0].c_str()) !=
+        find(this->inflectionSeparators.begin(), this->inflectionSeparators.end(), keyword[1][0]) !=
         this->inflectionSeparators.end()) {
 
-        UnicodeString tmp = keyword[2][0].c_str();
+        UnicodeString tmp = keyword[2][0];
         if(find(this->inflectionEndings.begin(),this->inflectionEndings.end(),tmp.toLower())!=this->inflectionEndings.end()) {
-            return keyword[0][0].c_str();
+            return keyword[0][0];
         }
     }
 
 
     for(int i = 0; i < keyword.size(); ++i){
-        orth = keyword[i][0].c_str();
+        orth = keyword[i][0];
         if((orth.length()==1&&orth.toUpper()==orth)||find(this->copyOrths.begin(),this->copyOrths.end(),orth.toLower())!=this->copyOrths.end()){
             name.append(orth);
         }else if(this->names.find(orth.toLower())!=this->names.end()){
@@ -99,8 +98,10 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<std::string> > keyword
 
     if(name==""){
         for(int i = 0; i < keyword.size(); ++i){
-
-            UnicodeString lemma = this->inflection.generate_base(keyword[i][2].c_str(), keyword[i][0].c_str());
+            string view1, view2;
+            keyword.at(i).at(2).toUTF8String(view1);
+            keyword[i][0].toUTF8String(view2);
+            UnicodeString lemma = this->inflection.generate_base(keyword.at(i).at(2), keyword.at(i).at(0));
             if(lemma==""){
                 return lemma;
             }
