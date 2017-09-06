@@ -33,7 +33,7 @@ public:
                       std::map<UnicodeString, std::pair<UnicodeString, UnicodeString>> dictionaryItems,
                       Inflection inflection, Inflection inflectionNamLoc);
 
-    icu::UnicodeString lemmatize(std::vector<std::vector<icu::UnicodeString>> kw, std::string kw_category);
+    icu::UnicodeString lemmatize(std::vector<std::vector<std::string>> kw, std::string kw_category);
 
 
 };

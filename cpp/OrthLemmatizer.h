@@ -11,7 +11,7 @@
 
 class OrthLemmatizer {
 public:
-    icu::UnicodeString lemmatize(std::vector<std::vector<icu::UnicodeString> > keyword);
+    icu::UnicodeString lemmatize(std::vector<std::vector<std::string> > keyword);
 };
 
 

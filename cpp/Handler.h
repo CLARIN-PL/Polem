@@ -14,7 +14,7 @@ class Handler {
 
 public:
     static icu::UnicodeString
-    filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::UnicodeString lemma, std::string kw_category);
+    filter(std::vector<std::vector<std::string>> kw, icu::UnicodeString lemma, std::string kw_category);
 
     static UnicodeString
     sensitivityModule(std::vector<UnicodeString> lemmas, boost::shared_ptr<Corpus2::Sentence> sentence,

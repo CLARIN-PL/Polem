@@ -62,7 +62,7 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, mor
 
 }
 
-icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString>> kw, std::string kw_category) {
+icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<std::string>> kw, std::string kw_category) {
 
 
     char buffer[L_tmpnam];
@@ -72,15 +72,10 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
     file.open(buffer, ios_base::out);
 
 
-    vector<icu::UnicodeString> spaces;
+    vector<string> spaces;
     for (auto &word:kw) {
-        string a;
-        word[0].toUTF8String(a);
-        a.append("\t");
-        word[1].toUTF8String(a);
-        a.append("\t");
-        word[2].toUTF8String(a);
-        file << a << endl;
+        string a = word[0] + "\t" + word[1] + "\t" + word[2] + "\n";
+        file << a.c_str();
         spaces.push_back(word[3]);
     }
     file << endl;
@@ -100,7 +95,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
 
         string rcat = this->rule_categories[it->first];
 
-        if (rcat != "" && kw_category != rcat.c_str()) {
+        if (rcat != "" && kw_category != rcat) {
             continue;
         }
 
@@ -172,8 +167,8 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
                     }
                 } else {
                     if (i > 2 &&
-                        kw[i - 1][2].indexOf("adj") != -1 &&
-                        kw[i - 3][2].indexOf("adv") != -1 &&
+                        kw[i - 1][2].find("adj") != string::npos &&
+                        kw[i - 3][2].find("adv") != string::npos &&
                         kw[i - 2][2] == "-") {
                         operations.push_back("cas=nom");
                     } else {
@@ -226,7 +221,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
 }
 
 icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std::map<int, vector<string> > operations,
-                                            std::vector<icu::UnicodeString> spaces,
+                                            std::vector<std::string> spaces,
                                             std::string kw_category) {
 
     bool keepuc;

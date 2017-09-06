@@ -24,8 +24,7 @@ CascadeLemmatizer::CascadeLemmatizer(string pathname, Corpus2::Tagset tagset, mo
 
 }
 
-icu::UnicodeString
-CascadeLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString>> kw, std::string kw_category) {
+icu::UnicodeString CascadeLemmatizer::lemmatize(std::vector<std::vector<std::string>> kw, std::string kw_category) {
 
 
 

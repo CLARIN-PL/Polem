@@ -44,7 +44,7 @@ DictionaryLemmatizer::DictionaryLemmatizer(std::string pathname,
 
 }
 
-icu::UnicodeString DictionaryLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > keyword,
+icu::UnicodeString DictionaryLemmatizer::lemmatize(std::vector<std::vector<std::string> > keyword,
                                                    std::string category) {
 
 
@@ -53,7 +53,7 @@ icu::UnicodeString DictionaryLemmatizer::lemmatize(std::vector<std::vector<icu::
     icu::UnicodeString key = "";
 
     for(int i = 0; i < keyword.size(); i ++){
-        orth.append(keyword[i][0]);
+        orth.append(keyword[i][0].c_str());
         if(keyword[i][3]=="t"){
             orth.append(" ");
         }

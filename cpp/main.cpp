@@ -1,15 +1,12 @@
 #include <iostream>
 #include <libcorpus2/tagsetmanager.h>
 #include <fstream>
-#include <unicode/regex.h>
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
+
 #include "CascadeLemmatizer.h"
 
-
 using namespace std;
-
-UnicodeString preprocessOrth(UnicodeString basic_string);
-
-UnicodeString preprocessBase(UnicodeString basic_string);
 
 CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tagset) {
 
@@ -69,7 +66,6 @@ CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tag
 
 }
 
-bool BothAreSpaces(char lhs, char rhs) { return (lhs == rhs) && (lhs == ' '); }
 
 double acc(int tru, int fals) {
     if (tru + fals > 0) {
@@ -162,134 +158,109 @@ int main(int argc, char *argv[]) {
     while (getline(infile, line, '\n')) {
         //line by line reading file
         //keyword \t orth \t base \t tag \t spaces \t category \n
-        UnicodeString lin = line.c_str();
 
-        UErrorCode status = U_ZERO_ERROR;
-        RegexMatcher m("\\t", 0, status);
-        const int maxWords = 6;
-        UnicodeString filds[6];
-        int numWords = m.split(lin, filds, maxWords, status);
+        line = trim(line);
+        vector<string> fields;
+        boost::split(fields, line, boost::is_any_of("\t"));
 
-        if (numWords < 4)continue;
-        UnicodeString kwrd = filds[0].trim();
-        UnicodeString kwrd_orth = filds[1].trim();
-        UnicodeString kwrd_base = filds[2].trim();
-        UnicodeString kwrd_ctag = filds[3].trim();
-        UnicodeString kwrd_spaces;
-        if (numWords < 5) kwrd_spaces = "";
+        if (fields.size() < 4)continue;
+        string keyword = fields[0];
+        string keyword_orth = fields[1];
+        string keyword_base = fields[2];
+        string keyword_ctag = fields[3];
+
+        string keyword_spaces;
+        if (fields.size() < 5) keyword_spaces = "";
         else {
-            kwrd_spaces = filds[4].trim();
-        }
-        string kwrd_category;
-        if (numWords < 6) kwrd_category = "";
-        else {
-            filds[5].findAndReplace("\tnull", "");
-            filds[5].trim().toUTF8String(kwrd_category);
+            keyword_spaces = fields[4];
+            keyword_spaces = trim(keyword_spaces);
         }
 
+        string keyword_category;
+        if (fields.size() < 6) keyword_category = "";
+        else {
+            keyword_category = fields[5];
+            keyword_category = trim(keyword_category);
+        }
 
-        kwrd_orth = preprocessOrth(kwrd_orth);
-        kwrd_base = preprocessBase(kwrd_base);
+        keyword = trim(keyword);
+        keyword_orth = trim(keyword_orth);
+        keyword_base = trim(keyword_base);
+        keyword_ctag = trim(keyword_ctag);
 
-        RegexMatcher rm("\\s", 0, status);
-        UnicodeString check[50];
-        numWords = rm.split(kwrd_ctag, check, 50, status);
-
-        UnicodeString bases[numWords];
-        rm.split(kwrd_base, bases, numWords, status);
-        UnicodeString orths[numWords];
-        rm.split(kwrd_orth, orths, numWords, status);
-        UnicodeString ctags[numWords];
-        rm.split(kwrd_ctag, ctags, numWords, status);
-        UnicodeString spaces[numWords];
-        rm.split(kwrd_spaces, spaces, numWords, status);
+        vector<string> orths;
+        boost::split(orths, keyword_orth, boost::is_any_of(" "));
+        vector<string> bases;
+        boost::split(bases, keyword_base, boost::is_any_of(" "));
+        vector<string> ctags;
+        boost::split(ctags, keyword_ctag, boost::is_any_of(" "));
+        vector<string> spaces;
+        boost::split(spaces, keyword_spaces, boost::is_any_of(" "));
         //multiword orth
 
-        vector<vector<UnicodeString> > kw;
-        for (int i = 0; i < numWords; i++) {
-            vector<UnicodeString> row;
-            row.emplace_back(orths[i]);
-            row.emplace_back(bases[i]);
-            row.emplace_back(ctags[i]);
-            row.emplace_back(spaces[i]);
-            kw.emplace_back(row);
+        vector<vector<string> > kw;
+        for (int i = 0; i < orths.size(); i++) {
+            string booltmp;
+            if (spaces[i] == "True") booltmp.push_back('t');
+            else booltmp = "f";
+            vector<string> row;
+            row.push_back(orths[i]);
+            row.push_back(bases[i]);
+            row.push_back(ctags[i]);
+            row.push_back(booltmp);
+            kw.push_back(row);
         }
         //processing keyword into input to lemmatizer as
         //orth1, base1, tag1, space1  <- vector
         //orth2, base2, tag2, space2 and so on
+        UnicodeString lemma = cascadeLemmatizer.lemmatize(kw, keyword_category);
 
-        UnicodeString lemma = cascadeLemmatizer.lemmatize(kw, kwrd_category);
-
-        lemma = preprocessOrth(lemma);
-
-        UnicodeString outlemmas[numWords];
-        rm.split(lemma, outlemmas, numWords, status);
-
-        lemma = "";
-        for (int i = 0; i < numWords; ++i) {
-            string temp;
-            spaces[i].toUTF8String(temp);
-            if (spaces[i] == "True") {
-                lemma.append(outlemmas[i] + " ");
-            } else {
-                lemma.append(outlemmas[i]);
-            }
-        }
-        lemma.trim();
-
-
-        string view = globalMethod;
+        UnicodeString keywrd = keyword.c_str();
         string lemmaprnt;
         lemma.toUTF8String(lemmaprnt);
 
         if (caseInsensitive) {
             lemma = lemma.toLower();
-            kwrd = kwrd.toLower();
+            keywrd = keywrd.toLower();
         }
         if (spaceInsensitive) {
             lemma.findAndReplace(" ", "");
-            kwrd.findAndReplace(" ", "");
+            keywrd.findAndReplace(" ", "");
         }
         //handling case and space sensitivity options
 
-        if (lemma == kwrd) { // success
+        if (lemma == keywrd) { // success
             if (tfByMethod.count(globalMethod) > 0) { // method found in structure
                 tfByMethod[globalMethod].first++;      //increasing success amount
             } else {
                 tfByMethod.insert(make_pair(globalMethod, make_pair(1, 0)));
             }
-            if (tfByCategory.count(kwrd_category) > 0) {
-                tfByCategory[kwrd_category].first++;
+            if (tfByCategory.count(keyword_category) > 0) {
+                tfByCategory[keyword_category].first++;
             } else {
-                tfByCategory.insert(make_pair(kwrd_category, make_pair(1, 0)));
+                tfByCategory.insert(make_pair(keyword_category, make_pair(1, 0)));
             }
             output.clear();
             // cout << line_no << "\t\t" << "TRUE" << "\t\t" << lemmaprnt << "\t\t" << keyword << "\t\t"
             //      << keyword_category << "\t\t" << globalMethod << "\t\t" << keyword_ctag << endl;
-            string kwrdprnt, ctagprnt;
-            kwrd.toUTF8String(kwrdprnt);
-            kwrd_ctag.toUTF8String(ctagprnt);
-            output << line_no << "\t" << "TRUE" << "\t" << lemmaprnt << "\t" << kwrdprnt << "\t" << kwrd_category
-                   << "\t" << globalMethod << "\t" << ctagprnt << endl;
+            output << line_no << "\t" << "TRUE" << "\t" << lemmaprnt << "\t" << keyword << "\t" << keyword_category
+                   << "\t" << globalMethod << "\t" << keyword_ctag << endl;
         } else { // failure
             if (tfByMethod.count(globalMethod) > 0) {
                 tfByMethod[globalMethod].second++;
             } else {
                 tfByMethod.insert(make_pair(globalMethod, make_pair(0, 1)));
             }
-            if (tfByCategory.count(kwrd_category) > 0) {
-                tfByCategory[kwrd_category].second++;
+            if (tfByCategory.count(keyword_category) > 0) {
+                tfByCategory[keyword_category].second++;
             } else {
-                tfByCategory.insert(make_pair(kwrd_category, make_pair(0, 1)));
+                tfByCategory.insert(make_pair(keyword_category, make_pair(0, 1)));
             }
             output.clear();
-            string kwrdprnt, ctagprnt;
-            kwrd.toUTF8String(kwrdprnt);
-            kwrd_ctag.toUTF8String(ctagprnt);
-            cout << line_no << "\t\t" << "FALSE" << "\t\t" << lemmaprnt << "\t\t" << kwrdprnt << "\t\t"
-                 << kwrd_category << "\t\t" << globalMethod << "\t\t" << ctagprnt << endl;
-            output << line_no << "\t" << "FALSE" << "\t" << lemmaprnt << "\t" << kwrdprnt << "\t" << kwrd_category
-                   << "\t" << globalMethod << "\t" << ctagprnt << endl;
+            cout << line_no << "\t\t" << "FALSE" << "\t\t" << lemmaprnt << "\t\t" << keyword << "\t\t"
+                 << keyword_category << "\t\t" << globalMethod << "\t\t" << keyword_ctag << endl;
+            output << line_no << "\t" << "FALSE" << "\t" << lemmaprnt << "\t" << keyword << "\t" << keyword_category
+                   << "\t" << globalMethod << "\t" << keyword_ctag << endl;
         }
         line_no++;
     }
@@ -299,43 +270,5 @@ int main(int argc, char *argv[]) {
     output.close();
 
     return 0;
-}
-
-UnicodeString preprocessOrth(UnicodeString orth) {
-    orth.findAndReplace("-", " - ");
-    orth.findAndReplace(".", " . ");
-    orth.findAndReplace(",", " , ");
-    orth.findAndReplace("?", " ? ");
-    orth.findAndReplace("!", " ! ");
-    orth.findAndReplace("'", " ' ");
-    orth.findAndReplace("’", " ’ ");
-    orth.findAndReplace("„", " „ ");
-    orth.findAndReplace("”", " ” ");
-    orth.findAndReplace("(", " ( ");
-    orth.findAndReplace(")", " ) ");
-    orth.findAndReplace(":", " : ");
-    orth.findAndReplace("@", " @ ");
-    orth.findAndReplace("/", " / ");
-    orth.findAndReplace("\"", " \" ");
-    orth.findAndReplace("–", " – ");
-    orth.findAndReplace("´", " ´ ");
-    orth.findAndReplace("®", " ® ");
-    orth.findAndReplace("+", " + ");
-    orth.findAndReplace("_", " _ ");
-    orth.findAndReplace("#", " # ");
-
-    while (orth.indexOf("  ") != -1) orth.findAndReplace("  ", " ");
-    orth.trim();
-
-    return orth;
-
-}
-
-UnicodeString preprocessBase(UnicodeString base) {
-    //base.findAndReplace(" - ","-");
-
-    base.findAndReplace("  ", " ");
-    base.trim();
-    return base;
 }
 
