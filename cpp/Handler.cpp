@@ -96,7 +96,7 @@ Handler::filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::UnicodeStr
     //handling special characters and spaces around them
 
 
-    if (lemma.indexOf("ii") != -1 && lemma.indexOf(" ") == -1) {
+    if (lemma.endsWith("ii") && lemma.indexOf(" ") == -1) {
         lemma.findAndReplace("ii", "ia");
     } else if (lemma.indexOf(" ") == -1 && lemma.endsWith("ego")) {
         lemma.findAndReplace("ego", "");
@@ -104,7 +104,7 @@ Handler::filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::UnicodeStr
         lemma.findAndReplace("scy", "ski");
     } else if (lemma.endsWith("ę")) {
         lemma.findAndReplace("ę", "a");
-    } else if (lemma.endsWith("ą")) {
+    } else if (lemma.endsWith("ą") || (lemma.indexOf("ą ") != -1 && kw.size() < 5)) {
         lemma.findAndReplace("ą", "a");
     } else if (kw_category.find("nam_loc") == 0 && lemma.endsWith("u")) {
         lemma.extractBetween(0, lemma.length() - 1, lemma);
@@ -113,13 +113,22 @@ Handler::filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::UnicodeStr
     } else if (lemma.endsWith("em")) {
         lemma.findAndReplace("em", "");
     }
+    lemma.findAndReplace(" 's", "'s ");
+
+    if (lemma.indexOf("'") + 3 > lemma.length() && lemma.indexOf("'") != -1) {
+        lemma.extractBetween(0, lemma.indexOf("'"), lemma);
+    }
+
+    if (lemma.indexOf("’") + 3 > lemma.length() && lemma.indexOf("’") != -1) {
+        lemma.extractBetween(0, lemma.indexOf("’"), lemma);
+    }
     //handling some of not lemmatized phrases
 
     while (lemma.indexOf("  ") != -1) {
         lemma.findAndReplace("  ", " ");
     }
 
-    return lemma;
+    return lemma.trim();
 
 }
 

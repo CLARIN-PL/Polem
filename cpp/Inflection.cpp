@@ -17,13 +17,11 @@ Inflection::Inflection(vector<UnicodeString> known_bases){
     for(int i = 0; i < known_bases.size(); ++i){
         tmp = known_bases[i].toLower();
         this->known_bases.push_back(tmp);
-
     }
 }
 
 
 UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString form) {
-
 
 
     UnicodeString forms[10];

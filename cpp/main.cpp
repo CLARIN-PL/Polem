@@ -7,10 +7,6 @@
 
 using namespace std;
 
-UnicodeString preprocessOrth(UnicodeString basic_string);
-
-UnicodeString preprocessBase(UnicodeString basic_string);
-
 CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tagset) {
 
     string line;
@@ -69,8 +65,6 @@ CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tag
 
 }
 
-bool BothAreSpaces(char lhs, char rhs) { return (lhs == rhs) && (lhs == ' '); }
-
 double acc(int tru, int fals) {
     if (tru + fals > 0) {
         return (double) tru * 100 / (tru + fals);
@@ -103,19 +97,6 @@ printResults(ofstream &output, map<string, pair<int, int> > tfByMethod, map<stri
     output << "Percentage: " << acc(cats, catf) << "%" << endl;
     cout << cats << " " << catf << endl;
     cout << acc(cats, catf) << endl;
-}
-
-string trim(string &line) {
-
-    size_t first = line.find_first_not_of(" ");
-    size_t last = line.find_last_not_of(" ");
-    if (first != -1 && last != -1) {
-        return line.substr(first, (last - first + 1));
-    } else if (first != -1) {
-        return line.substr(first, line.length());
-    } else if (last != -1) {
-        return line.substr(0, last);
-    } else return line;
 }
 
 
@@ -168,6 +149,7 @@ int main(int argc, char *argv[]) {
         RegexMatcher m("\\t", 0, status);
         const int maxWords = 6;
         UnicodeString filds[6];
+
         int numWords = m.split(lin, filds, maxWords, status);
 
         if (numWords < 4)continue;
@@ -187,60 +169,19 @@ int main(int argc, char *argv[]) {
             filds[5].trim().toUTF8String(kwrd_category);
         }
 
-
-        kwrd_orth = preprocessOrth(kwrd_orth);
-        kwrd_base = preprocessBase(kwrd_base);
-
-        RegexMatcher rm("\\s", 0, status);
-        UnicodeString check[50];
-        numWords = rm.split(kwrd_ctag, check, 50, status);
-
-        UnicodeString bases[numWords];
-        rm.split(kwrd_base, bases, numWords, status);
-        UnicodeString orths[numWords];
-        rm.split(kwrd_orth, orths, numWords, status);
-        UnicodeString ctags[numWords];
-        rm.split(kwrd_ctag, ctags, numWords, status);
-        UnicodeString spaces[numWords];
-        rm.split(kwrd_spaces, spaces, numWords, status);
-        //multiword orth
-
-        vector<vector<UnicodeString> > kw;
-        for (int i = 0; i < numWords; i++) {
-            vector<UnicodeString> row;
-            row.emplace_back(orths[i]);
-            row.emplace_back(bases[i]);
-            row.emplace_back(ctags[i]);
-            row.emplace_back(spaces[i]);
-            kw.emplace_back(row);
-        }
-        //processing keyword into input to lemmatizer as
-        //orth1, base1, tag1, space1  <- vector
-        //orth2, base2, tag2, space2 and so on
-
-        UnicodeString lemma = cascadeLemmatizer.lemmatize(kw, kwrd_category);
-
-        lemma = preprocessOrth(lemma);
-
-        UnicodeString outlemmas[numWords];
-        rm.split(lemma, outlemmas, numWords, status);
-
-        lemma = "";
-        for (int i = 0; i < numWords; ++i) {
-            string temp;
-            spaces[i].toUTF8String(temp);
-            if (spaces[i] == "True") {
-                lemma.append(outlemmas[i] + " ");
-            } else {
-                lemma.append(outlemmas[i]);
-            }
-        }
-        lemma.trim();
+        UnicodeString lemma = cascadeLemmatizer.lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, kwrd_category);
 
 
         string view = globalMethod;
         string lemmaprnt;
         lemma.toUTF8String(lemmaprnt);
+        string kwrdprnt, ctagprnt;
+        while (kwrd.indexOf("  ") != -1 || kwrd.indexOf("\t") != -1) {
+            kwrd.findAndReplace("  ", " ");
+            kwrd.findAndReplace("\t", " ");
+        }
+        kwrd.toUTF8String(kwrdprnt);
+        kwrd_ctag.toUTF8String(ctagprnt);
 
         if (caseInsensitive) {
             lemma = lemma.toLower();
@@ -264,11 +205,8 @@ int main(int argc, char *argv[]) {
                 tfByCategory.insert(make_pair(kwrd_category, make_pair(1, 0)));
             }
             output.clear();
-            // cout << line_no << "\t\t" << "TRUE" << "\t\t" << lemmaprnt << "\t\t" << keyword << "\t\t"
-            //      << keyword_category << "\t\t" << globalMethod << "\t\t" << keyword_ctag << endl;
-            string kwrdprnt, ctagprnt;
-            kwrd.toUTF8String(kwrdprnt);
-            kwrd_ctag.toUTF8String(ctagprnt);
+            //cout << line_no << "\t" << "TRUE" << "\t" << lemmaprnt << "\t" << kwrdprnt << "\t" << kwrd_category
+            //      << "\t" << globalMethod << "\t" << ctagprnt << endl;
             output << line_no << "\t" << "TRUE" << "\t" << lemmaprnt << "\t" << kwrdprnt << "\t" << kwrd_category
                    << "\t" << globalMethod << "\t" << ctagprnt << endl;
         } else { // failure
@@ -283,9 +221,6 @@ int main(int argc, char *argv[]) {
                 tfByCategory.insert(make_pair(kwrd_category, make_pair(0, 1)));
             }
             output.clear();
-            string kwrdprnt, ctagprnt;
-            kwrd.toUTF8String(kwrdprnt);
-            kwrd_ctag.toUTF8String(ctagprnt);
             cout << line_no << "\t\t" << "FALSE" << "\t\t" << lemmaprnt << "\t\t" << kwrdprnt << "\t\t"
                  << kwrd_category << "\t\t" << globalMethod << "\t\t" << ctagprnt << endl;
             output << line_no << "\t" << "FALSE" << "\t" << lemmaprnt << "\t" << kwrdprnt << "\t" << kwrd_category
@@ -299,43 +234,5 @@ int main(int argc, char *argv[]) {
     output.close();
 
     return 0;
-}
-
-UnicodeString preprocessOrth(UnicodeString orth) {
-    orth.findAndReplace("-", " - ");
-    orth.findAndReplace(".", " . ");
-    orth.findAndReplace(",", " , ");
-    orth.findAndReplace("?", " ? ");
-    orth.findAndReplace("!", " ! ");
-    orth.findAndReplace("'", " ' ");
-    orth.findAndReplace("’", " ’ ");
-    orth.findAndReplace("„", " „ ");
-    orth.findAndReplace("”", " ” ");
-    orth.findAndReplace("(", " ( ");
-    orth.findAndReplace(")", " ) ");
-    orth.findAndReplace(":", " : ");
-    orth.findAndReplace("@", " @ ");
-    orth.findAndReplace("/", " / ");
-    orth.findAndReplace("\"", " \" ");
-    orth.findAndReplace("–", " – ");
-    orth.findAndReplace("´", " ´ ");
-    orth.findAndReplace("®", " ® ");
-    orth.findAndReplace("+", " + ");
-    orth.findAndReplace("_", " _ ");
-    orth.findAndReplace("#", " # ");
-
-    while (orth.indexOf("  ") != -1) orth.findAndReplace("  ", " ");
-    orth.trim();
-
-    return orth;
-
-}
-
-UnicodeString preprocessBase(UnicodeString base) {
-    //base.findAndReplace(" - ","-");
-
-    base.findAndReplace("  ", " ");
-    base.trim();
-    return base;
 }
 

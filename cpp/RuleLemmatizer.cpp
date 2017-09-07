@@ -333,7 +333,9 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
         }
     }
 
+
     lemma = Handler::sensitivityModule(lemmas, sentence, kw_category);
+
     lemma.trim();
     return lemma;
 }

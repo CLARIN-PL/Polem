@@ -21,6 +21,8 @@ icu::UnicodeString OrthLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
             lemma.append(" ");
         }
     }
+
+
     lemma = lemma.trim();
     return lemma;
 

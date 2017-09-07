@@ -60,7 +60,9 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
 
     UnicodeString orth;
     for(int i = 0; i < keyword.size(); ++i){
-        orth.append(keyword[i][0]);
+        if (keyword[i][3] == "True") {
+            orth.append(keyword[i][0] + " ");
+        } else orth.append(keyword[i][0]);
     }
 
     UnicodeString name;
@@ -87,14 +89,16 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
         orth = keyword[i][0];
         if((orth.length()==1&&orth.toUpper()==orth)||find(this->copyOrths.begin(),this->copyOrths.end(),orth.toLower())!=this->copyOrths.end()){
             name.append(orth);
+            if (keyword[i][3] == "True")name.append(" ");
         }else if(this->names.find(orth.toLower())!=this->names.end()){
-           if(i>0)name.append(" ");
-                name.append(this->names[orth.toLower()]);
+            name.append(this->names[orth.toLower()]);
+            if (keyword[i][3] == "True")name.append(" ");
         }else {
             name = "";
             break;
         }
     }
+
 
     if(name==""){
         for(int i = 0; i < keyword.size(); ++i){
