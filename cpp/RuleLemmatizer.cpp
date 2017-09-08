@@ -18,9 +18,40 @@ using namespace std;
 using namespace pugi;
 
 
+/*
+Moduł do lematyzacji w oparciu o ręcznie opracowane reguły. Reguły ze zbioru wykonywane są
+        sekwencyjnie i dla pierwszej reguły, która zostanie dopasowana do frazy, generowany jest lemat
+        poprzez zastosowanie określonej dla tej reguły transformacji.
+
+Przykład reguły lematyzacji (z pliku resources/lemmatization-rules.xml):
+
+<rule name="SubstAdj_Pl">
+           and(
+                   inter(nmb[0], {pl}),
+                           inter(class[1],{adj,ppas,pact}),
+inter(class[0],{subst,ger,depr}),
+agrpp(0,1,{nmb,gnd,cas}),
+setvar($Pos1, 0),
+setvar($Pos2, 1),
+setvar($s:Pos1mod, ["cas=nom"]),
+setvar($s:Pos2mod, ["cas=nom"])
+)
+</rule>
+*/
+
 RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, morfeusz::Morfeusz *generator, bool fix,
                                bool useOrthForOov) {
 
+
+    /*
+    Podczas inicjalizacji wczytywane są reguły z pliku rules_filename, a następnie kompilowane.
+    @param rules_filename: plik XML z regułami lematyzacji,
+    @param tagset: tagset w jakim definiowane będą reguły lematyzacji,
+    @param form_generator: obiekt będący generatorem form odmienionych
+    @param debug: tryb debug (domyślnie False). W trybie debug wypisywane są ścieżki do plików
+        pomocnicznych i braki w generatorze form odmienionych.
+    @param words_translations: słownik do podmiany słów
+    */
     this->generator = generator;
     this->useOrthForOov = useOrthForOov;
     this->tagset = tagset;
@@ -39,6 +70,8 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, mor
     file.open(temp);
 
 
+
+    // Wczytaj reguły wccl i operatory
     int rule_no = 0;
     for (xml_node rule = rules.child("rule"); rule; rule = rule.next_sibling("rule")) {
 
@@ -64,6 +97,13 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, mor
 
 icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString>> kw, std::string kw_category) {
 
+
+    /*
+    Lematyzuje podaną frazę.
+    @param keyword: tablica krotek reprezentujących tokeny. Krotka składa się z trzech elementów:
+    (orth, base, ctag)
+    @return: lemat jako obiekt unicode
+    */
 
     char buffer[L_tmpnam];
     tmpnam(buffer);
@@ -92,9 +132,14 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
     } catch (Corpus2::Corpus2Error e) {
         cout << e.what() << endl;
     }
+    boost::shared_ptr<Corpus2::Sentence> sentence;
+    try {
+        sentence = rdr->get_next_sentence();
+    } catch (Corpus2::Corpus2Error e) {
+        return "";
+    }
 
-    boost::shared_ptr<Corpus2::Sentence> sentence = rdr->get_next_sentence();
-
+    //Odpal operatory i znajdź dopasowania
     for (vector<pair<string, boost::shared_ptr<Wccl::FunctionalOperator>>>::iterator it = this->wccl_operators.begin();
          it != this->wccl_operators.end(); ++it) {
 
@@ -107,13 +152,15 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
         Wccl::SentenceContext sc(sentence->clone_shared());
         sc.goto_start();
         string res = it->second->base_apply(sc)->to_string(this->tagset);
-
+        //Spradź, czy reguła została dopasowana i zostały dopasowane wszystkie tokeny
         if (res == "True" && it->second->to_raw_string().find("Pos" + sentence->size()) != string::npos) {
-
+            //Tablica indeksów względnych tokenów tworzących słowo kluczowe
+            //W przypadku fraz o wolnym szyku kolejność słów w lemacie może
+            //być inna niż we frazie wejściowej
             map<int, vector<string> > operationss;
 
             int pos = 1;
-
+            //Szukamy operatorów dla dopasowanej reguły
             unsigned long found = it->second->to_string(this->tagset).find("Pos" + std::to_string(pos));
             while (found != string::npos) {
                 vector<string> operations;
@@ -148,6 +195,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
             lemmas.push_back(it->first.c_str());
         }
         second:
+        //Dopasowany zostaje tylko początek
         if (res == "True" && it->second->to_string(this->tagset).find("PosTail") != string::npos) {
 
             map<int, vector<string> > operationss;
@@ -195,6 +243,9 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
 
 
     }
+
+    //generator zwraca lematy dla różnych dopasowanych reguł
+    // wybieramy najbardziej trafny lemat
     file.close();
     std::remove(buffer);
     if (lemmas.size() > 0) {
@@ -207,8 +258,6 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
                 counter = lemmas[i].size();
                 index = i - 1;
             }
-
-
         }
         if (index == 0) {
             for (int i = 1; i < lemmas.size(); i = i + 2) {
@@ -229,12 +278,22 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
                                             std::vector<icu::UnicodeString> spaces,
                                             std::string kw_category) {
 
+
+    /*
+    Generuje lemat dla frazy.
+    @param sentence: obiekt Sentence reprezentujący frazę
+    @param positions: kolejność słów ze zdania
+    @param operations:
+    @param spaces: informacja, czy przed kolejnymi słowami występuje spacja
+    */
+
     bool keepuc;
 
     keepuc = kw_category == "nam" || kw_category.find("nam_") == (size_t) 0;
 
     vector<icu::UnicodeString> lemmas;
     vector<bool> lemmaspaces;
+    UnicodeString lemma = "";
 
     for (map<int, vector<string> >::iterator it = operations.begin(); it != operations.end(); ++it) {
 
@@ -252,6 +311,7 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
 
         Corpus2::Tag tag;
         try {
+            //Wartość początkowa tagu
             tag = token->get_preferred_lexeme(this->tagset).tag();
         } catch (exception e) {
             //    cout<<e.what();
@@ -259,12 +319,19 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
 
         for (vector<string>::iterator itt = it->second.begin(); itt != it->second.end(); ++itt) {
             if ((*itt) != "") {
+
+                //szukaj operatorów typu attr=val
                 string attr = (*itt).substr(0, (*itt).find("="));
                 string val = (*itt).substr((*itt).find("=") + 1);
 
                 attr = attr.substr(attr.find('\"') + 1);
                 val = val.substr(0, val.find("\""));
                 if (val.find("=") == string::npos) {
+
+                    //Ustawia wartość dla wskazanego atrybutu
+                    //tag - tag do modyfikacji
+                    //gan - wartość atrybutu
+                    //mask - maska atrybuty
                     Corpus2::Tag tag_mask = get_attribute_mask(this->tagset, attr);
                     Corpus2::Tag tag_val = this->tagset.parse_symbol_string(val);
                     tag = Corpus2::with_values_masked(tag, tag_val, tag_mask);
@@ -276,6 +343,7 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
 
         icu::UnicodeString base;
         try {
+            //Dokonaj transformacji formy bazowej zgodnie z określonymi operatorami
             base = token->get_preferred_lexeme(this->tagset).lemma();
         } catch (exception e) {
             //    cout<<e.what();
@@ -308,23 +376,19 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
                 token->orth().endsWith("a")) {
                 form = res.front().lemma.c_str();
             }
-
-
         }
         if (form == "") {
             if (this->useOrthForOov) {
+                //Jeżeli useOrthForOov=False to dla słowa, dla którego nie można zwrócić formy odmienionej zwraca None
                 form = token->orth();
             } else {
                 return "";
             }
         }
 
-
         lemmas.push_back(form);
-
-
     }
-    UnicodeString lemma = "";
+
 
     if (sentence->tokens().size() > lemmas.size()) {
         for (int i = lemmas.size(); i < sentence->tokens().size(); ++i) {
@@ -334,7 +398,10 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
     }
 
 
-    lemma = Handler::sensitivityModule(lemmas, sentence, kw_category);
+    for (int i = 0; i < lemmas.size(); ++i) {
+        lemma.append(lemmas[i]);
+        if (spaces[i] == "True") lemma.append(" ");
+    }
 
     lemma.trim();
     return lemma;

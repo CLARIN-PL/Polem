@@ -95,8 +95,8 @@ printResults(ofstream &output, map<string, pair<int, int> > tfByMethod, map<stri
     }
     output << "Success: " << cats << " Failure: " << catf << endl;
     output << "Percentage: " << acc(cats, catf) << "%" << endl;
-    cout << cats << " " << catf << endl;
-    cout << acc(cats, catf) << endl;
+    cout << "Success: " << cats << " Failure: " << catf << endl;
+    cout << "Percentage: " << acc(cats, catf) << "%" << endl;
 }
 
 
@@ -117,8 +117,8 @@ int main(int argc, char *argv[]) {
     // string is keyword, pair of ints is amount of success and failure in lemmatization
 
     const Corpus2::Tagset &tagset = Corpus2::get_named_tagset(argTagset);
-    CascadeLemmatizer cascadeLemmatizer = assembleLemmatizer(pathname, tagset);
 
+    CascadeLemmatizer cascadeLemmatizer = assembleLemmatizer(pathname, tagset);
 
     ifstream infile(pathname.c_str());
 
@@ -148,29 +148,28 @@ int main(int argc, char *argv[]) {
         UErrorCode status = U_ZERO_ERROR;
         RegexMatcher m("\\t", 0, status);
         const int maxWords = 6;
-        UnicodeString filds[6];
+        UnicodeString fields[6];
 
-        int numWords = m.split(lin, filds, maxWords, status);
+        int numWords = m.split(lin, fields, maxWords, status);
 
         if (numWords < 4)continue;
-        UnicodeString kwrd = filds[0].trim();
-        UnicodeString kwrd_orth = filds[1].trim();
-        UnicodeString kwrd_base = filds[2].trim();
-        UnicodeString kwrd_ctag = filds[3].trim();
+        UnicodeString kwrd = fields[0].trim();
+        UnicodeString kwrd_orth = fields[1].trim();
+        UnicodeString kwrd_base = fields[2].trim();
+        UnicodeString kwrd_ctag = fields[3].trim();
         UnicodeString kwrd_spaces;
         if (numWords < 5) kwrd_spaces = "";
         else {
-            kwrd_spaces = filds[4].trim();
+            kwrd_spaces = fields[4].trim();
         }
         string kwrd_category;
         if (numWords < 6) kwrd_category = "";
         else {
-            filds[5].findAndReplace("\tnull", "");
-            filds[5].trim().toUTF8String(kwrd_category);
+            fields[5].findAndReplace("\tnull", "");
+            fields[5].trim().toUTF8String(kwrd_category);
         }
 
         UnicodeString lemma = cascadeLemmatizer.lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, kwrd_category);
-
 
         string view = globalMethod;
         string lemmaprnt;
@@ -191,7 +190,6 @@ int main(int argc, char *argv[]) {
             lemma.findAndReplace(" ", "");
             kwrd.findAndReplace(" ", "");
         }
-        //handling case and space sensitivity options
 
         if (lemma == kwrd) { // success
             if (tfByMethod.count(globalMethod) > 0) { // method found in structure

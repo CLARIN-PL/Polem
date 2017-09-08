@@ -16,6 +16,7 @@ icu::UnicodeString OrthLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
     //orth lemmatizer returns input
 
     for(int i = 0 ; i < keyword.size() ; ++i){
+
         lemma.append(keyword[i][0]);
         if (keyword[i][3] == "True") {
             lemma.append(" ");

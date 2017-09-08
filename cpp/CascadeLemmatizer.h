@@ -12,11 +12,10 @@
 #include "OrthLemmatizer.h"
 #include <string>
 #include <vector>
-#include "Handler.h"
+
 
 
 extern std::string globalMethod;
-
 
 class CascadeLemmatizer{
 
@@ -33,7 +32,9 @@ class CascadeLemmatizer{
     std::vector<std::vector<UnicodeString>> chopInput(UnicodeString kwrd_orth, UnicodeString kwrd_base,
                                                       UnicodeString kwrd_ctag, UnicodeString kwrd_spaces);
 
-    UnicodeString foldOutput(UnicodeString lemma, std::vector<std::vector<UnicodeString>> kw);
+    UnicodeString foldOutput(UnicodeString lemma, std::vector<std::vector<UnicodeString>> kw, std::string kw_category);
+
+    UnicodeString filter(std::vector<std::vector<UnicodeString>> kw, UnicodeString lemma, std::string kw_category);
 
 public:
     CascadeLemmatizer(std::string pathname, Corpus2::Tagset tagset, morfeusz::Morfeusz *generator,
