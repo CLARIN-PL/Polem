@@ -2,6 +2,7 @@
 #include <libcorpus2/tagsetmanager.h>
 #include <fstream>
 #include <unicode/regex.h>
+#include <iomanip>
 #include "CascadeLemmatizer.h"
 
 
@@ -74,29 +75,80 @@ double acc(int tru, int fals) {
 }
 
 void
-printResults(ofstream &output, map<string, pair<int, int> > tfByMethod, map<string, pair<int, int> > tfByCategory) {
+printResults(ofstream &output, map<string, pair<int, int> > tfByMethod, map<string, pair<int, int> > tfByCategory,
+             int count) {
     int cats = 0, catf = 0;
     int ms = 0, mf = 0;
-    for (map<string, pair<int, int> >::iterator it = tfByCategory.begin(); it != tfByCategory.end(); ++it) {
-        cout << it->first << "\t" << " Success: " << it->second.first << "\t" << " Fail: " << it->second.second << "\t"
-             << " Percentage: " << acc(it->second.first, it->second.second) << endl;
-        output << it->first << "\t" << " Success: " << it->second.first << "\t" << " Fail: " << it->second.second
-               << "\t" << " Percentage: " << acc(it->second.first, it->second.second) << endl;
-        cats = cats + it->second.first;
-        catf = catf + it->second.second;
-    }
+    output << "------------------------------------------------------------" << endl;
+    output << "# Evaluation by method" << endl;
+    output << "%------------------------------------------------------------" << endl;
+    output << "\\hline" << endl;
+    output << "True &     False &     Acc &     Method &&     Coverage \\" << endl;
+    output << "%------------------------------------------------------------" << endl;
+    output << "\\hline" << endl;
+    cout << "------------------------------------------------------------" << endl;
+    cout << "# Evaluation by method" << endl;
+    cout << "%------------------------------------------------------------" << endl;
+    cout << "\\hline" << endl;
+    cout << "True &     False &     Acc &     Method &&     Coverage \\" << endl;
+    cout << "%------------------------------------------------------------" << endl;
+    cout << "\\hline" << endl;
+
     for (map<string, pair<int, int> >::iterator it = tfByMethod.begin(); it != tfByMethod.end(); ++it) {
-        cout << it->first << "\t" << " Success: " << it->second.first << "\t" << " Fail: " << it->second.second << "\t"
-             << " Percentage: " << acc(it->second.first, it->second.second) << endl;
-        output << it->first << "\t" << " Success: " << it->second.first << "\t" << " Fail: " << it->second.second
-               << "\t" << " Percentage: " << acc(it->second.first, it->second.second) << endl;
+        output << it->second.first << " &     " << it->second.second << " &     "
+               << acc(it->second.first, it->second.second) << " &     " << it->first << " &     "
+               << acc(it->second.first + it->second.second, count) << "%" << "\\" << endl;
+        cout << it->second.first << " &     " << it->second.second << " &     "
+             << acc(it->second.first, it->second.second) << " &     " << it->first << " &     "
+             << acc(it->second.first + it->second.second, count) << "%" << "\\" << endl;
         ms = ms + it->second.first;
         mf = mf + it->second.second;
     }
-    output << "Success: " << cats << " Failure: " << catf << endl;
-    output << "Percentage: " << acc(cats, catf) << "%" << endl;
-    cout << "Success: " << cats << " Failure: " << catf << endl;
-    cout << "Percentage: " << acc(cats, catf) << "%" << endl;
+    output << "%------------------------------------------------------------" << endl;
+    output << "\\hline" << endl;
+    output << ms << " &     " << mf << " &     " << acc(ms, mf) << "% &     Total                    \\" << endl;
+    output << "%------------------------------------------------------------" << endl;
+    output << "\\hline" << endl;
+    output << "------------------------------------------------------------" << endl;
+    output << "# Evaluation by keyword category" << endl;
+    output << "%------------------------------------------------------------" << endl;
+    output << "\\hline" << endl;
+    output << "True &     False &     Acc &     Method &&     Coverage \\" << endl;
+    output << "%------------------------------------------------------------" << endl;
+    output << "\\hline" << endl;
+    cout << "%------------------------------------------------------------" << endl;
+    cout << "\\hline" << endl;
+    cout << ms << " &     " << mf << " &     " << acc(ms, mf) << "% &     Total                    \\" << endl;
+    cout << "%------------------------------------------------------------" << endl;
+    cout << "\\hline" << endl;
+    cout << "------------------------------------------------------------" << endl;
+    cout << "# Evaluation by keyword category" << endl;
+    cout << "%------------------------------------------------------------" << endl;
+    cout << "\\hline" << endl;
+    cout << "True &     False &     Acc &     Method &&     Coverage \\" << endl;
+    cout << "%------------------------------------------------------------" << endl;
+    cout << "\\hline" << endl;
+    for (map<string, pair<int, int> >::iterator it = tfByCategory.begin(); it != tfByCategory.end(); ++it) {
+        output << it->second.first << " &     " << it->second.second << " &     "
+               << acc(it->second.first, it->second.second) << " &     " << it->first << " &     "
+               << acc(it->second.first + it->second.second, count) << "%" << "\\" << endl;
+        cout << it->second.first << " &     " << it->second.second << " &     "
+             << acc(it->second.first, it->second.second) << " &     " << it->first << " &     "
+             << acc(it->second.first + it->second.second, count) << "%" << "\\" << endl;
+        cats = cats + it->second.first;
+        catf = catf + it->second.second;
+    }
+    output << "%------------------------------------------------------------" << endl;
+    output << "\\hline" << endl;
+    output << cats << " &     " << catf << " &     " << acc(cats, catf) << "% &     Total                    \\"
+           << endl;
+    output << "%------------------------------------------------------------" << endl;
+    output << "\\hline" << endl;
+    cout << "%------------------------------------------------------------" << endl;
+    cout << "\\hline" << endl;
+    cout << cats << " &     " << catf << " &     " << acc(cats, catf) << "% &     Total                    \\" << endl;
+    cout << "%------------------------------------------------------------" << endl;
+    cout << "\\hline" << endl;
 }
 
 
@@ -122,7 +174,7 @@ int main(int argc, char *argv[]) {
 
     ifstream infile(pathname.c_str());
 
-    int line_no = 0;
+    int line_no = 1;
     if (pathname.find("/") != string::npos) {
         pathname = pathname.substr(pathname.find("/") + 1);
     }
@@ -140,6 +192,12 @@ int main(int argc, char *argv[]) {
     output.open(outname);
 
     string line;
+
+    output << setprecision(3) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t" << "Expected"
+           << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
+    cout << setprecision(3) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t" << "Expected"
+         << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
+
     while (getline(infile, line, '\n')) {
         //line by line reading file
         //keyword \t orth \t base \t tag \t spaces \t category \n
@@ -174,13 +232,15 @@ int main(int argc, char *argv[]) {
         //string view = globalMethod;
         string lemmaprnt;
         lemma.toUTF8String(lemmaprnt);
-        string kwrdprnt, ctagprnt;
+        string kwrdprnt, ctagprnt, orthprnt, basesprnt;
         while (kwrd.indexOf("  ") != -1 || kwrd.indexOf("\t") != -1) {
             kwrd.findAndReplace("  ", " ");
             kwrd.findAndReplace("\t", " ");
         }
         kwrd.toUTF8String(kwrdprnt);
         kwrd_ctag.toUTF8String(ctagprnt);
+        kwrd_orth.toUTF8String(orthprnt);
+        kwrd_base.toUTF8String(basesprnt);
 
         if (caseInsensitive) {
             lemma = lemma.toLower();
@@ -203,10 +263,12 @@ int main(int argc, char *argv[]) {
                 tfByCategory.insert(make_pair(kwrd_category, make_pair(1, 0)));
             }
             output.clear();
-            cout << line_no << "\t" << "TRUE" << "\t" << lemmaprnt << "\t" << kwrdprnt << "\t" << kwrd_category
-                 << "\t" << globalMethod << "\t" << ctagprnt << endl;
-            output << line_no << "\t" << "TRUE" << "\t" << lemmaprnt << "\t" << kwrdprnt << "\t" << kwrd_category
-                   << "\t" << globalMethod << "\t" << ctagprnt << endl;
+            output << "[" << line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
+                   << kwrdprnt << "\t" << kwrd_category
+                   << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << endl;
+            cout << "[" << line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt << "\t" << kwrdprnt
+                 << "\t" << kwrd_category
+                 << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << endl;
         } else { // failure
             if (tfByMethod.count(globalMethod) > 0) {
                 tfByMethod[globalMethod].second++;
@@ -219,14 +281,16 @@ int main(int argc, char *argv[]) {
                 tfByCategory.insert(make_pair(kwrd_category, make_pair(0, 1)));
             }
             output.clear();
-            cout << line_no << "\t\t" << "FALSE" << "\t\t" << lemmaprnt << "\t\t" << kwrdprnt << "\t\t"
-                 << kwrd_category << "\t\t" << globalMethod << "\t\t" << ctagprnt << endl;
-            output << line_no << "\t" << "FALSE" << "\t" << lemmaprnt << "\t" << kwrdprnt << "\t" << kwrd_category
-                   << "\t" << globalMethod << "\t" << ctagprnt << endl;
+            output << "[" << line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
+                   << kwrdprnt << "\t" << kwrd_category
+                   << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << endl;
+            cout << "[" << line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
+                 << kwrdprnt << "\t" << kwrd_category
+                 << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << endl;
         }
         line_no++;
     }
-    printResults(output, tfByMethod, tfByCategory);
+    printResults(output, tfByMethod, tfByCategory, line_no);
 
     infile.close();
     output.close();
