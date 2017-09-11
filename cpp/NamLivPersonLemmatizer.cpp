@@ -72,6 +72,8 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
 
     UnicodeString name;
 
+    string view;
+    keyword[0][1].toUTF8String(view);
     // Wymuszone lematy dla jednowyrazowych nazw
     if (keyword.size() == 1 && find(this->forceSingleBases.begin(), this->forceSingleBases.end(), keyword[0][1]) !=
                                this->forceSingleBases.end()) {
@@ -87,6 +89,7 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
             UnicodeString tmp = keyword[2][0];
             if (find(this->inflectionEndings.begin(), this->inflectionEndings.end(), tmp.toLower()) !=
                 this->inflectionEndings.end()) {
+                globalMethod = "NamLivPersonLemmatizer::Dictionary";
                 return keyword[0][0];
             }
         }
@@ -123,9 +126,6 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
 
     if(name==""){
         for(int i = 0; i < keyword.size(); ++i){
-            string view1, view2;
-            keyword.at(i).at(2).toUTF8String(view1);
-            keyword[i][0].toUTF8String(view2);
             UnicodeString lemma = this->inflection.generate_base(keyword.at(i).at(2), keyword.at(i).at(0));
             if(lemma==""){
                 return lemma;

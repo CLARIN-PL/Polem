@@ -268,9 +268,8 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
                         possible_form.append((*it2)[1]);
                     }
                     if (stoi(comp) > maxCount) {
-                        string view;
+
                         maxCount = stoi(comp);
-                        possible_form.toUTF8String(view);
                         base = possible_form;
                     }
                 }

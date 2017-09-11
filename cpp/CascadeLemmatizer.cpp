@@ -36,7 +36,7 @@ CascadeLemmatizer::filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::
             }
         }
     }
-    //handling current dictionary mistakes
+    //poprawianie błędów słownika
 
 
     if (lemma.endsWith("ii") && lemma.indexOf(" ") == -1) {
@@ -57,16 +57,15 @@ CascadeLemmatizer::filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::
         lemma.findAndReplace("em", "");
     }
     lemma.findAndReplace(" 's", "'s ");
-    if (kw_category == "nam_pro_media_web" &&
+    if ((kw_category == "nam_pro_media_web" || kw_category == "nam_oth_www") &&
         (lemma.indexOf(".pl") != -1 || lemma.indexOf(".com") != -1 || lemma.indexOf(".org") != -1 ||
-         lemma.indexOf(".us") != -1)) {
+         lemma.indexOf(".us") != -1 || lemma.indexOf(".net") != -1 || lemma.indexOf("http") == 0)) {
         lemma.findAndReplace(" ", "");
     }
-    if (lemma.indexOf(".pl"))
 
-        if (lemma.indexOf("'") + 3 > lemma.length() && lemma.indexOf("'") != -1) {
+    if (lemma.indexOf("'") + 3 > lemma.length() && lemma.indexOf("'") != -1) {
             lemma.extractBetween(0, lemma.indexOf("'"), lemma);
-        }
+    }
 
     if (lemma.indexOf("’") + 3 > lemma.length() && lemma.indexOf("’") != -1) {
         lemma.extractBetween(0, lemma.indexOf("’"), lemma);
@@ -83,8 +82,8 @@ CascadeLemmatizer::filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::
 
 UnicodeString CascadeLemmatizer::preprocessOrth(UnicodeString orth) {
 
-    //adding whitespaces between tokens because
-    //each special char is a token
+    //dodanie przerw przy każdym znaku specjalnym
+    //bo kazdy jest tokenem
 
     orth.findAndReplace("-", " - ");
     orth.findAndReplace(".", " . ");
@@ -117,8 +116,6 @@ UnicodeString CascadeLemmatizer::preprocessOrth(UnicodeString orth) {
 vector<vector<UnicodeString>>
 CascadeLemmatizer::chopInput(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag,
                              UnicodeString kwrd_spaces) {
-
-    //processing input line into values
 
     kwrd_orth = preprocessOrth(kwrd_orth);
 
@@ -160,8 +157,6 @@ UnicodeString CascadeLemmatizer::foldOutput(UnicodeString lemma, vector<vector<U
     //&&
     //handling lemma case based on input orths
 
-    string view;
-    lemma.toUTF8String(view);
 
     UErrorCode status = U_ZERO_ERROR;
     RegexMatcher rm("\\s", 0, status);
@@ -181,20 +176,25 @@ UnicodeString CascadeLemmatizer::foldOutput(UnicodeString lemma, vector<vector<U
         int ii = 0;
         for (ii = 0; ii < outlemmas[i].length(); ++ii) {
 
-            wchar_t inlowchar, outlowchar;
+            wchar_t inlowchar, outlowchar, outcapitalchar;
             UnicodeString xyz = kw[i][0];
             inlowchar = xyz.toLower().charAt(ii);
             outlowchar = outlemmas[i].toLower().charAt(ii);
+            //outcapitalchar = outlemmas[i].toUpper().charAt(ii);
 
             if (kw_category.find("nam_adj") == 0) {
-                lemma.append(outlemmas[i].charAt(ii));
+                lemma.append(outlowchar);
             } else if (kw[i][0].charAt(ii) == outlemmas[i].charAt(ii)) {
                 lemma.append(outlemmas[i].charAt(ii));
             } else if (outlowchar == inlowchar && kw_category.find("nam_adj") != 0) {
                 lemma.append(kw[i][0].charAt(ii));
             } else {
                 lemma.append(outlemmas[i].charAt(ii));
-            }
+            }/* else if (rank>0.5){
+                lemma.append(outcapitalchar);
+            } else if (rank > 0.05 && ii == 0){
+                lemma.append(outcapitalchar);
+            } else (lemma.append(outlowchar));*/
         }
 
         if (kw[i][3] == "True") {

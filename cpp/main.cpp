@@ -171,7 +171,7 @@ int main(int argc, char *argv[]) {
 
         UnicodeString lemma = cascadeLemmatizer.lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, kwrd_category);
 
-        string view = globalMethod;
+        //string view = globalMethod;
         string lemmaprnt;
         lemma.toUTF8String(lemmaprnt);
         string kwrdprnt, ctagprnt;
@@ -203,8 +203,8 @@ int main(int argc, char *argv[]) {
                 tfByCategory.insert(make_pair(kwrd_category, make_pair(1, 0)));
             }
             output.clear();
-            //cout << line_no << "\t" << "TRUE" << "\t" << lemmaprnt << "\t" << kwrdprnt << "\t" << kwrd_category
-            //      << "\t" << globalMethod << "\t" << ctagprnt << endl;
+            cout << line_no << "\t" << "TRUE" << "\t" << lemmaprnt << "\t" << kwrdprnt << "\t" << kwrd_category
+                 << "\t" << globalMethod << "\t" << ctagprnt << endl;
             output << line_no << "\t" << "TRUE" << "\t" << lemmaprnt << "\t" << kwrdprnt << "\t" << kwrd_category
                    << "\t" << globalMethod << "\t" << ctagprnt << endl;
         } else { // failure
