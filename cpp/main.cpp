@@ -59,7 +59,9 @@ CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tag
     inflectionNamLoc.loadInflectionRules("inflection_nam_loc.txt");
     //loading rules for inflection
 
+
     morfeusz::Morfeusz *generator = morfeusz::Morfeusz::createInstance(morfeusz::GENERATE_ONLY);
+
 
     return CascadeLemmatizer(pathname, tagset, generator, dictionaryItems, inflection,
                              inflectionNamLoc);
@@ -225,6 +227,10 @@ int main(int argc, char *argv[]) {
         else {
             fields[5].findAndReplace("\tnull", "");
             fields[5].trim().toUTF8String(kwrd_category);
+        }
+
+        if (line_no == 59 || line_no == 38) {
+            cout << "";
         }
 
         UnicodeString lemma = cascadeLemmatizer.lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, kwrd_category);

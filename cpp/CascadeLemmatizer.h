@@ -14,7 +14,6 @@
 #include <vector>
 
 
-
 extern std::string globalMethod;
 
 class CascadeLemmatizer{

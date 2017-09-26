@@ -29,7 +29,8 @@ class RuleLemmatizer {
                                 std::vector<icu::UnicodeString> spaces, std::string kw_category);
 
 public:
-    RuleLemmatizer(std::string rulespathname,Corpus2::Tagset tagset,morfeusz::Morfeusz *generator, bool fix,bool useOrthForOov);
+    RuleLemmatizer(std::string rulespathname, Corpus2::Tagset tagset, morfeusz::Morfeusz *generator, bool fix,
+                   bool useOrthForOov);
 
     icu::UnicodeString lemmatize(std::vector<std::vector<icu::UnicodeString>> kw, std::string kw_category);
 

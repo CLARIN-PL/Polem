@@ -132,7 +132,13 @@ CascadeLemmatizer::chopInput(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
     UnicodeString ctags[numWords];
     rm.split(kwrd_ctag, ctags, numWords, status);
     UnicodeString spaces[numWords];
-    rm.split(kwrd_spaces, spaces, numWords, status);
+    if (kwrd_spaces != "") {
+        rm.split(kwrd_spaces, spaces, numWords, status);
+    } else {
+        for (int i = 0; i < numWords; ++i) {
+            spaces[i] = "True";
+        }
+    }
     //multiword orth
 
     vector<vector<UnicodeString> > kw;
@@ -206,8 +212,10 @@ UnicodeString CascadeLemmatizer::foldOutput(UnicodeString lemma, vector<vector<U
 
 }
 
-CascadeLemmatizer::CascadeLemmatizer(string pathname, Corpus2::Tagset tagset, morfeusz::Morfeusz* generator,map<UnicodeString,
-        pair<UnicodeString, UnicodeString> > dictionaryItems,Inflection inflection,Inflection inflectionNamLoc):
+CascadeLemmatizer::CascadeLemmatizer(string pathname, Corpus2::Tagset tagset, morfeusz::Morfeusz *generator,
+                                     map<UnicodeString,
+                                             pair<UnicodeString, UnicodeString> > dictionaryItems,
+                                     Inflection inflection, Inflection inflectionNamLoc) :
         nelexLemmatizer("nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt",true),
         ruleLemmatizer(std::move(pathname), std::move(tagset), generator, true, true),
         morfGeoLemmatizer("sgjp-20160310-geograficzne.tab", false),
@@ -268,7 +276,7 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
 
     lemma = foldOutput(lemma, kw, kw_category);
 
-    lemma = filter(kw, lemma, kw_category);
+    //lemma = filter(kw, lemma, kw_category);
     //filter the results, adding few % points
 
     return lemma.trim();

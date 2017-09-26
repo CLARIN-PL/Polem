@@ -186,7 +186,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
             }
             icu::UnicodeString lemma;
             lemma = this->generate(sentence, operationss, spaces, kw_category);
-            if (lemma == "")goto second;
+            if (lemma == "")return "";
             string err;
             lemma.toUTF8String(err);
             //file.close();
@@ -233,7 +233,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
 
             icu::UnicodeString lemma;
             lemma = this->generate(sentence, operationss, spaces, kw_category);
-            if (lemma == "")continue;
+            if (lemma == "")return "";
             string err;
             lemma.toUTF8String(err);
             //file.close();
@@ -331,7 +331,7 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
                     //Ustawia wartość dla wskazanego atrybutu
                     //tag - tag do modyfikacji
                     //gan - wartość atrybutu
-                    //mask - maska atrybuty
+                    //mask - maska atrybuty,
                     Corpus2::Tag tag_mask = get_attribute_mask(this->tagset, attr);
                     Corpus2::Tag tag_val = this->tagset.parse_symbol_string(val);
                     tag = Corpus2::with_values_masked(tag, tag_val, tag_mask);
@@ -349,32 +349,54 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
             //    cout<<e.what();
         }
 
+
         vector<morfeusz::MorphInterpretation> res;
         string ctag;
         string basestr;
         try {
+            int ctagID;
+            base.findAndReplace(" ", "");
             base.toUTF8String(basestr);
             ctag = this->tagset.tag_to_string(tag);
-            //   int tagId = this->generator->getIdResolver().getTagId(ctag);
-            this->generator->generate(basestr, res);
-            //   this->generator->generate(basestr,this->generator->getIdResolver().getTagId(ctag),res);
-        } catch (morfeusz::MorfeuszException e) {
-            //       cout<<e.what()<<endl<<ctag<<" "<<basestr<<endl;
+            ctagID = this->generator->getIdResolver().getTagId(ctag);
+
+            this->generator->generate(basestr, ctagID, res);
+            // ctagID = gen->getIdResolver().getTagId(ctag);
+            // ctagID = gen->getIdResolver().getTagId(ctag);
+            // this->generator->generate(basestr,ctagID,res);
+
+            cout << "";
+        } catch (morfeusz::MorfeuszException &e) {
+            //           cout<<e.what()<<endl<<ctag<<" "<<basestr<<endl;
         }
 
         UnicodeString form = "";
         if (res.size() > 0) {
 
-            double var = 0;
+            if (res.size() > 1) {
+                cout << endl;
+            }
+
+            bool found = false;
+            for (auto &it:res) {
+                if (orth == it.orth.c_str() || orth.toLower() == it.orth.c_str()) {
+                    form = orth;
+                    found = !found;
+                }
+            }
+            if (!found) {
+                form = res[0].orth.c_str();
+            }
+            /*double var = 0;
             for (auto kek:res) {
                 var = evaluateSharedTag(kek.getTag(*generator), ctag);
                 if (var == 100) {
                     form = kek.orth.c_str();
                 }
-            }
+            }*/
             if (res.size() == 1 && res.front().tagId == 0 && ctag.find("m1") != string::npos &&
                 token->orth().endsWith("a")) {
-                form = res.front().lemma.c_str();
+                form = res.front().orth.c_str();
             }
         }
         if (form == "") {
@@ -400,7 +422,9 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
 
     for (int i = 0; i < lemmas.size(); ++i) {
         lemma.append(lemmas[i]);
-        if (spaces[i] == "True") lemma.append(" ");
+        if (spaces[i] == "True") {
+            lemma.append(" ");
+        }
     }
 
     lemma.trim();
