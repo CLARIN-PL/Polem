@@ -229,7 +229,7 @@ int main(int argc, char *argv[]) {
             fields[5].trim().toUTF8String(kwrd_category);
         }
 
-        if (line_no == 59 || line_no == 38) {
+        if (line_no == 99 || line_no == 69) {
             cout << "";
         }
 
@@ -238,7 +238,10 @@ int main(int argc, char *argv[]) {
         //string view = globalMethod;
         string lemmaprnt;
         lemma.toUTF8String(lemmaprnt);
-        string kwrdprnt, ctagprnt, orthprnt, basesprnt;
+        string kwrdprnt;
+        string ctagprnt;
+        string orthprnt;
+        string basesprnt;
         while (kwrd.indexOf("  ") != -1 || kwrd.indexOf("\t") != -1) {
             kwrd.findAndReplace("  ", " ");
             kwrd.findAndReplace("\t", " ");

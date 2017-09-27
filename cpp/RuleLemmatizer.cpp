@@ -153,7 +153,8 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
         sc.goto_start();
         string res = it->second->base_apply(sc)->to_string(this->tagset);
         //Spradź, czy reguła została dopasowana i zostały dopasowane wszystkie tokeny
-        if (res == "True" && it->second->to_raw_string().find("Pos" + sentence->size()) != string::npos) {
+        if (res == "True" &&
+            it->second->to_string(this->tagset).find("Pos" + to_string(sentence->tokens().size())) != string::npos) {
             //Tablica indeksów względnych tokenów tworzących słowo kluczowe
             //W przypadku fraz o wolnym szyku kolejność słów w lemacie może
             //być inna niż we frazie wejściowej
@@ -184,15 +185,11 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
                 pos++;
                 found = it->second->to_string(this->tagset).find("Pos" + to_string(pos));
             }
-            icu::UnicodeString lemma;
-            lemma = this->generate(sentence, operationss, spaces, kw_category);
-            if (lemma == "")return "";
-            string err;
-            lemma.toUTF8String(err);
-            //file.close();
-
-            lemmas.push_back(err);
-            lemmas.push_back(it->first.c_str());
+            icu::UnicodeString lemma = this->generate(sentence, operationss, spaces, kw_category);
+            if (lemma != "") {
+                globalMethod = "RuleLemmatizer::" + it->first;
+            }
+            return lemma;
         }
         second:
         //Dopasowany zostaje tylko początek
@@ -231,46 +228,16 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
                 operationss.insert(make_pair(i, operations));
             }
 
-            icu::UnicodeString lemma;
-            lemma = this->generate(sentence, operationss, spaces, kw_category);
-            if (lemma == "")return "";
-            string err;
-            lemma.toUTF8String(err);
-            //file.close();
-            lemmas.push_back(err);
-            lemmas.push_back(it->first.c_str());
+            icu::UnicodeString lemma = this->generate(sentence, operationss, spaces, kw_category);
+            if (lemma != "") {
+                globalMethod = "RuleLemmatizer::" + it->first;
+            }
+            return lemma;
         }
 
 
     }
 
-    //generator zwraca lematy dla różnych dopasowanych reguł
-    // wybieramy najbardziej trafny lemat
-    file.close();
-    std::remove(buffer);
-    if (lemmas.size() > 0) {
-        unsigned long counter = 0;
-        int index = 0;
-        for (int i = 1; i < lemmas.size(); i = i + 2) {
-
-            //TODO ZNALEZC LEPSZY ALGORYTM WYBIERANIA REGUŁY
-            if (lemmas[i].find("Fix") != string::npos || lemmas[i].find("Flex") != string::npos) {
-                counter = lemmas[i].size();
-                index = i - 1;
-            }
-        }
-        if (index == 0) {
-            for (int i = 1; i < lemmas.size(); i = i + 2) {
-                if (lemmas[i].size() > 14) {
-                    counter = lemmas[i].size();
-                    index = i - 1;
-                }
-
-            }
-        }
-        globalMethod = "RuleLemmatizer::" + lemmas[index + 1];
-        return lemmas[index].c_str();
-    }
     return "";
 }
 
@@ -301,7 +268,7 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
         Corpus2::Token *token = sentence->tokens()[position - 1];
 
         icu::UnicodeString orth = token->orth();
-        if (spaces[position - 1] == "t") {
+        if (spaces[position - 1] == "True") {
             lemmaspaces.push_back(true);
         } else {
             lemmaspaces.push_back(false);
@@ -336,8 +303,6 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
                     Corpus2::Tag tag_val = this->tagset.parse_symbol_string(val);
                     tag = Corpus2::with_values_masked(tag, tag_val, tag_mask);
                 }
-            } else {
-                continue;
             }
         }
 
@@ -361,9 +326,6 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
             ctagID = this->generator->getIdResolver().getTagId(ctag);
 
             this->generator->generate(basestr, ctagID, res);
-            // ctagID = gen->getIdResolver().getTagId(ctag);
-            // ctagID = gen->getIdResolver().getTagId(ctag);
-            // this->generator->generate(basestr,ctagID,res);
 
             cout << "";
         } catch (morfeusz::MorfeuszException &e) {
@@ -372,82 +334,39 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
 
         UnicodeString form = "";
         if (res.size() > 0) {
-
-            if (res.size() > 1) {
-                cout << endl;
-            }
-
-            bool found = false;
+            UnicodeString capital = orth;
             for (auto &it:res) {
-                if (orth == it.orth.c_str() || orth.toLower() == it.orth.c_str()) {
+                if (orth.toLower() == it.orth.c_str()) {
                     form = orth;
-                    found = !found;
+                    break;
                 }
             }
-            if (!found) {
-                form = res[0].orth.c_str();
-            }
-            /*double var = 0;
-            for (auto kek:res) {
-                var = evaluateSharedTag(kek.getTag(*generator), ctag);
-                if (var == 100) {
-                    form = kek.orth.c_str();
-                }
-            }*/
-            if (res.size() == 1 && res.front().tagId == 0 && ctag.find("m1") != string::npos &&
-                token->orth().endsWith("a")) {
+            if (form != orth) {
                 form = res.front().orth.c_str();
+            }
+            if (keepuc && orth.charAt(0) != capital.charAt(0)) {
+                UnicodeString tmp = form;
+                tmp.toUpper();
+                form = tmp.charAt(0) + form.tempSubStringBetween(1, form.length());
             }
         }
         if (form == "") {
             if (this->useOrthForOov) {
-                //Jeżeli useOrthForOov=False to dla słowa, dla którego nie można zwrócić formy odmienionej zwraca None
                 form = token->orth();
             } else {
                 return "";
             }
         }
-
-        lemmas.push_back(form);
+        lemmas.emplace_back(form);
     }
-
-
-    if (sentence->tokens().size() > lemmas.size()) {
-        for (int i = lemmas.size(); i < sentence->tokens().size(); ++i) {
-
-            lemmas.push_back(sentence->tokens()[i]->orth());
-        }
-    }
-
-
     for (int i = 0; i < lemmas.size(); ++i) {
         lemma.append(lemmas[i]);
-        if (spaces[i] == "True") {
+        if (lemmaspaces[i]) {
             lemma.append(" ");
         }
     }
+    string err = "";
+    lemma.toUTF8String(err);
 
-    lemma.trim();
     return lemma;
 }
-
-double RuleLemmatizer::evaluateSharedTag(const std::string &generatorTag, std::string cTag) {
-
-    int result = 0;
-    string abc = generatorTag;
-    vector<string> tags;
-    boost::split(tags, cTag, boost::is_any_of(":"));
-    for (const auto &kek:tags) {
-        if (abc.find(":" + kek + ":") != string::npos) result++;
-        else if (abc.find("." + kek + ":") != string::npos) result++;
-        else if (abc.find(":" + kek + ".") != string::npos) result++;
-        else if (abc.find("." + kek + ".") != string::npos) result++;
-        else if (abc.find(kek + ":") != string::npos) result++;
-        else if (abc.find(kek + ".") != string::npos) result++;
-        else if (abc.find(":" + kek) != string::npos) result++;
-        else if (abc.find("." + kek) != string::npos) result++;
-    }
-
-    return (result * 100) / (double) tags.size();
-}
-

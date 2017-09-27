@@ -117,7 +117,7 @@ vector<vector<UnicodeString>>
 CascadeLemmatizer::chopInput(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag,
                              UnicodeString kwrd_spaces) {
 
-    kwrd_orth = preprocessOrth(kwrd_orth);
+    //kwrd_orth = preprocessOrth(kwrd_orth);
 
     UErrorCode status = U_ZERO_ERROR;
 
@@ -241,19 +241,19 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
     //indicates what is used to lemmatize
 
     //launching lemmatizers in order morfgeo - nelex - namliv - namloc - rule - orth
-    UnicodeString lemma = this->morfGeoLemmatizer.lemmatize(kw, kw_category);
+    UnicodeString lemma = this->nelexLemmatizer.lemmatize(kw, kw_category);
 
     if(lemma=="") {
-        lemma = this->nelexLemmatizer.lemmatize(kw, kw_category);
+        lemma = this->morfGeoLemmatizer.lemmatize(kw, kw_category);
     }else{//
-        globalMethod = "DictionaryLemmatizer::MorfGeo";
+        globalMethod = "DictionaryLemmatizer::NelexiconInfobox";
 
     }
 
     if(lemma==""){
         lemma = this->namLivPersonLemmatizer.lemmatize(kw,kw_category);
-    } else if (globalMethod != "DictionaryLemmatizer::MorfGeo") {
-        globalMethod = "DictionaryLemmatizer::NelexiconInfobox";
+    } else if (globalMethod != "DictionaryLemmatizer::NelexiconInfobox") {
+        globalMethod = "DictionaryLemmatizer::MorfGeo";
     }
 
     if(lemma==""){
@@ -274,7 +274,16 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
         globalMethod = "OrthLemmatizer";
     }
 
-    lemma = foldOutput(lemma, kw, kw_category);
+    string check;
+    if (kw.size() == 1 && lemma != "" && kw_category != "" &&
+        (kw_category.find("nam_adj") == 0 || (kw_category == "nam_loc_gpe_admin1" && kw[0][2].startsWith("adj:")))) {
+        lemma.toUTF8String(check);
+        lemma.toLower();
+    }
+
+    string err;
+    lemma.toUTF8String(err);
+//    lemma = foldOutput(lemma, kw, kw_category);
 
     //lemma = filter(kw, lemma, kw_category);
     //filter the results, adding few % points
