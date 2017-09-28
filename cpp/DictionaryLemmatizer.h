@@ -12,8 +12,8 @@
 
 class DictionaryLemmatizer {
 
-    std::map<UnicodeString,std::pair<UnicodeString,UnicodeString> > dictionaryItems;
-
+    std::map<UnicodeString, UnicodeString> dictionaryItems;
+    bool typed;
 public:
     DictionaryLemmatizer(std::string name, bool typed);
 

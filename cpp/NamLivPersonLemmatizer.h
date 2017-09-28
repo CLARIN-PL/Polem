@@ -18,7 +18,8 @@ class NamLivPersonLemmatizer {
     std::vector<icu::UnicodeString> forceSingleBases;
     std::vector<icu::UnicodeString> inflectionSeparators;
     std::vector<icu::UnicodeString> inflectionEndings;
-    std::map<UnicodeString, UnicodeString> names;
+    std::map<UnicodeString, std::vector<UnicodeString> > names;
+    std::map<UnicodeString, UnicodeString> fullnames;
 
 
 public:

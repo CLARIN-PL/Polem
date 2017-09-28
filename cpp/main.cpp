@@ -195,9 +195,9 @@ int main(int argc, char *argv[]) {
 
     string line;
 
-    output << setprecision(3) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t" << "Expected"
+    output << setprecision(4) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t" << "Expected"
            << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
-    cout << setprecision(3) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t" << "Expected"
+    cout << setprecision(4) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t" << "Expected"
          << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
 
     while (getline(infile, line, '\n')) {
@@ -229,7 +229,7 @@ int main(int argc, char *argv[]) {
             fields[5].trim().toUTF8String(kwrd_category);
         }
 
-        if (line_no == 99 || line_no == 69) {
+        if (line_no == 292) {
             cout << "";
         }
 
@@ -296,6 +296,7 @@ int main(int argc, char *argv[]) {
             cout << "[" << line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
                  << kwrdprnt << "\t" << kwrd_category
                  << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << endl;
+
         }
         line_no++;
     }

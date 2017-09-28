@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iostream>
 #include <unicode/regex.h>
+#include <boost/algorithm/string/split.hpp>
 
 using namespace std;
 
@@ -38,19 +39,31 @@ void Inflection::loadInflectionRules(std::string pathname) {
 
 
     while(getline(rules,line)) {
+
         UnicodeString to_split = line.c_str();
-        UnicodeString delimiter = " ";
-        vector<UnicodeString> tmp = split(to_split,delimiter);
-        if(tmp.size()>3){
-            UnicodeString ctag = tmp[0];
+
+        UnicodeString tmp[5];
+        UErrorCode status = U_ZERO_ERROR;
+        RegexMatcher m("\\s+", 0, status);
+        int split1 = m.split(to_split, tmp, 5, status);
+
+        if (split1 == 4) {
+            vector<UnicodeString> row;
+            row.push_back(tmp[1]);
+            row.push_back("");
+            row.push_back(tmp[2]);
+            row.push_back(tmp[3]);
+
+            this->inflections[tmp[0]].push_back(row);
+
+        } else if (split1 == 5) {
             vector<UnicodeString> row;
             row.push_back(tmp[1]);
             row.push_back(tmp[2]);
             row.push_back(tmp[3]);
+            row.push_back(tmp[4]);
 
-
-            this->inflections[ctag].push_back(row);
-
+            this->inflections[tmp[0]].push_back(row);
         }else{
             cout << "Niepoprawna linia" << endl;
         }
@@ -104,12 +117,11 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
     RegexMatcher m("\\s+", 0, status);
     int split1 = m.split(form, forms, 10, status);
 
-
     UnicodeString base = "";
     UnicodeString lem;
 
     //Lematyzacja frazy wielowyrazowej bez uwzględniania frekwencji alternacji
-    if (this->inflections.find(ctagInf) != this->inflections.end() && split1 > 1) {
+    /*if (this->inflections.find(ctagInf) != this->inflections.end() && split1 > 1) {
         map<UnicodeString, int> part_candidates;
         for (int i = 0; i < split1; i++) {
             part_candidates.insert(make_pair(forms[i], 0));
@@ -183,15 +195,15 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
         return "";
 
         //Lematyzacja pojedynczego słowa z wyborem tej alternacji, która jest najbardziej liczna
-    } else if (this->inflections.find(ctagInf) != this->inflections.end() && split1 == 1) {
+    } else */if (this->inflections.find(ctagInf) != this->inflections.end() && split1 == 1) {
         int maxCount = 0;
         UnicodeString maxEndingForm = "";
         UnicodeString possible_form;
         for (vector<vector<UnicodeString> >::iterator it = this->inflections[ctagInf].begin();
              it != this->inflections[ctagInf].end(); ++it) {
-            string ends;
+            string ends, isending;
             (*it).front().toUTF8String(ends);
-            int c = form.indexOf((*it).front());
+            (*it)[1].toUTF8String(isending);
             if (form.endsWith((*it)[0])) {
 
                 if ((*it)[0] == "") {
@@ -202,18 +214,17 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
                     possible_form.append((*it)[1]);
 
                 }
-                string tmp, tmp1, tmp2, tmp3, tmp4;
-                (*it)[0].toUTF8String(tmp);
-                possible_form.toUTF8String(tmp1);
-                (*it)[1].toUTF8String(tmp2);
+
                 string comp;
                 (*it)[2].toUTF8String(comp);
-                ctagInf.toUTF8String(tmp3);
-                form.toUTF8String(tmp4);
+                UnicodeString lower = possible_form;
+                lower.toLower();
+
 
                 if (this->known_bases.end() !=
-                    find(this->known_bases.begin(), this->known_bases.end(), possible_form.toLower())
-                    && stoi(comp) > maxCount) {
+                    find(this->known_bases.begin(), this->known_bases.end(), lower)
+                    && ((*it).front().length() > maxEndingForm.length() ||
+                        ((*it).front().length() == maxEndingForm.length() && stoi(comp) > maxCount))) {
                     //  &&(*it)[0].length()>maxEndingForm.length()){
                     //||(((*it)[0].length()==maxEndingForm.length()&&stoi(comp)>maxCount))){
 
@@ -222,7 +233,6 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
                     base = possible_form;
                 }
             }
-            base = base.tempSubStringBetween(0, 1).toUpper().append(base.tempSubStringBetween(1, base.length()));
         }
         //Generowanie możliwej formy bazowej bez sprawdzenia w słowniku wzorcowym
         if (base == "") {
@@ -236,9 +246,14 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
                 if (form.endsWith((*it)[0])
                     && stoi(comp) > 30
                     && (*it)[0].length() > 1) {
-                    string show;
-                    possible_form = form.tempSubString(0, form.length() - it->front().length() + 1);
-                    possible_form.toUTF8String(show);
+                    if ((*it)[0] == "") {
+                        possible_form = form;
+                    } else {
+
+                        possible_form = form.tempSubStringBetween(0, form.lastIndexOf((*it)[0]));
+                        possible_form.append((*it)[1]);
+
+                    }
                     if (stoi(comp) > maxCount) {
                         maxCount = stoi(comp);
                         base = possible_form;
@@ -258,14 +273,16 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
                 string comp;
                 (*it2)[2].toUTF8String(comp);
                 if (form.endsWith((*it2)[0])//){
-                    && stoi(comp) > 900
+                    && stoi(comp) > 30
                     && (*it2)[0].length() > 1) {
                     UnicodeString possible_form;
                     if ((*it2)[0] == "") {
                         possible_form = form;
                     } else {
-                        possible_form = form.tempSubString(0, form.length() - (*it2)[0].length());
+
+                        possible_form = form.tempSubStringBetween(0, form.lastIndexOf((*it2)[0]));
                         possible_form.append((*it2)[1]);
+
                     }
                     if (stoi(comp) > maxCount) {
 
@@ -278,20 +295,4 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
 
     }
     return base;
-}
-
-std::vector<icu::UnicodeString> Inflection::split(icu::UnicodeString to_split, icu::UnicodeString delimiter) {
-
-    UnicodeString res[100];
-    UErrorCode status =  U_ZERO_ERROR;
-    RegexMatcher m ("\\s+",0,status);
-    int numwords = m.split(to_split,res,10,status);
-
-    vector<UnicodeString> ret;
-
-    for(int i = 0; i < numwords; ++i){
-        ret.push_back(res[i]);
-    }
-
-    return ret;
 }
