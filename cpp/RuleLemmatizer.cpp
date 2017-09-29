@@ -57,7 +57,7 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, mor
     this->tagset = tagset;
 
     xml_document doc;
-    doc.load_file("lemmatization-rules-azon2.xml", parse_default | parse_declaration);
+    doc.load_file("lemmatization-rules-azon2(copy).xml", parse_default | parse_declaration);
     xml_node rules = doc.child("rules");
 
     char temp[] = "/tmp/fileXXXXXX";
@@ -75,14 +75,32 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, mor
     int rule_no = 0;
     for (xml_node rule = rules.child("rule"); rule; rule = rule.next_sibling("rule")) {
 
+
+        string value = rule.child("wccl").child_value();
         string name = rule.attribute("name").value();
         this->rule_categories[name + "-0"] = rule.attribute("category").value();
         if (fix || (name.find("Fix") == string::npos)) {
             if (rule_no > 0) {
                 file << "\n";
             }
-            file << "@b:\"" << name << "\" (" << rule.child_value() << ")";
+            file << "@b:\"" << rule.attribute("name").value() << "\" (" << rule.child("wccl").child_value() << ")";
         }
+
+        string transformation = "";
+        for (xml_node set = rule.child("transformations").child("set"); set; set = set.next_sibling("set")) {
+            if (set.hash_value() != rule.child("transformations").child("set").hash_value()) {
+                transformation.append("\n");
+            }
+            for (auto &att:set.attributes()) {
+                if (att.hash_value() != set.attributes().begin()->hash_value()) {
+                    transformation.append(" ");
+                }
+                transformation.append(att.name());
+                transformation.append("=");
+                transformation.append(att.value());
+            }
+        }
+        this->wccl_transformations.insert(make_pair(name + "-0", transformation));
         rule_no++;
     }
     file.flush();
@@ -90,6 +108,7 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, mor
     Wccl::Parser parser = Wccl::Parser(tagset);
 
     Wccl::FunctionalOpSequence::name_op_v_t fos = parser.parseWcclFileFromPath(temp)->gen_all_op_pairs();
+
     file.close();
     this->wccl_operators = fos;
 
@@ -166,6 +185,8 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
             while (found != string::npos) {
                 vector<string> operations;
 
+
+                //TODO tu zrobić operacje przemyśleć!!               boost::split(operations,this->wccl_transformations[it->first],boost::is_any_of("\n"));
                 if (it->second->to_string(this->tagset).find("Pos" + to_string(pos) + "mod") != string::npos) {
                     string op = it->second->to_string(this->tagset).substr(
                             it->second->to_string(this->tagset).find("Pos" + to_string(pos) + "mod"));
