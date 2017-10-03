@@ -3,7 +3,6 @@
 //
 
 #include "CascadeLemmatizer.h"
-#include <armadillo>
 #include <unicode/regex.h>
 
 

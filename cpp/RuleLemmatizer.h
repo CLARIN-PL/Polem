@@ -21,7 +21,6 @@ class RuleLemmatizer {
     morfeusz::Morfeusz *generator;
     std::map< std::string, std::string > rule_categories;
     std::vector<std::pair<std::string, boost::shared_ptr<Wccl::FunctionalOperator>>> wccl_operators;
-    std::map<std::string, std::string> wccl_transformations;
     bool useOrthForOov;
 
     double evaluateSharedTag(const std::string &basic_string, std::string basicString);
