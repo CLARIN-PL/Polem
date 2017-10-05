@@ -14,6 +14,7 @@
 #include <libwccl/parser/Parser.h>
 #include <boost/algorithm/string.hpp>
 
+
 using namespace std;
 using namespace pugi;
 
@@ -57,7 +58,7 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, mor
     this->tagset = tagset;
 
     xml_document doc;
-    doc.load_file("lemmatization-rules-azon2.xml", parse_default | parse_declaration);
+    doc.load_file("/usr/local/share/polem/lemmatization-rules-azon2.xml", parse_default | parse_declaration);
     xml_node rules = doc.child("rules");
 
     char temp[] = "/tmp/fileXXXXXX";
@@ -152,9 +153,9 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
         Wccl::SentenceContext sc(sentence->clone_shared());
         sc.goto_start();
         string res = it->second->base_apply(sc)->to_string(this->tagset);
+        string check = to_string(sentence->tokens().size());
         //Spradź, czy reguła została dopasowana i zostały dopasowane wszystkie tokeny
-        if (res == "True" &&
-            it->second->to_string(this->tagset).find("Pos" + to_string(sentence->tokens().size())) != string::npos) {
+        if (res == "True" && it->second->to_string(this->tagset).find("Pos" + to_string(sentence->tokens().size())) != string::npos ) {            //Tablica indeksów względnych tokenów tworzących słowo kluczowe
             //Tablica indeksów względnych tokenów tworzących słowo kluczowe
             //W przypadku fraz o wolnym szyku kolejność słów w lemacie może
             //być inna niż we frazie wejściowej
@@ -187,7 +188,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
             }
             icu::UnicodeString lemma = this->generate(sentence, operationss, spaces, kw_category);
             if (lemma != "") {
-                globalMethod = "RuleLemmatizer::" + it->first;
+                globalMethod = "RuleLemmatizer:" + it->first;
             }
             return lemma;
         }
@@ -205,11 +206,11 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
                     string val = it->second->to_string(this->tagset).substr(beginning + 10);
                     size_t end = val.find("])\n");
                     val = val.substr(1, end - 2);
-                    int oppNum = count(val.begin(), val.end(), ',');
-                    if (oppNum > 0) {
+                    long oppNum = count(val.begin(), val.end(), ',');
+                    if (0 < oppNum) {
                         for (int i = 0; i < oppNum; i++) {
-                            string op = val.substr(0, val.find(","));
-                            val = val.substr(val.find(","));
+                            string op = val.substr(0, val.find(','));
+                            val = val.substr(val.find(','));
                             operations.push_back(op);
                         }
                     } else {
@@ -220,9 +221,9 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
                         kw[i - 1][2].indexOf("adj") != -1 &&
                         kw[i - 3][2].indexOf("adv") != -1 &&
                         kw[i - 2][2] == "-") {
-                        operations.push_back("cas=nom");
+                        operations.emplace_back("cas=nom");
                     } else {
-                        operations.push_back("");
+                        operations.emplace_back("");
                     }
                 }
                 operationss.insert(make_pair(i, operations));
@@ -230,7 +231,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
 
             icu::UnicodeString lemma = this->generate(sentence, operationss, spaces, kw_category);
             if (lemma != "") {
-                globalMethod = "RuleLemmatizer::" + it->first;
+                globalMethod = "RuleLemmatizer:" + it->first;
             }
             return lemma;
         }
@@ -329,7 +330,8 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
 
             cout << "";
         } catch (morfeusz::MorfeuszException &e) {
-            //           cout<<e.what()<<endl<<ctag<<" "<<basestr<<endl;
+            cout<<e.what()<<endl<<ctag<<" "<<basestr<<endl;
+            return "";
         }
 
         UnicodeString form = "";

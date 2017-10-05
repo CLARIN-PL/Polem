@@ -4,9 +4,15 @@ project(polem)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cpp/cmake/Modules/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules")
 
 include(LibFindMacros)
+
+file(GLOB DEPLOY_FILES_AND_DIRS "${PROJECT_SOURCE_DIR}/dict/*")
+foreach(ITEM ${DEPLOY_FILES_AND_DIRS})
+        LIST( APPEND FILES_TO_DEPLOY "${ITEM}" )
+endforeach()
+INSTALL( FILES ${FILES_TO_DEPLOY} DESTINATION share/polem )
 
 
 find_package(Corpus2 REQUIRED)
@@ -68,7 +74,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${Boost_LIBRARIES})
 
 
-set(SOURCE_FILES cpp/main.cpp cpp/pugixml-1.8/src/pugixml.cpp cpp/CascadeLemmatizer.cpp cpp/CascadeLemmatizer.h cpp/RuleLemmatizer.cpp cpp/RuleLemmatizer.h cpp/DictionaryLemmatizer.cpp cpp/DictionaryLemmatizer.h cpp/Inflection.cpp cpp/Inflection.h cpp/NamLivPersonLemmatizer.cpp cpp/NamLivPersonLemmatizer.h cpp/NamLocLemmatizer.cpp cpp/NamLocLemmatizer.h cpp/OrthLemmatizer.cpp cpp/OrthLemmatizer.h)
+set(SOURCE_FILES main.cpp pugixml-1.8/src/pugixml.cpp CascadeLemmatizer.cpp CascadeLemmatizer.h RuleLemmatizer.cpp RuleLemmatizer.h DictionaryLemmatizer.cpp DictionaryLemmatizer.h Inflection.cpp Inflection.h NamLivPersonLemmatizer.cpp NamLivPersonLemmatizer.h NamLocLemmatizer.cpp NamLocLemmatizer.h OrthLemmatizer.cpp OrthLemmatizer.h)
 add_executable( polem ${SOURCE_FILES} ${LIBS})
 
 

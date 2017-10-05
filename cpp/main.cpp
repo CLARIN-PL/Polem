@@ -4,7 +4,7 @@
 #include <unicode/regex.h>
 #include <iomanip>
 #include "CascadeLemmatizer.h"
-
+#include <boost/format.hpp>
 
 using namespace std;
 
@@ -13,14 +13,14 @@ CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tag
     string line;
     vector<UnicodeString> vecLastNames;
 
-    ifstream lastNames("nelexicon2_nam_liv_person_last.txt");
+    ifstream lastNames("/usr/local/share/polem/nelexicon2_nam_liv_person_last.txt");
     while (getline(lastNames, line)) {
         vecLastNames.emplace_back(line.substr(line.find("\t") + 1).c_str());
     }
     lastNames.close();
     //loading dictionaries to namlivlemmatizer
 
-    ifstream firstNames("nelexicon2_nam_liv_person_first.txt");
+    ifstream firstNames("/usr/local/share/polem/nelexicon2_nam_liv_person_first.txt");
     while (getline(firstNames, line)) {
         vecLastNames.emplace_back(line.substr(line.find("\t") + 1).c_str());
     }
@@ -28,14 +28,14 @@ CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tag
 
     vector<UnicodeString> vecNamLoc;
 
-    ifstream namLoc("nelexicon2-infobox-nam_loc.txt");
+    ifstream namLoc("/usr/local/share/polem/nelexicon2-infobox-nam_loc.txt");
     while (getline(namLoc, line)) {
         vecNamLoc.emplace_back(line.substr(line.find("\t") + 1).c_str());
     }
     namLoc.close();
     //loading dictionary for namloclemmatizer
 
-    ifstream dictFile("nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt");
+    ifstream dictFile("/usr/local/share/polem/nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt");
 
     map<UnicodeString, pair<UnicodeString, UnicodeString> > dictionaryItems;
 
@@ -54,9 +54,9 @@ CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tag
     //orth, pair < category , lemma >
 
     Inflection inflection = Inflection(vecLastNames);
-    inflection.loadInflectionRules("inflection_nam_liv_person_last.txt");
+    inflection.loadInflectionRules("/usr/local/share/polem/inflection_nam_liv_person_last.txt");
     Inflection inflectionNamLoc = Inflection(vecNamLoc);
-    inflectionNamLoc.loadInflectionRules("inflection_nam_loc.txt");
+    inflectionNamLoc.loadInflectionRules("/usr/local/share/polem/inflection_nam_loc.txt");
     //loading rules for inflection
 
 
@@ -77,78 +77,50 @@ double acc(int tru, int fals) {
 }
 
 void
-printResults(ofstream &output, map<string, pair<int, int> > tfByMethod, map<string, pair<int, int> > tfByCategory,
-             int count) {
+printResults(ofstream &output, string title, map<string, pair<int, int> > tfs, int count) {
     int cats = 0, catf = 0;
     int ms = 0, mf = 0;
-    output << "------------------------------------------------------------" << endl;
-    output << "# Evaluation by method" << endl;
-    output << "%------------------------------------------------------------" << endl;
+
+    output << setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
+    output <<"# "<<title << endl;
+    output << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
     output << "\\hline" << endl;
-    output << "True &     False &     Acc &     Method &&     Coverage \\" << endl;
-    output << "%------------------------------------------------------------" << endl;
+    output<< boost::format("%5s & %5s & %6s & %-30s & %s \\\\") % "True" % "False" %"Acc" % "Method" % "Coverage"<<endl;
+    output << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
     output << "\\hline" << endl;
-    cout << "------------------------------------------------------------" << endl;
-    cout << "# Evaluation by method" << endl;
-    cout << "%------------------------------------------------------------" << endl;
+
+    cout << setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
+    cout <<"# "<<title << endl;
+    cout << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
     cout << "\\hline" << endl;
-    cout << "True &     False &     Acc &     Method &&     Coverage \\" << endl;
-    cout << "%------------------------------------------------------------" << endl;
+    cout<< boost::format("%5s & %5s & %6s & %-30s & %s \\\\") % "True" % "False" %"Acc" % "Method" % "Coverage"<<endl;
+    cout << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
     cout << "\\hline" << endl;
 
-    for (map<string, pair<int, int> >::iterator it = tfByMethod.begin(); it != tfByMethod.end(); ++it) {
-        output << it->second.first << " &     " << it->second.second << " &     "
-               << acc(it->second.first, it->second.second) << " &     " << it->first << " &     "
-               << acc(it->second.first + it->second.second, count) << "%" << "\\" << endl;
-        cout << it->second.first << " &     " << it->second.second << " &     "
-             << acc(it->second.first, it->second.second) << " &     " << it->first << " &     "
-             << acc(it->second.first + it->second.second, count) << "%" << "\\" << endl;
+    for (map<string, pair<int, int> >::iterator it = tfs.begin(); it != tfs.end(); ++it) {
+        UnicodeString cat = it->first.c_str();
+        cat.findAndReplace("_","\\_");
+        string print;
+        cat.toUTF8String(print);
+        output << boost::format("%5d & %5d & %6.2f\\%% & %-30s & %6.2f\\%% \\\\") % it->second.first
+                  % it->second.second % acc(it->second.first,it->second.second) % print
+                  % acc(it->second.first+it->second.second,count)<<endl;
+        cout << boost::format("%5d & %5d & %6.2f\\%% & %-30s & %6.2f\\%% \\\\") % it->second.first
+                  % it->second.second % acc(it->second.first,it->second.second) % print
+                  % acc(it->second.first+it->second.second,count)<<endl;
+
         ms = ms + it->second.first;
         mf = mf + it->second.second;
     }
+    output << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
+    output << "\\hline" << endl;
+    output << boost::format("%5d & %5d & %6.2f\\%% & %-30s \\\\") % ms % mf % acc(ms,mf) % "Total"<<endl;
     output << "%------------------------------------------------------------" << endl;
     output << "\\hline" << endl;
-    output << ms << " &     " << mf << " &     " << acc(ms, mf) << "% &     Total                    \\" << endl;
-    output << "%------------------------------------------------------------" << endl;
-    output << "\\hline" << endl;
-    output << "------------------------------------------------------------" << endl;
-    output << "# Evaluation by keyword category" << endl;
-    output << "%------------------------------------------------------------" << endl;
-    output << "\\hline" << endl;
-    output << "True &     False &     Acc &     Method &&     Coverage \\" << endl;
-    output << "%------------------------------------------------------------" << endl;
-    output << "\\hline" << endl;
-    cout << "%------------------------------------------------------------" << endl;
+
+    cout << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
     cout << "\\hline" << endl;
-    cout << ms << " &     " << mf << " &     " << acc(ms, mf) << "% &     Total                    \\" << endl;
-    cout << "%------------------------------------------------------------" << endl;
-    cout << "\\hline" << endl;
-    cout << "------------------------------------------------------------" << endl;
-    cout << "# Evaluation by keyword category" << endl;
-    cout << "%------------------------------------------------------------" << endl;
-    cout << "\\hline" << endl;
-    cout << "True &     False &     Acc &     Method &&     Coverage \\" << endl;
-    cout << "%------------------------------------------------------------" << endl;
-    cout << "\\hline" << endl;
-    for (map<string, pair<int, int> >::iterator it = tfByCategory.begin(); it != tfByCategory.end(); ++it) {
-        output << it->second.first << " &     " << it->second.second << " &     "
-               << acc(it->second.first, it->second.second) << " &     " << it->first << " &     "
-               << acc(it->second.first + it->second.second, count) << "%" << "\\" << endl;
-        cout << it->second.first << " &     " << it->second.second << " &     "
-             << acc(it->second.first, it->second.second) << " &     " << it->first << " &     "
-             << acc(it->second.first + it->second.second, count) << "%" << "\\" << endl;
-        cats = cats + it->second.first;
-        catf = catf + it->second.second;
-    }
-    output << "%------------------------------------------------------------" << endl;
-    output << "\\hline" << endl;
-    output << cats << " &     " << catf << " &     " << acc(cats, catf) << "% &     Total                    \\"
-           << endl;
-    output << "%------------------------------------------------------------" << endl;
-    output << "\\hline" << endl;
-    cout << "%------------------------------------------------------------" << endl;
-    cout << "\\hline" << endl;
-    cout << cats << " &     " << catf << " &     " << acc(cats, catf) << "% &     Total                    \\" << endl;
+    cout << boost::format("%5d & %5d & %6.2f\\%% & %-30s \\\\") % ms % mf % acc(ms,mf) % "Total"<<endl;
     cout << "%------------------------------------------------------------" << endl;
     cout << "\\hline" << endl;
 }
@@ -229,9 +201,7 @@ int main(int argc, char *argv[]) {
             fields[5].trim().toUTF8String(kwrd_category);
         }
 
-        if (line_no == 292) {
-            cout << "";
-        }
+        //if (line_no == 12464) { cout << ""; }
 
         UnicodeString lemma = cascadeLemmatizer.lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, kwrd_category);
 
@@ -272,10 +242,10 @@ int main(int argc, char *argv[]) {
                 tfByCategory.insert(make_pair(kwrd_category, make_pair(1, 0)));
             }
             output.clear();
-            output << "[" << line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
+            output << "[" <<setw(4)<< line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
                    << kwrdprnt << "\t" << kwrd_category
                    << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << endl;
-            cout << "[" << line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt << "\t" << kwrdprnt
+            cout << "[" << setw(4)<<line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt << "\t" << kwrdprnt
                  << "\t" << kwrd_category
                  << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << endl;
         } else { // failure
@@ -290,18 +260,18 @@ int main(int argc, char *argv[]) {
                 tfByCategory.insert(make_pair(kwrd_category, make_pair(0, 1)));
             }
             output.clear();
-            output << "[" << line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
+            output << "[" <<setw(4)<< line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
                    << kwrdprnt << "\t" << kwrd_category
-                   << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << endl;
-            cout << "[" << line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
+                   << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << endl;
+            cout << "[" <<setw(4)<< line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
                  << kwrdprnt << "\t" << kwrd_category
-                 << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << endl;
+                 << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << endl;
 
         }
         line_no++;
     }
-    printResults(output, tfByMethod, tfByCategory, line_no);
-
+    printResults(output, "Evaluation by method", tfByMethod, line_no);
+    printResults(output, "Evaluation by keyword category", tfByCategory, line_no);
     infile.close();
     output.close();
 

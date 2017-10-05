@@ -87,7 +87,7 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
     // Wymuszone lematy dla jednowyrazowych nazw
     if (keyword.size() == 1 && find(this->forceSingleBases.begin(), this->forceSingleBases.end(), keyword[0][1]) !=
                                this->forceSingleBases.end()) {
-        globalMethod = "NamLivPersonLemmatizer::SingleBases";
+        globalMethod = "NamLivPersonLemmatizer:SingleBases";
         return keyword[0][1];
     }
 
@@ -99,7 +99,7 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
             UnicodeString tmp = keyword[2][0];
             if (find(this->inflectionEndings.begin(), this->inflectionEndings.end(), tmp.toLower()) !=
                 this->inflectionEndings.end()) {
-                globalMethod = "NamLivPersonLemmatizer::SeparatorEnding";
+                globalMethod = "NamLivPersonLemmatizer:SeparatorEnding";
                 return keyword[0][0];
             }
         }
@@ -149,11 +149,11 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
             name.append(lemma);
         }
         name.trim();
-        globalMethod="NamLivPersonLemmatizer::Inflection";
+        globalMethod="NamLivPersonLemmatizer:Inflection";
         return name;
     }else{
         name.trim();
-        globalMethod="NamLivPersonLemmatizer::Dictionary";
+        globalMethod="NamLivPersonLemmatizer:Dictionary";
         return name;
     }
 

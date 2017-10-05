@@ -17,7 +17,7 @@ CascadeLemmatizer::filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::
 
 
     lemma = lemma.trim();
-    if (globalMethod == "NamLivPersonLemmatizer::Dictionary" &&
+    if (globalMethod == "NamLivPersonLemmatizer:Dictionary" &&
         (lemma.indexOf("Teofil") != -1 || lemma.indexOf("Jan") != -1
          || lemma.indexOf("teofil") != -1 || lemma.indexOf("jan") != -1)) {
         for (auto it:kw) {
@@ -215,9 +215,9 @@ CascadeLemmatizer::CascadeLemmatizer(string pathname, Corpus2::Tagset tagset, mo
                                      map<UnicodeString,
                                              pair<UnicodeString, UnicodeString> > dictionaryItems,
                                      Inflection inflection, Inflection inflectionNamLoc) :
-        nelexLemmatizer("nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt",true),
+        nelexLemmatizer("/usr/local/share/polem/nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt",true),
         ruleLemmatizer(std::move(pathname), std::move(tagset), generator, true, true),
-        morfGeoLemmatizer("sgjp-20160310-geograficzne.tab", false),
+        morfGeoLemmatizer("/usr/local/share/polem/sgjp-20160310-geograficzne.tab", false),
         namLivPersonLemmatizer(std::move(dictionaryItems), std::move(inflection)),
         namLocLemmatizer(std::move(inflectionNamLoc)),
         orthLemmatizer(){
@@ -245,14 +245,14 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
     if(lemma=="") {
         lemma = this->morfGeoLemmatizer.lemmatize(kw, kw_category);
     }else{//
-        globalMethod = "DictionaryLemmatizer::NelexiconInfobox";
+        globalMethod = "DictionaryLemmatizer:NelexiconInfobox";
 
     }
 
     if(lemma==""){
         lemma = this->namLivPersonLemmatizer.lemmatize(kw,kw_category);
-    } else if (globalMethod != "DictionaryLemmatizer::NelexiconInfobox") {
-        globalMethod = "DictionaryLemmatizer::MorfGeo";
+    } else if (globalMethod != "DictionaryLemmatizer:NelexiconInfobox") {
+        globalMethod = "DictionaryLemmatizer:MorfeuszGeograficzne";
     }
 
     if(lemma==""){
@@ -263,7 +263,7 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
         lemma = this->ruleLemmatizer.lemmatize(kw,kw_category);
     }else if(globalMethod.find("DictionaryLemmatizer")==string::npos
                 &&globalMethod.find("NamLivPerson")==string::npos){
-        globalMethod = "NamLocLemmatizer::Inflection";
+        globalMethod = "NamLocLemmatizer:Inflection";
     }
 
     if(lemma=="") {
