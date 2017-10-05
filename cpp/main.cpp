@@ -244,10 +244,10 @@ int main(int argc, char *argv[]) {
             output.clear();
             output << "[" <<setw(4)<< line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
                    << kwrdprnt << "\t" << kwrd_category
-                   << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << endl;
+                   << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
             cout << "[" << setw(4)<<line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt << "\t" << kwrdprnt
                  << "\t" << kwrd_category
-                 << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << endl;
+                 << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
         } else { // failure
             if (tfByMethod.count(globalMethod) > 0) {
                 tfByMethod[globalMethod].second++;
@@ -262,10 +262,10 @@ int main(int argc, char *argv[]) {
             output.clear();
             output << "[" <<setw(4)<< line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
                    << kwrdprnt << "\t" << kwrd_category
-                   << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << endl;
+                   << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
             cout << "[" <<setw(4)<< line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
                  << kwrdprnt << "\t" << kwrd_category
-                 << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << endl;
+                 << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
 
         }
         line_no++;
