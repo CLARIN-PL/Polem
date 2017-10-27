@@ -9,7 +9,7 @@
 using namespace std;
 
 
-string globalMethod = "";
+string globalMethod;
 
 icu::UnicodeString
 CascadeLemmatizer::filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::UnicodeString lemma,
@@ -273,15 +273,13 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
         globalMethod = "OrthLemmatizer";
     }
 
-    string check;
-    if (kw.size() == 1 && lemma != "" && kw_category != "" &&
+    if (kw.size() == 1 && lemma != "" && !kw_category.empty() &&
         (kw_category.find("nam_adj") == 0 || (kw_category == "nam_loc_gpe_admin1" && kw[0][2].startsWith("adj:")))) {
-        lemma.toUTF8String(check);
         lemma.toLower();
     }
 
-    string err;
-    lemma.toUTF8String(err);
+//    string err;
+//    lemma.toUTF8String(err);
 //    lemma = foldOutput(lemma, kw, kw_category);
 
     //lemma = filter(kw, lemma, kw_category);

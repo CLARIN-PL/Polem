@@ -23,26 +23,19 @@ DictionaryLemmatizer::DictionaryLemmatizer(std::string pathname,
         UnicodeString key;
         if(typed){
 
-            dictCat=line.substr(0,line.find("\t")).c_str();
-            dictOrth.append(line.substr(line.find("\t")+1).substr(0,line.substr(line.find("\t")+1).find_last_of("\t")).c_str());
-            dictLemma=line.substr(line.rfind("\t")+1).c_str();
+            dictCat=line.substr(0,line.find('\t')).c_str();
+            dictOrth.append(line.substr(line.find('\t')+1).substr(0,line.substr(line.find('\t')+1).find_last_of('\t')).c_str());
+            dictLemma=line.substr(line.rfind('\t')+1).c_str();
             key = dictCat.append("#").append(dictOrth.toLower());
 
         }else{
 
-            dictOrth=line.substr(0,line.find("\t")).c_str();
-            UnicodeString temp = line.substr(line.find("\t")+1).c_str();
-            dictLemma.append(temp.tempSubString(0,temp.indexOf("\t")));
-            temp = temp.tempSubString(temp.indexOf("\t")+1);
-            dictCat.append(temp.tempSubString(0,temp.indexOf("\t")));
+            dictOrth=line.substr(0,line.find('\t')).c_str();
+            UnicodeString temp = line.substr(line.find('\t')+1).c_str();
+            dictLemma.append(temp.tempSubString(0,temp.indexOf('\t')));
             key = dictOrth.toLower();
         }
 
-        string check, check1, check2, check3;
-        dictCat.toUTF8String(check);
-        dictOrth.toUTF8String(check1);
-        dictLemma.toUTF8String(check2);
-        key.toUTF8String(check3);
         this->dictionaryItems[key] = dictLemma;
 
     }
@@ -58,15 +51,15 @@ icu::UnicodeString DictionaryLemmatizer::lemmatize(std::vector<std::vector<icu::
     icu::UnicodeString orth ="";
     icu::UnicodeString key = "";
 
-    for(int i = 0; i < keyword.size(); i ++){
-        orth.append(keyword[i][0]);
-        if (keyword[i][3] == "True") {
+    for(auto& i:keyword){
+        orth.append(i[0]);
+        if(i[3]=="True"){
             orth.append(" ");
         }
     }
     orth.trim();
 
-    if(category==""||category.find("nam_loc")!=0){
+    if(category.empty()||category.find("nam_loc")!=0){
         return  "";
     }
 

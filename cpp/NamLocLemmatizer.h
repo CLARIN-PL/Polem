@@ -11,7 +11,7 @@
 class NamLocLemmatizer {
 public:
 
-    NamLocLemmatizer(Inflection inflection);
+    explicit NamLocLemmatizer(Inflection inflection);
 
     icu::UnicodeString lemmatize(std::vector<std::vector<icu::UnicodeString> > keyword, std::string category);
 

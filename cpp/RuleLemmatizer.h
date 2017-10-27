@@ -23,8 +23,6 @@ class RuleLemmatizer {
     std::vector<std::pair<std::string, boost::shared_ptr<Wccl::FunctionalOperator>>> wccl_operators;
     bool useOrthForOov;
 
-    double evaluateSharedTag(const std::string &basic_string, std::string basicString);
-
     icu::UnicodeString generate(Corpus2::Sentence::Ptr sentence, std::map<int, std::vector<std::string> > operations,
                                 std::vector<icu::UnicodeString> spaces, std::string kw_category);
 

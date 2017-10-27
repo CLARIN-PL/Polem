@@ -15,14 +15,14 @@ CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tag
 
     ifstream lastNames("/usr/local/share/polem/nelexicon2_nam_liv_person_last.txt");
     while (getline(lastNames, line)) {
-        vecLastNames.emplace_back(line.substr(line.find("\t") + 1).c_str());
+        vecLastNames.emplace_back(line.substr(line.find('\t') + 1).c_str());
     }
     lastNames.close();
     //loading dictionaries to namlivlemmatizer
 
     ifstream firstNames("/usr/local/share/polem/nelexicon2_nam_liv_person_first.txt");
     while (getline(firstNames, line)) {
-        vecLastNames.emplace_back(line.substr(line.find("\t") + 1).c_str());
+        vecLastNames.emplace_back(line.substr(line.find('\t') + 1).c_str());
     }
     firstNames.close();
 
@@ -30,7 +30,7 @@ CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tag
 
     ifstream namLoc("/usr/local/share/polem/nelexicon2-infobox-nam_loc.txt");
     while (getline(namLoc, line)) {
-        vecNamLoc.emplace_back(line.substr(line.find("\t") + 1).c_str());
+        vecNamLoc.emplace_back(line.substr(line.find('\t') + 1).c_str());
     }
     namLoc.close();
     //loading dictionary for namloclemmatizer
@@ -41,10 +41,10 @@ CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tag
 
     while (getline(dictFile, line)) {
         UnicodeString dictCat, dictOrth, dictLemma;
-        dictCat = line.substr(0, line.find("\t")).c_str();
-        dictOrth = line.substr(line.find("\t") + 1).substr(0,
-                                                           line.substr(line.find("\t") + 1).find_last_of("\t")).c_str();
-        dictLemma = line.substr(line.rfind("\t") + 1).c_str();
+        dictCat = line.substr(0, line.find('\t')).c_str();
+        dictOrth = line.substr(line.find('\t') + 1).substr(0,
+                                                           line.substr(line.find('\t') + 1).find_last_of('\t')).c_str();
+        dictLemma = line.substr(line.rfind('\t') + 1).c_str();
         dictionaryItems[dictOrth] = make_pair(dictCat, dictLemma);
 
     }
@@ -63,7 +63,7 @@ CascadeLemmatizer assembleLemmatizer(string pathname, const Corpus2::Tagset &tag
     morfeusz::Morfeusz *generator = morfeusz::Morfeusz::createInstance(morfeusz::GENERATE_ONLY);
 
 
-    return CascadeLemmatizer(pathname, tagset, generator, dictionaryItems, inflection,
+    return CascadeLemmatizer(std::move(pathname), tagset, generator, dictionaryItems, inflection,
                              inflectionNamLoc);
 
 }
@@ -77,8 +77,7 @@ double acc(int tru, int fals) {
 }
 
 void
-printResults(ofstream &output, string title, map<string, pair<int, int> > tfs, int count) {
-    int cats = 0, catf = 0;
+printResults(ofstream &output, const string &title, map<string, pair<int, int> > tfs, int count) {
     int ms = 0, mf = 0;
 
     output << setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
@@ -97,30 +96,31 @@ printResults(ofstream &output, string title, map<string, pair<int, int> > tfs, i
     cout << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
     cout << "\\hline" << endl;
 
-    for (map<string, pair<int, int> >::iterator it = tfs.begin(); it != tfs.end(); ++it) {
-        UnicodeString cat = it->first.c_str();
+    //for (map<string, pair<int, int> >::iterator it = tfs.begin(); it != tfs.end(); ++it) {
+    for(auto& it:tfs){
+        UnicodeString cat = it.first.c_str();
         cat.findAndReplace("_","\\_");
         string print;
         cat.toUTF8String(print);
-        output << boost::format("%5d & %5d & %6.2f\\%% & %-30s & %6.2f\\%% \\\\") % it->second.first
-                  % it->second.second % acc(it->second.first,it->second.second) % print
-                  % acc(it->second.first+it->second.second,count)<<endl;
-        cout << boost::format("%5d & %5d & %6.2f\\%% & %-30s & %6.2f\\%% \\\\") % it->second.first
-                  % it->second.second % acc(it->second.first,it->second.second) % print
-                  % acc(it->second.first+it->second.second,count)<<endl;
+        output << boost::format(R"(%5d & %5d & %6.2f\%% & %-30s & %6.2f\%% \\)") % it.second.first
+                  % it.second.second % acc(it.second.first,it.second.second) % print
+                  % acc(it.second.first+it.second.second,count)<<endl;
+        cout << boost::format(R"(%5d & %5d & %6.2f\%% & %-30s & %6.2f\%% \\)") % it.second.first
+                  % it.second.second % acc(it.second.first,it.second.second) % print
+                  % acc(it.second.first+it.second.second,count)<<endl;
 
-        ms = ms + it->second.first;
-        mf = mf + it->second.second;
+        ms = ms + it.second.first;
+        mf = mf + it.second.second;
     }
     output << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
     output << "\\hline" << endl;
-    output << boost::format("%5d & %5d & %6.2f\\%% & %-30s \\\\") % ms % mf % acc(ms,mf) % "Total"<<endl;
+    output << boost::format(R"(%5d & %5d & %6.2f\%% & %-30s \\)") % ms % mf % acc(ms,mf) % "Total"<<endl;
     output << "%------------------------------------------------------------" << endl;
     output << "\\hline" << endl;
 
     cout << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
     cout << "\\hline" << endl;
-    cout << boost::format("%5d & %5d & %6.2f\\%% & %-30s \\\\") % ms % mf % acc(ms,mf) % "Total"<<endl;
+    cout << boost::format(R"(%5d & %5d & %6.2f\%% & %-30s \\)") % ms % mf % acc(ms,mf) % "Total"<<endl;
     cout << "%------------------------------------------------------------" << endl;
     cout << "\\hline" << endl;
 }
@@ -149,8 +149,8 @@ int main(int argc, char *argv[]) {
     ifstream infile(pathname.c_str());
 
     int line_no = 1;
-    if (pathname.find("/") != string::npos) {
-        pathname = pathname.substr(pathname.find("/") + 1);
+    if (pathname.find('/') != string::npos) {
+        pathname = pathname.substr(pathname.find('/') + 1);
     }
     string outname = "Lemmatized-";
     if (!caseInsensitive) {

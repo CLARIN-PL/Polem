@@ -16,10 +16,8 @@ Inflection::Inflection(vector<UnicodeString> known_bases){
 
     //known_bases - zbiór znanych form bazowych
 
-    UnicodeString tmp;
-    for(int i = 0; i < known_bases.size(); ++i){
-        tmp = known_bases[i].toLower();
-        this->known_bases.push_back(tmp);
+    for(auto& i:known_bases){
+        this->known_bases.emplace_back(i.toLower());
     }
 }
 
@@ -49,21 +47,21 @@ void Inflection::loadInflectionRules(std::string pathname) {
 
         if (split1 == 4) {
             vector<UnicodeString> row;
-            row.push_back(tmp[1]);
-            row.push_back("");
-            row.push_back(tmp[2]);
-            row.push_back(tmp[3]);
+            row.emplace_back(tmp[1]);
+            row.emplace_back("");
+            row.emplace_back(tmp[2]);
+            row.emplace_back(tmp[3]);
 
-            this->inflections[tmp[0]].push_back(row);
+            this->inflections[tmp[0]].emplace_back(row);
 
         } else if (split1 == 5) {
             vector<UnicodeString> row;
-            row.push_back(tmp[1]);
-            row.push_back(tmp[2]);
-            row.push_back(tmp[3]);
-            row.push_back(tmp[4]);
+            row.emplace_back(tmp[1]);
+            row.emplace_back(tmp[2]);
+            row.emplace_back(tmp[3]);
+            row.emplace_back(tmp[4]);
 
-            this->inflections[tmp[0]].push_back(row);
+            this->inflections[tmp[0]].emplace_back(row);
         }else{
             cout << "Niepoprawna linia" << endl;
         }
@@ -94,8 +92,8 @@ UnicodeString Inflection::generate_base(icu::UnicodeString ctag, icu::UnicodeStr
         base = this->_generate_base("subst:sg:gen:m1",form);
     }else if(base==""&&ctag.endsWith(":n")){
         base = this->_generate_base(ctag.findAndReplace(":n",":m1"),form);
-    }else if(base==""&&ctag.endsWith(":n")){
-        base = this->_generate_base(ctag.findAndReplace(":n",":f"),form);
+    //}else if(base==""&&ctag.endsWith(":n")){
+     //   base = this->_generate_base(ctag.findAndReplace(":n",":f"),form);
     }else if(base==""&&ctag.endsWith(":m3")){
         base = this->_generate_base(ctag.findAndReplace(":m3",":m1"),form);
     }
@@ -199,37 +197,35 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
         int maxCount = 0;
         UnicodeString maxEndingForm = "";
         UnicodeString possible_form;
-        for (vector<vector<UnicodeString> >::iterator it = this->inflections[ctagInf].begin();
-             it != this->inflections[ctagInf].end(); ++it) {
-            string ends, isending;
-            (*it).front().toUTF8String(ends);
-            (*it)[1].toUTF8String(isending);
-            if (form.endsWith((*it)[0])) {
+        //for (vector<vector<UnicodeString> >::iterator it = this->inflections[ctagInf].begin();
+        //     it != this->inflections[ctagInf].end(); ++it) {
+        for(auto& it:this->inflections[ctagInf]){
+            if (form.endsWith(it[0])) {
 
-                if ((*it)[0] == "") {
+                if (it[0] == "") {
                     possible_form = form;
                 } else {
 
-                    possible_form = form.tempSubStringBetween(0, form.lastIndexOf((*it)[0]));
-                    possible_form.append((*it)[1]);
+                    possible_form = form.tempSubStringBetween(0, form.lastIndexOf(it[0]));
+                    possible_form.append(it[1]);
 
                 }
 
                 string comp;
-                (*it)[2].toUTF8String(comp);
+                it[2].toUTF8String(comp);
                 UnicodeString lower = possible_form;
                 lower.toLower();
 
 
                 if (this->known_bases.end() !=
                     find(this->known_bases.begin(), this->known_bases.end(), lower)
-                    && ((*it).front().length() > maxEndingForm.length() ||
-                        ((*it).front().length() == maxEndingForm.length() && stoi(comp) > maxCount))) {
+                    && (it.front().length() > maxEndingForm.length() ||
+                        (it.front().length() == maxEndingForm.length() && stoi(comp) > maxCount))) {
                     //  &&(*it)[0].length()>maxEndingForm.length()){
                     //||(((*it)[0].length()==maxEndingForm.length()&&stoi(comp)>maxCount))){
 
                     maxCount = stoi(comp);
-                    maxEndingForm = (*it)[0];
+                    maxEndingForm = it[0];
                     base = possible_form;
                 }
             }
@@ -239,19 +235,20 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
             maxCount = 0;
             maxEndingForm = "";
 
-            for (vector<vector<UnicodeString> >::iterator it = this->inflections[ctagInf].begin();
-                 it != this->inflections[ctagInf].end(); ++it) {
+            //for (vector<vector<UnicodeString> >::iterator it = this->inflections[ctagInf].begin();
+            //     it != this->inflections[ctagInf].end(); ++it) {
+            for(auto& it:this->inflections[ctagInf]){
                 string comp;
-                (*it)[2].toUTF8String(comp);
-                if (form.endsWith((*it)[0])
+                it[2].toUTF8String(comp);
+                if (form.endsWith(it[0])
                     && stoi(comp) > 30
-                    && (*it)[0].length() > 1) {
-                    if ((*it)[0] == "") {
+                    && it[0].length() > 1) {
+                    if (it[0] == "") {
                         possible_form = form;
                     } else {
 
-                        possible_form = form.tempSubStringBetween(0, form.lastIndexOf((*it)[0]));
-                        possible_form.append((*it)[1]);
+                        possible_form = form.tempSubStringBetween(0, form.lastIndexOf(it[0]));
+                        possible_form.append(it[1]);
 
                     }
                     if (stoi(comp) > maxCount) {
@@ -266,22 +263,24 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
                && split1 == 1) {
         int maxCount = 0;
         UnicodeString maxEndingForm = "";
-        for (map<UnicodeString, vector<vector<UnicodeString> > >::iterator it = this->inflections.begin();
-             it != this->inflections.end(); ++it) {
-            for (vector<vector<UnicodeString> >::iterator it2 = it->second.begin();
-                 it2 != it->second.end(); ++it2) {
+        //for (map<UnicodeString, vector<vector<UnicodeString> > >::iterator it = this->inflections.begin();
+        //     it != this->inflections.end(); ++it) {
+        for(auto& it:this->inflections){
+            //for (vector<vector<UnicodeString> >::iterator it2 = it->second.begin();
+            //    it2 != it->second.end(); ++it2) {
+            for(auto& it2:it.second){
                 string comp;
-                (*it2)[2].toUTF8String(comp);
-                if (form.endsWith((*it2)[0])//){
+                it2[2].toUTF8String(comp);
+                if (form.endsWith(it2[0])//){
                     && stoi(comp) > 30
-                    && (*it2)[0].length() > 1) {
+                    && it2[0].length() > 1) {
                     UnicodeString possible_form;
-                    if ((*it2)[0] == "") {
+                    if (it2[0] == "") {
                         possible_form = form;
                     } else {
 
-                        possible_form = form.tempSubStringBetween(0, form.lastIndexOf((*it2)[0]));
-                        possible_form.append((*it2)[1]);
+                        possible_form = form.tempSubStringBetween(0, form.lastIndexOf(it2[0]));
+                        possible_form.append(it2[1]);
 
                     }
                     if (stoi(comp) > maxCount) {

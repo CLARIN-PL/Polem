@@ -18,46 +18,47 @@ NamLivPersonLemmatizer::NamLivPersonLemmatizer(
             Inflection inflection) : inflection(inflection) {
 
 
-    this->categories.push_back("nam_liv_person");
-    this->categories.push_back("nam_liv_person_last");
-    this->categories.push_back("nam_liv_person_first");
+    this->categories.emplace_back("nam_liv_person");
+    this->categories.emplace_back("nam_liv_person_last");
+    this->categories.emplace_back("nam_liv_person_first");
 
     //Formy tekstowe do skopiowania
-    this->copyOrths.push_back("św");
-    this->copyOrths.push_back(".");
+    this->copyOrths.emplace_back("św");
+    this->copyOrths.emplace_back(".");
     //lista form bazowych, dla nazw jednowyrazowych, dla których ma być wymuszona forma
-    this->forceSingleBases.push_back("Maja");
+    this->forceSingleBases.emplace_back("Maja");
     //Zbiór separatorów oddzielających formę bazową od końcówki formy odmienionej
-    this->inflectionSeparators.push_back("-");
-    this->inflectionSeparators.push_back("'");
+    this->inflectionSeparators.emplace_back("-");
+    this->inflectionSeparators.emplace_back("'");
     //this->inflectionSeparators.push_back("’");
     //this->inflectionSeparators.push_back(" ");
     //this->inflectionSeparators.push_back("´");
     //Zbiór końcówek form odmienionych, które mogą wystąpić po separatorze
-    this->inflectionEndings.push_back("a");
-    this->inflectionEndings.push_back("cie");
-    this->inflectionEndings.push_back("em");
-    this->inflectionEndings.push_back("s");
-    this->inflectionEndings.push_back("ego");
+    this->inflectionEndings.emplace_back("a");
+    this->inflectionEndings.emplace_back("cie");
+    this->inflectionEndings.emplace_back("em");
+    this->inflectionEndings.emplace_back("s");
+    this->inflectionEndings.emplace_back("ego");
     //this->inflectionEndings.push_back("u");
     //this->inflectionEndings.push_back("owi");
-    for(map<UnicodeString,pair<UnicodeString,UnicodeString>>::iterator it = dictionaryItems.begin(); it!=dictionaryItems.end(); ++it){
-        if(it->second.first=="nam_liv_person"){
+    //for(map<UnicodeString,pair<UnicodeString,UnicodeString>>::iterator it = dictionaryItems.begin(); it!=dictionaryItems.end(); ++it){
+    for(auto& it:dictionaryItems){
+        if(it.second.first=="nam_liv_person"){
 
-            UnicodeString heh = it->first;
-            this->fullnames[heh.toLower()] = it->second.second;
+            UnicodeString heh = it.first;
+            this->fullnames[heh.toLower()] = it.second.second;
 
             UErrorCode status = U_ZERO_ERROR;
             RegexMatcher rm("\\s", 0, status);
             UnicodeString check[9];
 
-            int numWords = rm.split(it->first, check, 9, status);
+            int numWords = rm.split(it.first, check, 9, status);
             UnicodeString orths[numWords];
-            rm.split(it->first, orths, numWords, status);
+            rm.split(it.first, orths, numWords, status);
 
-            int numWordsLem = rm.split(it->second.second, check, 9, status);
+            int numWordsLem = rm.split(it.second.second, check, 9, status);
             UnicodeString lemmas[numWordsLem];
-            rm.split(it->second.second, lemmas, numWordsLem, status);
+            rm.split(it.second.second, lemmas, numWordsLem, status);
 
 
             if (numWords == numWordsLem) {
@@ -106,9 +107,10 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
     }
 
     UnicodeString key;
-    for (int i = 0; i < keyword.size(); ++i) {
-        key.append(keyword[i][0]);
-        if (keyword[i][3] == "True") {
+    //for (int i = 0; i < keyword.size(); ++i) {
+    for(auto& i:keyword){
+        key.append(i[0]);
+        if (i[3] == "True") {
             key.append(" ");
         }
     }
@@ -117,19 +119,20 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
         name = this->fullnames[key.toLower()];
     } else {
         UnicodeString orth;
-        for (int i = 0; i < keyword.size(); ++i) {
-            orth = keyword[i][0];
+        //for (int i = 0; i < keyword.size(); ++i) {
+        for(auto& i:keyword){
+            orth = i[0];
 
             if ((orth.length() == 1 && orth.charAt(0) >= 'A' && orth.charAt(0) <= 'Z') ||
                 find(this->copyOrths.begin(), this->copyOrths.end(), orth.toLower()) != this->copyOrths.end()) {
-                name.append(keyword[i][0]);
-                if (keyword[i][3] == "True")name.append(" ");
+                name.append(i[0]);
+                if (i[3] == "True")name.append(" ");
 
             } else if (this->names.find(orth.toLower()) != this->names.end()) {
 
                 name.append(this->names[orth.toLower()].front());
 
-                if (keyword[i][3] == "True" || this->names[orth.toLower()].front() == "św.")name.append(" ");
+                if (i[3] == "True" || this->names[orth.toLower()].front() == "św.")name.append(" ");
             } else {
                 name = "";
                 break;
@@ -138,15 +141,13 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
     }
 
     if(name==""){
-        for(int i = 0; i < keyword.size(); ++i){
-            UnicodeString lemma = this->inflection.generate_base(keyword.at(i).at(2), keyword.at(i).at(0));
-            if(lemma==""){
+        for(auto& i:keyword) {
+            UnicodeString lemma = this->inflection.generate_base(i[2], i[0]);
+            if (lemma == "") {
                 return lemma;
             }
-            if(i>0){
-                name.append(" ");
-            }
             name.append(lemma);
+            name.append(" ");
         }
         name.trim();
         globalMethod="NamLivPersonLemmatizer:Inflection";
