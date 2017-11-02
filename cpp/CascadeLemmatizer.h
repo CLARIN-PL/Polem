@@ -35,14 +35,21 @@ class CascadeLemmatizer{
 
     UnicodeString filter(std::vector<std::vector<UnicodeString>> kw, UnicodeString lemma, std::string kw_category);
 
-public:
-    CascadeLemmatizer(std::string pathname, Corpus2::Tagset tagset, morfeusz::Morfeusz *generator,
+    CascadeLemmatizer(std::string tagset, morfeusz::Morfeusz *generator,
                       std::map<UnicodeString, std::pair<UnicodeString, UnicodeString>> dictionaryItems,
                       Inflection inflection, Inflection inflectionNamLoc);
+
+public:
+    static CascadeLemmatizer assembleLemmatizer();
 
     UnicodeString
     lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces,
               std::string category);
+
+    UnicodeString
+    lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces);
+
+    UnicodeString lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag);
 
 
 };

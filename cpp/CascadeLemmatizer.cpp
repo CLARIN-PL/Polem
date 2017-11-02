@@ -4,12 +4,74 @@
 
 #include "CascadeLemmatizer.h"
 #include <unicode/regex.h>
+#include <fstream>
 
 
 using namespace std;
 
 
 string globalMethod;
+
+
+CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer() {
+
+    string line;
+    vector<UnicodeString> vecLastNames;
+
+    ifstream lastNames("/usr/local/share/polem/nelexicon2_nam_liv_person_last.txt");
+    while (getline(lastNames, line)) {
+        vecLastNames.emplace_back(line.substr(line.find('\t') + 1).c_str());
+    }
+    lastNames.close();
+    //loading dictionaries to namlivlemmatizer
+
+    ifstream firstNames("/usr/local/share/polem/nelexicon2_nam_liv_person_first.txt");
+    while (getline(firstNames, line)) {
+        vecLastNames.emplace_back(line.substr(line.find('\t') + 1).c_str());
+    }
+    firstNames.close();
+
+    vector<UnicodeString> vecNamLoc;
+
+    ifstream namLoc("/usr/local/share/polem/nelexicon2-infobox-nam_loc.txt");
+    while (getline(namLoc, line)) {
+        vecNamLoc.emplace_back(line.substr(line.find('\t') + 1).c_str());
+    }
+    namLoc.close();
+    //loading dictionary for namloclemmatizer
+
+    ifstream dictFile("/usr/local/share/polem/nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt");
+
+    map<UnicodeString, pair<UnicodeString, UnicodeString> > dictionaryItems;
+
+    while (getline(dictFile, line)) {
+        UnicodeString dictCat, dictOrth, dictLemma;
+        dictCat = line.substr(0, line.find('\t')).c_str();
+        dictOrth = line.substr(line.find('\t') + 1).substr(0,
+                                                           line.substr(line.find('\t') + 1).find_last_of('\t')).c_str();
+        dictLemma = line.substr(line.rfind('\t') + 1).c_str();
+        dictionaryItems[dictOrth] = make_pair(dictCat, dictLemma);
+
+    }
+    dictFile.close();
+    //loading dict for dictionary lemmatizers
+    //dictionary items - key - unicode string value - pair < uni string, uni string >
+    //orth, pair < category , lemma >
+
+    Inflection inflection = Inflection(vecLastNames);
+    inflection.loadInflectionRules("/usr/local/share/polem/inflection_nam_liv_person_last.txt");
+    Inflection inflectionNamLoc = Inflection(vecNamLoc);
+    inflectionNamLoc.loadInflectionRules("/usr/local/share/polem/inflection_nam_loc.txt");
+    //loading rules for inflection
+
+
+    morfeusz::Morfeusz *generator = morfeusz::Morfeusz::createInstance(morfeusz::GENERATE_ONLY);
+
+
+    return CascadeLemmatizer("nkjp", generator, dictionaryItems, inflection,
+                             inflectionNamLoc);
+
+}
 
 icu::UnicodeString
 CascadeLemmatizer::filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::UnicodeString lemma,
@@ -211,12 +273,12 @@ UnicodeString CascadeLemmatizer::foldOutput(UnicodeString lemma, vector<vector<U
 
 }
 
-CascadeLemmatizer::CascadeLemmatizer(string pathname, Corpus2::Tagset tagset, morfeusz::Morfeusz *generator,
+CascadeLemmatizer::CascadeLemmatizer(string tagset, morfeusz::Morfeusz *generator,
                                      map<UnicodeString,
                                              pair<UnicodeString, UnicodeString> > dictionaryItems,
                                      Inflection inflection, Inflection inflectionNamLoc) :
         nelexLemmatizer("/usr/local/share/polem/nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt",true),
-        ruleLemmatizer(std::move(pathname), std::move(tagset), generator, true, true),
+        ruleLemmatizer(std::move(tagset), generator, true, true),
         morfGeoLemmatizer("/usr/local/share/polem/sgjp-20160310-geograficzne.tab", false),
         namLivPersonLemmatizer(std::move(dictionaryItems), std::move(inflection)),
         namLocLemmatizer(std::move(inflectionNamLoc)),
@@ -287,3 +349,15 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
 
     return lemma.trim();
 }
+
+UnicodeString CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag,
+                                           UnicodeString kwrd_spaces) {
+    return this->lemmatize(kwrd_orth,kwrd_base,kwrd_ctag,kwrd_spaces,"");
+}
+
+UnicodeString CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag) {
+
+    return this->lemmatize(kwrd_orth,kwrd_base,kwrd_ctag,"","");
+}
+
+

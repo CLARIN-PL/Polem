@@ -39,7 +39,7 @@ if(ICU_INCLUDE_DIR AND ICU_LIBRARY)
   STRING(REGEX REPLACE ".*#define U_ICU_VERSION_MINOR_NUM ([0-9]+).*" "\\1" ICU_MINOR_VERSION "${_ICU_VERSION_CONENTS}")
  
   set(ICU_VERSION "${ICU_MAJOR_VERSION}.${ICU_MINOR_VERSION}")
- 
+
   # Look for the ICU internationalization libraries
   find_library(
     ICU_I18N_LIBRARY

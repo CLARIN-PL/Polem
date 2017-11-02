@@ -1,81 +1,82 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 2.8)
 
 project(polem)
 
+set(BUILD_SHARED_LIBS 1)
 set(CMAKE_CXX_STANDARD 11)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules")
 
+set(CMAKE_INSTALL_LIBDIR "lib")
+set(CMAKE_INSTALL_INCLUDEDIR "include")
+
 include(LibFindMacros)
-
-file(GLOB DEPLOY_FILES_AND_DIRS "${PROJECT_SOURCE_DIR}/dict/*")
-foreach(ITEM ${DEPLOY_FILES_AND_DIRS})
-        LIST( APPEND FILES_TO_DEPLOY "${ITEM}" )
-endforeach()
-INSTALL( FILES ${FILES_TO_DEPLOY} DESTINATION share/polem )
-
 
 find_package(Corpus2 REQUIRED)
 include_directories(${Corpus2_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${Corpus2_LIBRARY})
-#set(LIBS ${LIBS} "/usr/local/lib/libcorpus2.so")
-set(LIBS ${LIBS} "/usr/local/lib/libwccl.so")
-set(LIBS ${LIBS} "/usr/lib/x86_64-linux-gnu/libicui18n.so")
-
-find_package(Morfeusz2 REQUIRED)
-include_directories(${MORFEUSZ2_INCLUDE_DIR})
-set(LIBS ${LIBS} ${MORFEUSZ2_LIBRARY})
-
-
-find_package(Glib REQUIRED)
-include_directories(${Glib_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${Glib_LIBRARIES})
-
-find_package(Glibmm REQUIRED)
-include_directories(${Glibmm_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${Glibmm_LIBRARIES})
 
 find_package(ICU REQUIRED)
 include_directories(${ICU_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${ICU_LIBRARIES})
+set(LIBS ${LIBS} ${ICU_I18N_LIBRARIES})
 
-find_package(Libedit REQUIRED)
-include_directories(${Libedit_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${Libedit_LIBRARIES})
+find_library(WCCL_LIBRARY wccl /usr/lib/ /usr/local/lib/)
+find_path(WCCL_INCLUDE_DIR libwccl /usr/lib/ /usr/local/lib)
+if(WCCL_LIBRARY AND WCCL_INCLUDE_DIR)
+    message("-- Found WCCL libraries: " ${WCCL_LIBRARY})
+    include_directories(${WCCL_INCLUDE_DIR})
+    set(LIBS ${LIBS} ${WCCL_LIBRARY})
+endif(WCCL_LIBRARY AND WCCL_INCLUDE_DIR)
 
-find_package(LibXML2 REQUIRED)
-include_directories(${LibXML2_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${LibXML2_LIBRARIES})
-
-
-find_package(LibXML++ REQUIRED)
-include_directories(${LibXML++_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${LibXML++_LIBRARIES})
-
-find_package(Loki REQUIRED)
-include_directories(${Loki_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${Loki_LIBRARIES})
-
-#find_package(Morfeusz REQUIRED)
-#include_directories(${Morfeusz_INCLUDE_DIRS})
-#set(LIBS ${LIBS} ${Morfeusz_LIBRARIES})
+find_package(Morfeusz2 REQUIRED)
+include_directories(${MORFEUSZ2_INCLUDE_DIR})
+set(LIBS ${LIBS} ${MORFEUSZ2_LIBRARY})
 
 find_package(PwrUtils REQUIRED)
 include_directories(${PwrUtils_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${PwrUtils_LIBRARIES})
 set(LIBS ${LIBS} ${PwrUtils_LIBRARY})
 
-find_package(SigC++ REQUIRED)
-include_directories(${SigC++_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${SigC++_LIBRARIES})
-
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${Boost_LIBRARIES})
 
+set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Inflection.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Inflection.h ${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.h)
 
-set(SOURCE_FILES main.cpp pugixml-1.8/src/pugixml.cpp CascadeLemmatizer.cpp CascadeLemmatizer.h RuleLemmatizer.cpp RuleLemmatizer.h DictionaryLemmatizer.cpp DictionaryLemmatizer.h Inflection.cpp Inflection.h NamLivPersonLemmatizer.cpp NamLivPersonLemmatizer.h NamLocLemmatizer.cpp NamLocLemmatizer.h OrthLemmatizer.cpp OrthLemmatizer.h)
+set(LIBRARY_FILES "${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp;${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/Inflection.cpp;${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/Inflection.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.h")
+
+set(PUBLIC_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/Inflection.h")
+
+
+file(GLOB DEPLOY_FILES_AND_DIRS "${PROJECT_SOURCE_DIR}/dict/*")
+foreach(ITEM ${DEPLOY_FILES_AND_DIRS})
+    LIST( APPEND FILES_TO_DEPLOY "${ITEM}" )
+endforeach()
+INSTALL( FILES ${FILES_TO_DEPLOY} DESTINATION share/polem )
+
+
 add_executable( polem ${SOURCE_FILES} ${LIBS})
-
-
 target_link_libraries(polem ${LIBS})
+
+install(TARGETS polem RUNTIME DESTINATION "/usr/local/bin/")
+
+
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+add_library(polem-dev SHARED ${LIBRARY_FILES})
+target_link_libraries(polem-dev ${Corpus2_LIBRARY})
+target_link_libraries(polem-dev ${LIBS})
+
+
+install(TARGETS polem-dev
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(FILES ${PUBLIC_HEADERS}
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

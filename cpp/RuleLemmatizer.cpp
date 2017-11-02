@@ -14,7 +14,6 @@
 #include <libwccl/parser/Parser.h>
 #include <boost/algorithm/string.hpp>
 
-
 using namespace std;
 using namespace pugi;
 
@@ -40,7 +39,7 @@ setvar($s:Pos2mod, ["cas=nom"])
 </rule>
 */
 
-RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, morfeusz::Morfeusz *generator, bool fix,
+RuleLemmatizer::RuleLemmatizer(string tagset, morfeusz::Morfeusz *generator, bool fix,
                                bool useOrthForOov) {
 
 
@@ -55,7 +54,7 @@ RuleLemmatizer::RuleLemmatizer(string rulespathname, Corpus2::Tagset tagset, mor
     */
     this->generator = generator;
     this->useOrthForOov = useOrthForOov;
-    this->tagset = tagset;
+    this->tagset = Corpus2::get_named_tagset(tagset);
 
     xml_document doc;
     doc.load_file("/usr/local/share/polem/lemmatization-rules-azon2.xml", parse_default | parse_declaration);
@@ -141,7 +140,7 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
     //Odpal operatory i znajdź dopasowania
     //for (vector<pair<string, boost::shared_ptr<Wccl::FunctionalOperator>>>::iterator it = this->wccl_operators.begin();
      //    it != this->wccl_operators.end(); ++it) {
-        for(auto& it : this->wccl_operators){
+    for(auto& it : this->wccl_operators){
 
         string rcat = this->rule_categories[it.first];
 
@@ -324,9 +323,9 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
 
             this->generator->generate(basestr, ctagID, res);
 
-            cout << "";
+            //cout << "";
         } catch (morfeusz::MorfeuszException &e) {
-            cout<<e.what()<<endl<<ctag<<" "<<basestr<<endl;
+            //cout<<e.what()<<endl<<ctag<<" "<<basestr<<endl;
             return "";
         }
 
