@@ -92,18 +92,18 @@ int main(int argc, const char *argv[]) {
         if(vm.count("h")){
             cout<<desc<<endl;
         }else{
-            pathname=vm["p"].as<string>();
-            if(vm.count("t")){
-                argTagset=vm["t"].as<string>();
-            }else{
-                argTagset="nkjp";
-            }
-            if(vm.count("cs")){
-                caseInsensitive = false;
-            }
-            if(vm.count("ss")){
-                spaceInsensitive = false;
-            }
+                pathname = vm["p"].as<string>();
+                if (vm.count("t")) {
+                    argTagset = vm["t"].as<string>();
+                } else {
+                    argTagset = "nkjp";
+                }
+                if (vm.count("cs")) {
+                    caseInsensitive = false;
+                }
+                if (vm.count("ss")) {
+                    spaceInsensitive = false;
+                }
         }
 
         //processing arguments
@@ -264,6 +264,9 @@ int main(int argc, const char *argv[]) {
 
 
     }catch(std::exception& e){
+        std::cout << "No or insufficient parameters given"<<endl;
+        std::cout << "Run with --h to see help" <<endl;
+    }catch(std::logic_error& err){
         std::cout << "No or insufficient parameters given"<<endl;
         std::cout << "Run with --h to see help" <<endl;
     }

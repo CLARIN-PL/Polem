@@ -60,7 +60,7 @@ set(LIBRARY_FILES "${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp;${CMA
 
 set(PUBLIC_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/Inflection.h")
 
-#set(WRAPPER_FILES "")
+set(WRAPPER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/JavaLem_wrap.cxx)
 #set(WRAPPER_HEADERS "")
 
 file(GLOB DEPLOY_FILES_AND_DIRS "${PROJECT_SOURCE_DIR}/dict/*")
@@ -88,15 +88,16 @@ install(TARGETS polem-dev
 install(FILES ${PUBLIC_HEADERS}
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-#add_library(polemJava-dev SHARED ${WRAPPER_FILES})
-#include_directories(${JNI_INCLUDE_DIRS})
-#target_link_libraries(polemJava-dev polem-dev)
-#target_link_libraries(polemJava-dev ${JNI_LIBRARIES})
-#target_link_libraries(polemJava-dev ${Corpus2_LIBRARY})
-#target_link_libraries(polemJava-dev ${LIBS})
+add_library(polemJava-dev SHARED ${WRAPPER_FILES})
+set_property(TARGET polemJava-dev PROPERTY POSITION_INDEPENDENT_CODE ON)
+include_directories(${JNI_INCLUDE_DIRS})
+target_link_libraries(polemJava-dev polem-dev)
+target_link_libraries(polemJava-dev ${JNI_LIBRARIES})
+target_link_libraries(polemJava-dev ${Corpus2_LIBRARY})
+target_link_libraries(polemJava-dev ${LIBS})
 
 
-#install(TARGETS polemJava-dev
-#        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS polemJava-dev
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 #install(FILES ${WRAPPER_HEADERS}
 #        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
