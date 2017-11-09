@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.2)
 
 project(polem)
 
 set(BUILD_SHARED_LIBS 1)
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules")
 
@@ -11,6 +12,12 @@ set(CMAKE_INSTALL_LIBDIR "lib")
 set(CMAKE_INSTALL_INCLUDEDIR "include")
 
 include(LibFindMacros)
+
+find_package(JNI REQUIRED)
+
+find_package(Boost COMPONENTS program_options REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+set(LIBS ${LIBS} ${Boost_LIBRARIES})
 
 find_package(Corpus2 REQUIRED)
 include_directories(${Corpus2_INCLUDE_DIRS})
@@ -38,9 +45,7 @@ include_directories(${PwrUtils_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${PwrUtils_LIBRARIES})
 set(LIBS ${LIBS} ${PwrUtils_LIBRARY})
 
-find_package(Boost REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${Boost_LIBRARIES})
+
 
 set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.cpp
@@ -55,6 +60,8 @@ set(LIBRARY_FILES "${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp;${CMA
 
 set(PUBLIC_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/Inflection.h")
 
+#set(WRAPPER_FILES "")
+#set(WRAPPER_HEADERS "")
 
 file(GLOB DEPLOY_FILES_AND_DIRS "${PROJECT_SOURCE_DIR}/dict/*")
 foreach(ITEM ${DEPLOY_FILES_AND_DIRS})
@@ -80,3 +87,16 @@ install(TARGETS polem-dev
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${PUBLIC_HEADERS}
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+#add_library(polemJava-dev SHARED ${WRAPPER_FILES})
+#include_directories(${JNI_INCLUDE_DIRS})
+#target_link_libraries(polemJava-dev polem-dev)
+#target_link_libraries(polemJava-dev ${JNI_LIBRARIES})
+#target_link_libraries(polemJava-dev ${Corpus2_LIBRARY})
+#target_link_libraries(polemJava-dev ${LIBS})
+
+
+#install(TARGETS polemJava-dev
+#        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+#install(FILES ${WRAPPER_HEADERS}
+#        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
