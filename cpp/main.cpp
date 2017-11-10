@@ -5,6 +5,7 @@
 #include <iomanip>
 #include "CascadeLemmatizer.h"
 #include <boost/format.hpp>
+#include <boost/program_options.hpp>
 
 using namespace std;
 
@@ -66,154 +67,209 @@ printResults(ofstream &output, const string &title, map<string, pair<int, int> >
 }
 
 
-int main(int argc, char *argv[]) {
+int main(int argc, const char *argv[]) {
 
-    string pathname = argv[1];
-    string argTagset = argv[2];
-    UnicodeString cs = argv[3];
-    bool caseInsensitive = cs.toLower() == "true" != 0;
-    UnicodeString ss = argv[4];
-    bool spaceInsensitive = ss.toLower() == "true" != 0;
-    //processing arguments
-    // pathname to file to lemmatize, tagset, case sensitive, space sensitive
+    try {
 
-    map<string, pair<int, int> > tfByMethod;
-    map<string, pair<int, int> > tfByCategory;
-    //initializing structures to keep data about correctness of lemmatization
-    // string is keyword, pair of ints is amount of success and failure in lemmatization
+        boost::program_options::options_description desc("Parameters");
+        desc.add_options()
+                ("h","Print help message")
+                ("p",boost::program_options::value<string>(),"Pathname to input file - REQUIRED")
+                ("t",boost::program_options::value<string>(),"Tagset to use (Currently only NKJP)- OPTIONAL")
+                ("cs","Case sensitive evaluation - OPTIONAL")
+                ("ss","White lines sensitive evaluation - OPTIONAL");
 
-    //const Corpus2::Tagset &tagset = Corpus2::get_named_tagset(argTagset);
+        boost::program_options::variables_map vm;
+        boost::program_options::store(boost::program_options::parse_command_line(argc,argv,desc),vm);
+        boost::program_options::notify(vm);
 
-    CascadeLemmatizer cascadeLemmatizer = CascadeLemmatizer::assembleLemmatizer();
+        string pathname;
+        string argTagset;
+        bool caseInsensitive = true;
+        bool spaceInsensitive = true;
 
-    ifstream infile(pathname.c_str());
 
-    int line_no = 1;
-    if (pathname.find('/') != string::npos) {
-        pathname = pathname.substr(pathname.find('/') + 1);
-    }
-    string outname = "Lemmatized-";
-    if (!caseInsensitive) {
-        outname.append("cs-");
-    }
-    if (!spaceInsensitive) {
-        outname.append("ss-");
-    }
-    outname.append(pathname);
-    //creating name for output file
-
-    ofstream output;
-    output.open(outname);
-
-    string line;
-
-    output << setprecision(4) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t" << "Expected"
-           << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
-    cout << setprecision(4) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t" << "Expected"
-         << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
-
-    while (getline(infile, line, '\n')) {
-        //line by line reading file
-        //keyword \t orth \t base \t tag \t spaces \t category \n
-        UnicodeString lin = line.c_str();
-
-        UErrorCode status = U_ZERO_ERROR;
-        RegexMatcher m("\\t", 0, status);
-        const int maxWords = 6;
-        UnicodeString fields[6];
-
-        int numWords = m.split(lin, fields, maxWords, status);
-
-        if (numWords < 4)continue;
-        UnicodeString kwrd = fields[0].trim();
-        UnicodeString kwrd_orth = fields[1].trim();
-        UnicodeString kwrd_base = fields[2].trim();
-        UnicodeString kwrd_ctag = fields[3].trim();
-        UnicodeString kwrd_spaces;
-        if (numWords < 5) kwrd_spaces = "";
-        else {
-            kwrd_spaces = fields[4].trim();
-        }
-        string kwrd_category;
-        if (numWords < 6) kwrd_category = "";
-        else {
-            fields[5].findAndReplace("\tnull", "");
-            fields[5].trim().toUTF8String(kwrd_category);
+        if(vm.count("h")){
+            cout<<desc<<endl;
+        }else{
+                pathname = vm["p"].as<string>();
+                if (vm.count("t")) {
+                    argTagset = vm["t"].as<string>();
+                } else {
+                    argTagset = "nkjp";
+                }
+                if (vm.count("cs")) {
+                    caseInsensitive = false;
+                }
+                if (vm.count("ss")) {
+                    spaceInsensitive = false;
+                }
         }
 
-        //if (line_no == 12464) { cout << ""; }
+        //processing arguments
+        // pathname to file to lemmatize, tagset, case sensitive, space sensitive
 
-        UnicodeString lemma = cascadeLemmatizer.lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, kwrd_category);
+        map<string, pair<int, int> > tfByMethod;
+        map<string, pair<int, int> > tfByCategory;
+        //initializing structures to keep data about correctness of lemmatization
+        // string is keyword, pair of ints is amount of success and failure in lemmatization
 
-        //string view = globalMethod;
-        string lemmaprnt;
-        lemma.toUTF8String(lemmaprnt);
-        string kwrdprnt;
-        string ctagprnt;
-        string orthprnt;
-        string basesprnt;
-        while (kwrd.indexOf("  ") != -1 || kwrd.indexOf("\t") != -1) {
-            kwrd.findAndReplace("  ", " ");
-            kwrd.findAndReplace("\t", " ");
+        //const Corpus2::Tagset &tagset = Corpus2::get_named_tagset(argTagset);
+
+        CascadeLemmatizer cascadeLemmatizer = CascadeLemmatizer::assembleLemmatizer();
+
+        ifstream infile(pathname.c_str());
+
+        int line_no = 1;
+        if (pathname.find('/') != string::npos) {
+            pathname = pathname.substr(pathname.find('/') + 1);
         }
-        kwrd.toUTF8String(kwrdprnt);
-        kwrd_ctag.toUTF8String(ctagprnt);
-        kwrd_orth.toUTF8String(orthprnt);
-        kwrd_base.toUTF8String(basesprnt);
-
-        if (caseInsensitive) {
-            lemma = lemma.toLower();
-            kwrd = kwrd.toLower();
+        string outname = "Lemmatized-";
+        if (!caseInsensitive) {
+            outname.append("cs-");
         }
-        if (spaceInsensitive) {
-            lemma.findAndReplace(" ", "");
-            kwrd.findAndReplace(" ", "");
+        if (!spaceInsensitive) {
+            outname.append("ss-");
         }
+        outname.append(pathname);
+        //creating name for output file
 
-        if (lemma == kwrd) { // success
-            if (tfByMethod.count(globalMethod) > 0) { // method found in structure
-                tfByMethod[globalMethod].first++;      //increasing success amount
-            } else {
-                tfByMethod.insert(make_pair(globalMethod, make_pair(1, 0)));
+        ofstream output;
+        output.open(outname);
+
+        string line;
+
+        output << setprecision(4) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t"
+               << "Expected"
+               << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
+        cout << setprecision(4) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t"
+             << "Expected"
+             << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
+
+        while (getline(infile, line, '\n')) {
+            //line by line reading file
+            //keyword \t orth \t base \t tag \t spaces \t category \n
+            UnicodeString lin = line.c_str();
+
+            UErrorCode status = U_ZERO_ERROR;
+            RegexMatcher m("\\t", 0, status);
+            const int maxWords = 6;
+            UnicodeString fields[6];
+
+            int numWords = m.split(lin, fields, maxWords, status);
+
+            if (numWords < 4)continue;
+            UnicodeString kwrd = fields[0].trim();
+            UnicodeString kwrd_orth = fields[1].trim();
+            UnicodeString kwrd_base = fields[2].trim();
+            UnicodeString kwrd_ctag = fields[3].trim();
+            UnicodeString kwrd_spaces;
+            if (numWords < 5) kwrd_spaces = "";
+            else {
+                kwrd_spaces = fields[4].trim();
             }
-            if (tfByCategory.count(kwrd_category) > 0) {
-                tfByCategory[kwrd_category].first++;
-            } else {
-                tfByCategory.insert(make_pair(kwrd_category, make_pair(1, 0)));
+            string kwrd_category;
+            if (numWords < 6) kwrd_category = "";
+            else {
+                fields[5].findAndReplace("\tnull", "");
+                fields[5].trim().toUTF8String(kwrd_category);
             }
-            output.clear();
-            output << "[" <<setw(4)<< line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
-                   << kwrdprnt << "\t" << kwrd_category
-                   << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
-            cout << "[" << setw(4)<<line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt << "\t" << kwrdprnt
-                 << "\t" << kwrd_category
-                 << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
-        } else { // failure
-            if (tfByMethod.count(globalMethod) > 0) {
-                tfByMethod[globalMethod].second++;
-            } else {
-                tfByMethod.insert(make_pair(globalMethod, make_pair(0, 1)));
-            }
-            if (tfByCategory.count(kwrd_category) > 0) {
-                tfByCategory[kwrd_category].second++;
-            } else {
-                tfByCategory.insert(make_pair(kwrd_category, make_pair(0, 1)));
-            }
-            output.clear();
-            output << "[" <<setw(4)<< line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
-                   << kwrdprnt << "\t" << kwrd_category
-                   << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
-            cout << "[" <<setw(4)<< line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt << "\t"
-                 << kwrdprnt << "\t" << kwrd_category
-                 << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
 
+            //if (line_no == 12464) { cout << ""; }
+
+            string ort, base, ctag, spaces;
+            kwrd_orth.toUTF8String(ort);
+            kwrd_base.toUTF8String(base);
+            kwrd_ctag.toUTF8String(ctag);
+            kwrd_spaces.toUTF8String(spaces);
+
+
+            std::string lemma1 = cascadeLemmatizer.lemmatize(ort, base, ctag, spaces, kwrd_category);
+
+            UnicodeString lemma = lemma1.c_str();
+
+            //string view = globalMethod;
+            string lemmaprnt;
+            lemma.toUTF8String(lemmaprnt);
+            string kwrdprnt;
+            string ctagprnt;
+            string orthprnt;
+            string basesprnt;
+            while (kwrd.indexOf("  ") != -1 || kwrd.indexOf("\t") != -1) {
+                kwrd.findAndReplace("  ", " ");
+                kwrd.findAndReplace("\t", " ");
+            }
+            kwrd.toUTF8String(kwrdprnt);
+            kwrd_ctag.toUTF8String(ctagprnt);
+            kwrd_orth.toUTF8String(orthprnt);
+            kwrd_base.toUTF8String(basesprnt);
+
+            if (caseInsensitive) {
+                lemma = lemma.toLower();
+                kwrd = kwrd.toLower();
+            }
+            if (spaceInsensitive) {
+                lemma.findAndReplace(" ", "");
+                kwrd.findAndReplace(" ", "");
+            }
+
+            if (lemma == kwrd) { // success
+                if (tfByMethod.count(globalMethod) > 0) { // method found in structure
+                    tfByMethod[globalMethod].first++;      //increasing success amount
+                } else {
+                    tfByMethod.insert(make_pair(globalMethod, make_pair(1, 0)));
+                }
+                if (tfByCategory.count(kwrd_category) > 0) {
+                    tfByCategory[kwrd_category].first++;
+                } else {
+                    tfByCategory.insert(make_pair(kwrd_category, make_pair(1, 0)));
+                }
+                output.clear();
+                output << "[" << setw(4) << line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt
+                       << "\t"
+                       << kwrdprnt << "\t" << kwrd_category
+                       << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
+                cout << "[" << setw(4) << line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt
+                     << "\t" << kwrdprnt
+                     << "\t" << kwrd_category
+                     << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
+            } else { // failure
+                if (tfByMethod.count(globalMethod) > 0) {
+                    tfByMethod[globalMethod].second++;
+                } else {
+                    tfByMethod.insert(make_pair(globalMethod, make_pair(0, 1)));
+                }
+                if (tfByCategory.count(kwrd_category) > 0) {
+                    tfByCategory[kwrd_category].second++;
+                } else {
+                    tfByCategory.insert(make_pair(kwrd_category, make_pair(0, 1)));
+                }
+                output.clear();
+                output << "[" << setw(4) << line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt
+                       << "\t"
+                       << kwrdprnt << "\t" << kwrd_category
+                       << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
+                cout << "[" << setw(4) << line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt
+                     << "\t"
+                     << kwrdprnt << "\t" << kwrd_category
+                     << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
+
+            }
+            line_no++;
         }
-        line_no++;
+        printResults(output, "Evaluation by method", tfByMethod, line_no);
+        printResults(output, "Evaluation by keyword category", tfByCategory, line_no);
+        infile.close();
+        output.close();
+
+
+    }catch(std::exception& e){
+        std::cout << "No or insufficient parameters given"<<endl;
+        std::cout << "Run with --h to see help" <<endl;
+    }catch(std::logic_error& err){
+        std::cout << "No or insufficient parameters given"<<endl;
+        std::cout << "Run with --h to see help" <<endl;
     }
-    printResults(output, "Evaluation by method", tfByMethod, line_no);
-    printResults(output, "Evaluation by keyword category", tfByCategory, line_no);
-    infile.close();
-    output.close();
 
     return 0;
 }
