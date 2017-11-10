@@ -42,14 +42,14 @@ class CascadeLemmatizer{
 public:
     static CascadeLemmatizer assembleLemmatizer();
 
-    std::string
-    lemmatize(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag, std::string kwrd_spaces,
+    UnicodeString
+    lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces,
               std::string category);
 
-    std::string
-    lemmatize(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag, std::string kwrd_spaces);
+    UnicodeString
+    lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces);
 
-    std::string lemmatize(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag);
+    UnicodeString lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag);
 
 
 };
