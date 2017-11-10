@@ -70,7 +70,7 @@ set(PUBLIC_HEADERS polem/CascadeLemmatizer.h polem/DictionaryLemmatizer.h
         polem/RuleLemmatizer.h polem/OrthLemmatizer.h
         polem/Inflection.h)
 
-#set(WRAPPER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/JavaLem_wrap.cxx)
+#set(WRAPPER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/polem/JavaLem_wrap.cxx)
 #set(WRAPPER_HEADERS "")
 
 file(GLOB DEPLOY_FILES_AND_DIRS "${PROJECT_SOURCE_DIR}/dict/*")
