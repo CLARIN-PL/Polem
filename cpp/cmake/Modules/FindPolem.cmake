@@ -1,7 +1,7 @@
 IF (Polem_INCLUDE_DIR AND Polem_LIBRARY)
     SET(Polem_FOUND TRUE)
 ELSE (Polem_INCLUDE_DIR AND Polem_LIBRARY)
-    FIND_PATH(Polem_INCLUDE_DIR ../../CascadeLemmatizer.h /usr/include /usr/local/include)
+    FIND_PATH(Polem_INCLUDE_DIR ../../polem/CascadeLemmatizer.h /usr/include /usr/local/include)
 
     FIND_LIBRARY(Polem_LIBRARY polem-dev /usr/lib /usr/local/lib)
 
