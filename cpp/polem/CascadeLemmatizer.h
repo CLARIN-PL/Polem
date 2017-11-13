@@ -42,6 +42,10 @@ class CascadeLemmatizer{
 public:
     static CascadeLemmatizer assembleLemmatizer();
 
+    static std::string toString(UnicodeString in);
+
+    static UnicodeString toUnicode(std::string in);
+
     UnicodeString
     lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces,
               std::string category);

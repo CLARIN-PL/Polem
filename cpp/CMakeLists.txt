@@ -15,6 +15,12 @@ include(LibFindMacros)
 
 find_package(JNI REQUIRED)
 
+find_package(Java REQUIRED)
+
+include(UseJava)
+
+
+
 find_package(Boost COMPONENTS program_options REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${Boost_LIBRARIES})
@@ -70,7 +76,7 @@ set(PUBLIC_HEADERS polem/CascadeLemmatizer.h polem/DictionaryLemmatizer.h
         polem/RuleLemmatizer.h polem/OrthLemmatizer.h
         polem/Inflection.h)
 
-#set(WRAPPER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/polem/JavaLem_wrap.cxx)
+set(WRAPPER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/JavaLem_wrap.cxx)
 #set(WRAPPER_HEADERS "")
 
 file(GLOB DEPLOY_FILES_AND_DIRS "${PROJECT_SOURCE_DIR}/dict/*")
@@ -98,16 +104,23 @@ install(TARGETS polem-dev
 install(FILES ${PUBLIC_HEADERS}
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-#add_library(polemJava-dev SHARED ${WRAPPER_FILES})
-#set_property(TARGET polemJava-dev PROPERTY POSITION_INDEPENDENT_CODE ON)
-#include_directories(${JNI_INCLUDE_DIRS})
-#target_link_libraries(polemJava-dev polem-dev)
-#target_link_libraries(polemJava-dev ${JNI_LIBRARIES})
-#target_link_libraries(polemJava-dev ${Corpus2_LIBRARY})
-#target_link_libraries(polemJava-dev ${LIBS})
+add_library(polemJava-dev SHARED ${WRAPPER_FILES})
+set_property(TARGET polemJava-dev PROPERTY POSITION_INDEPENDENT_CODE ON)
+include_directories(${JNI_INCLUDE_DIRS})
+target_link_libraries(polemJava-dev polem-dev)
+target_link_libraries(polemJava-dev ${JNI_LIBRARIES})
+target_link_libraries(polemJava-dev ${Corpus2_LIBRARY})
+target_link_libraries(polemJava-dev ${LIBS})
 
 
-#install(TARGETS polemJava-dev
-#        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS polemJava-dev
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 #install(FILES ${WRAPPER_HEADERS}
 #        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+set(CMAKE_JNI_TARGET TRUE)
+add_jar(polemJav ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/CascadeLemmatizer.java ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/Lem.java
+        ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/LemJNI.java ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/SWIGTYPE_p_UnicodeString.java)
+
+
+

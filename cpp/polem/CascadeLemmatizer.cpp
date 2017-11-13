@@ -359,4 +359,14 @@ UnicodeString CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeStrin
     return this->lemmatize(kwrd_orth,kwrd_base,kwrd_ctag,"","");
 }
 
+std::string CascadeLemmatizer::toString(UnicodeString in) {
+    std::string out;
+    in.toUTF8String(out);
+    return out;
+}
+
+UnicodeString CascadeLemmatizer::toUnicode(std::string in) {
+    return in.c_str();
+}
+
 
