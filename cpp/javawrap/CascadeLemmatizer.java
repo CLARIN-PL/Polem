@@ -8,6 +8,11 @@
 
 
 public class CascadeLemmatizer {
+
+    static{
+        System.loadLibrary("polemJava-dev");
+    }
+
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
