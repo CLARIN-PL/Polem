@@ -15,6 +15,12 @@ include(LibFindMacros)
 
 find_package(JNI REQUIRED)
 
+find_package(Java REQUIRED)
+
+include(UseJava)
+
+
+
 find_package(Boost COMPONENTS program_options REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${Boost_LIBRARIES})
@@ -47,20 +53,30 @@ set(LIBS ${LIBS} ${PwrUtils_LIBRARY})
 
 
 
-set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Inflection.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/Inflection.h ${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.h)
+set(SOURCE_FILES polem/main.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp
+        polem/CascadeLemmatizer.cpp polem/RuleLemmatizer.cpp
+        polem/DictionaryLemmatizer.cpp polem/Inflection.cpp
+        polem/NamLivPersonLemmatizer.cpp polem/NamLocLemmatizer.cpp
+        polem/OrthLemmatizer.cpp polem/CascadeLemmatizer.h
+        polem/RuleLemmatizer.h polem/DictionaryLemmatizer.h
+        polem/Inflection.h polem/NamLivPersonLemmatizer.h
+        polem/NamLocLemmatizer.h polem/OrthLemmatizer.h)
 
-set(LIBRARY_FILES "${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp;${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/Inflection.cpp;${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.cpp;${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/Inflection.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.h")
+set(LIBRARY_FILES ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp polem/CascadeLemmatizer.cpp
+        polem/RuleLemmatizer.cpp polem/DictionaryLemmatizer.cpp
+        polem/Inflection.cpp polem/NamLivPersonLemmatizer.cpp
+        polem/NamLocLemmatizer.cpp polem/OrthLemmatizer.cpp
+        polem/CascadeLemmatizer.h polem/RuleLemmatizer.h
+        polem/DictionaryLemmatizer.h polem/Inflection.h
+        polem/NamLivPersonLemmatizer.h polem/NamLocLemmatizer.h
+        polem/OrthLemmatizer.h)
 
-set(PUBLIC_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/CascadeLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/DictionaryLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLivPersonLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/NamLocLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/RuleLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/OrthLemmatizer.h;${CMAKE_CURRENT_SOURCE_DIR}/Inflection.h")
+set(PUBLIC_HEADERS polem/CascadeLemmatizer.h polem/DictionaryLemmatizer.h
+        polem/NamLivPersonLemmatizer.h polem/NamLocLemmatizer.h
+        polem/RuleLemmatizer.h polem/OrthLemmatizer.h
+        polem/Inflection.h)
 
-set(WRAPPER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/JavaLem_wrap.cxx)
+set(WRAPPER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/JavaLem_wrap.cxx)
 #set(WRAPPER_HEADERS "")
 
 file(GLOB DEPLOY_FILES_AND_DIRS "${PROJECT_SOURCE_DIR}/dict/*")
@@ -101,3 +117,10 @@ install(TARGETS polemJava-dev
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 #install(FILES ${WRAPPER_HEADERS}
 #        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+set(CMAKE_JNI_TARGET TRUE)
+add_jar(polemJav ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/CascadeLemmatizer.java ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/Lem.java
+        ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/LemJNI.java ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/SWIGTYPE_p_UnicodeString.java)
+
+
+

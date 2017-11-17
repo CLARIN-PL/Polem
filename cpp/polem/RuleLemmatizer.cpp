@@ -6,7 +6,7 @@
 #include <sstream>
 #include <fstream>
 #include "RuleLemmatizer.h"
-#include "pugixml-1.8/src/pugixml.hpp"
+#include "../pugixml-1.8/src/pugixml.hpp"
 #include "CascadeLemmatizer.h"
 #include <libcorpus2/io/reader.h>
 #include <libcorpus2/tagging.h>

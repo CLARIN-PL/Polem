@@ -174,6 +174,7 @@ template <typename T> T SwigValueInit() {
 #endif
 
 #include <jni.h>
+#include <stdlib.h>
 
 
 /* Support for throwing Java exceptions */
@@ -229,7 +230,8 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 #include <string>
 
 
-#include "CascadeLemmatizer.h"
+#include "../polem/CascadeLemmatizer.h"
+
 
 
 #ifdef __cplusplus
@@ -278,52 +280,89 @@ SWIGEXPORT jlong JNICALL Java_LemJNI_CascadeLemmatizer_1assembleLemmatizer(JNIEn
 }
 
 
-SWIGEXPORT jstring JNICALL Java_LemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jstring jarg3, jstring jarg4, jstring jarg5, jstring jarg6) {
+SWIGEXPORT jstring JNICALL Java_LemJNI_CascadeLemmatizer_1toString(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jstring jresult = 0 ;
-  CascadeLemmatizer *arg1 = (CascadeLemmatizer *) 0 ;
-  std::string arg2 ;
-  std::string arg3 ;
-  std::string arg4 ;
-  std::string arg5 ;
-  std::string arg6 ;
+  UnicodeString arg1 ;
+  UnicodeString *argp1 ;
   std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  argp1 = *(UnicodeString **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
+    return 0;
+  }
+  arg1 = *argp1; 
+  result = CascadeLemmatizer::toString(arg1);
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_LemJNI_CascadeLemmatizer_1toUnicode(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string arg1 ;
+  UnicodeString result;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  (&arg1)->assign(arg1_pstr);
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = CascadeLemmatizer::toUnicode(arg1);
+  *(UnicodeString **)&jresult = new UnicodeString((const UnicodeString &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_LemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jlong jarg5, jstring jarg6) {
+  jlong jresult = 0 ;
+  CascadeLemmatizer *arg1 = (CascadeLemmatizer *) 0 ;
+  UnicodeString arg2 ;
+  UnicodeString arg3 ;
+  UnicodeString arg4 ;
+  UnicodeString arg5 ;
+  std::string arg6 ;
+  UnicodeString *argp2 ;
+  UnicodeString *argp3 ;
+  UnicodeString *argp4 ;
+  UnicodeString *argp5 ;
+  UnicodeString result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(CascadeLemmatizer **)&jarg1; 
-  if(!jarg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+  argp2 = *(UnicodeString **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
-  } 
-  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
-  if (!arg2_pstr) return 0;
-  (&arg2)->assign(arg2_pstr);
-  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  if(!jarg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+  }
+  arg2 = *argp2; 
+  argp3 = *(UnicodeString **)&jarg3; 
+  if (!argp3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
-  } 
-  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
-  if (!arg3_pstr) return 0;
-  (&arg3)->assign(arg3_pstr);
-  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
-  if(!jarg4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+  }
+  arg3 = *argp3; 
+  argp4 = *(UnicodeString **)&jarg4; 
+  if (!argp4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
-  } 
-  const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0); 
-  if (!arg4_pstr) return 0;
-  (&arg4)->assign(arg4_pstr);
-  jenv->ReleaseStringUTFChars(jarg4, arg4_pstr); 
-  if(!jarg5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+  }
+  arg4 = *argp4; 
+  argp5 = *(UnicodeString **)&jarg5; 
+  if (!argp5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
-  } 
-  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
-  if (!arg5_pstr) return 0;
-  (&arg5)->assign(arg5_pstr);
-  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  }
+  arg5 = *argp5; 
   if(!jarg6) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
     return 0;
@@ -333,100 +372,93 @@ SWIGEXPORT jstring JNICALL Java_LemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_10(J
   (&arg6)->assign(arg6_pstr);
   jenv->ReleaseStringUTFChars(jarg6, arg6_pstr); 
   result = (arg1)->lemmatize(arg2,arg3,arg4,arg5,arg6);
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  *(UnicodeString **)&jresult = new UnicodeString((const UnicodeString &)result); 
   return jresult;
 }
 
 
-SWIGEXPORT jstring JNICALL Java_LemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jstring jarg3, jstring jarg4, jstring jarg5) {
-  jstring jresult = 0 ;
+SWIGEXPORT jlong JNICALL Java_LemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jlong jarg5) {
+  jlong jresult = 0 ;
   CascadeLemmatizer *arg1 = (CascadeLemmatizer *) 0 ;
-  std::string arg2 ;
-  std::string arg3 ;
-  std::string arg4 ;
-  std::string arg5 ;
-  std::string result;
+  UnicodeString arg2 ;
+  UnicodeString arg3 ;
+  UnicodeString arg4 ;
+  UnicodeString arg5 ;
+  UnicodeString *argp2 ;
+  UnicodeString *argp3 ;
+  UnicodeString *argp4 ;
+  UnicodeString *argp5 ;
+  UnicodeString result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(CascadeLemmatizer **)&jarg1; 
-  if(!jarg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+  argp2 = *(UnicodeString **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
-  } 
-  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
-  if (!arg2_pstr) return 0;
-  (&arg2)->assign(arg2_pstr);
-  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  if(!jarg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+  }
+  arg2 = *argp2; 
+  argp3 = *(UnicodeString **)&jarg3; 
+  if (!argp3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
-  } 
-  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
-  if (!arg3_pstr) return 0;
-  (&arg3)->assign(arg3_pstr);
-  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
-  if(!jarg4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+  }
+  arg3 = *argp3; 
+  argp4 = *(UnicodeString **)&jarg4; 
+  if (!argp4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
-  } 
-  const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0); 
-  if (!arg4_pstr) return 0;
-  (&arg4)->assign(arg4_pstr);
-  jenv->ReleaseStringUTFChars(jarg4, arg4_pstr); 
-  if(!jarg5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+  }
+  arg4 = *argp4; 
+  argp5 = *(UnicodeString **)&jarg5; 
+  if (!argp5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
-  } 
-  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
-  if (!arg5_pstr) return 0;
-  (&arg5)->assign(arg5_pstr);
-  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  }
+  arg5 = *argp5; 
   result = (arg1)->lemmatize(arg2,arg3,arg4,arg5);
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  *(UnicodeString **)&jresult = new UnicodeString((const UnicodeString &)result); 
   return jresult;
 }
 
 
-SWIGEXPORT jstring JNICALL Java_LemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jstring jarg3, jstring jarg4) {
-  jstring jresult = 0 ;
+SWIGEXPORT jlong JNICALL Java_LemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4) {
+  jlong jresult = 0 ;
   CascadeLemmatizer *arg1 = (CascadeLemmatizer *) 0 ;
-  std::string arg2 ;
-  std::string arg3 ;
-  std::string arg4 ;
-  std::string result;
+  UnicodeString arg2 ;
+  UnicodeString arg3 ;
+  UnicodeString arg4 ;
+  UnicodeString *argp2 ;
+  UnicodeString *argp3 ;
+  UnicodeString *argp4 ;
+  UnicodeString result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(CascadeLemmatizer **)&jarg1; 
-  if(!jarg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+  argp2 = *(UnicodeString **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
-  } 
-  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
-  if (!arg2_pstr) return 0;
-  (&arg2)->assign(arg2_pstr);
-  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  if(!jarg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+  }
+  arg2 = *argp2; 
+  argp3 = *(UnicodeString **)&jarg3; 
+  if (!argp3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
-  } 
-  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
-  if (!arg3_pstr) return 0;
-  (&arg3)->assign(arg3_pstr);
-  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
-  if(!jarg4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+  }
+  arg3 = *argp3; 
+  argp4 = *(UnicodeString **)&jarg4; 
+  if (!argp4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
-  } 
-  const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0); 
-  if (!arg4_pstr) return 0;
-  (&arg4)->assign(arg4_pstr);
-  jenv->ReleaseStringUTFChars(jarg4, arg4_pstr); 
+  }
+  arg4 = *argp4; 
   result = (arg1)->lemmatize(arg2,arg3,arg4);
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  *(UnicodeString **)&jresult = new UnicodeString((const UnicodeString &)result); 
   return jresult;
 }
 

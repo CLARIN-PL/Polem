@@ -288,18 +288,11 @@ CascadeLemmatizer::CascadeLemmatizer(string tagset, morfeusz::Morfeusz *generato
 
 }
 
-std::string
-CascadeLemmatizer::lemmatize(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag,
-                             std::string kwrd_spaces,
-                             std::string kw_category) {
+UnicodeString
+CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag,
+                             UnicodeString kwrd_spaces, std::string kw_category) {
 
-    UnicodeString orth = kwrd_orth.c_str();
-    UnicodeString base = kwrd_base.c_str();
-    UnicodeString ctag = kwrd_ctag.c_str();
-    UnicodeString spaces = kwrd_spaces.c_str();
-
-
-    vector<vector<UnicodeString>> kw = CascadeLemmatizer::chopInput(orth, base, ctag, spaces);
+    vector<vector<UnicodeString>> kw = CascadeLemmatizer::chopInput(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces);
     //processing keyword into input to lemmatizer as
     //orth1, base1, tag1, space1  <- vector
     //orth2, base2, tag2, space2 and so on
@@ -353,20 +346,27 @@ CascadeLemmatizer::lemmatize(std::string kwrd_orth, std::string kwrd_base, std::
     //lemma = filter(kw, lemma, kw_category);
     //filter the results, adding few % points
 
-    string ret;
-    lemma.trim().toUTF8String(ret);
-
-    return ret;
+    return lemma.trim();
 }
 
-std::string CascadeLemmatizer::lemmatize(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag,
-                                         std::string kwrd_spaces) {
+UnicodeString CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag,
+                                           UnicodeString kwrd_spaces) {
     return this->lemmatize(kwrd_orth,kwrd_base,kwrd_ctag,kwrd_spaces,"");
 }
 
-std::string CascadeLemmatizer::lemmatize(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag) {
+UnicodeString CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag) {
 
     return this->lemmatize(kwrd_orth,kwrd_base,kwrd_ctag,"","");
+}
+
+std::string CascadeLemmatizer::toString(UnicodeString in) {
+    std::string out;
+    in.toUTF8String(out);
+    return out;
+}
+
+UnicodeString CascadeLemmatizer::toUnicode(std::string in) {
+    return in.c_str();
 }
 
 

@@ -175,18 +175,8 @@ int main(int argc, const char *argv[]) {
                 fields[5].trim().toUTF8String(kwrd_category);
             }
 
-            //if (line_no == 12464) { cout << ""; }
 
-            string ort, base, ctag, spaces;
-            kwrd_orth.toUTF8String(ort);
-            kwrd_base.toUTF8String(base);
-            kwrd_ctag.toUTF8String(ctag);
-            kwrd_spaces.toUTF8String(spaces);
-
-
-            std::string lemma1 = cascadeLemmatizer.lemmatize(ort, base, ctag, spaces, kwrd_category);
-
-            UnicodeString lemma = lemma1.c_str();
+            UnicodeString lemma = cascadeLemmatizer.lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, kwrd_category);
 
             //string view = globalMethod;
             string lemmaprnt;
@@ -263,10 +253,10 @@ int main(int argc, const char *argv[]) {
         output.close();
 
 
-    }catch(std::exception& e){
+    }catch(std::logic_error& err){
         std::cout << "No or insufficient parameters given"<<endl;
         std::cout << "Run with --h to see help" <<endl;
-    }catch(std::logic_error& err){
+    }catch(std::exception& e){
         std::cout << "No or insufficient parameters given"<<endl;
         std::cout << "Run with --h to see help" <<endl;
     }
