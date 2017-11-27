@@ -256,10 +256,10 @@ int main(int argc, const char *argv[]) {
 
     }catch(std::logic_error& err){
         std::cout << "No or insufficient parameters given"<<endl;
-        std::cout << "Run with --h to see help" <<endl;
+        std::cout << "Run with -h to see help" <<endl;
     }catch(std::exception& e){
         std::cout << "No or insufficient parameters given"<<endl;
-        std::cout << "Run with --h to see help" <<endl;
+        std::cout << "Run with -h to see help" <<endl;
     }
 
     return 0;
