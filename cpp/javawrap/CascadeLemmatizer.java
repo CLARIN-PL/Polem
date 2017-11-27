@@ -12,7 +12,6 @@ public class CascadeLemmatizer {
     static{
         System.loadLibrary("polemJava-dev");
     }
-
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -33,34 +32,38 @@ public class CascadeLemmatizer {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        LemJNI.delete_CascadeLemmatizer(swigCPtr);
+        WrapLemJNI.delete_CascadeLemmatizer(swigCPtr);
       }
       swigCPtr = 0;
     }
   }
 
   public static CascadeLemmatizer assembleLemmatizer() {
-    return new CascadeLemmatizer(LemJNI.CascadeLemmatizer_assembleLemmatizer(), true);
-  }
-
-  public static String toString(SWIGTYPE_p_UnicodeString in) {
-    return LemJNI.CascadeLemmatizer_toString(SWIGTYPE_p_UnicodeString.getCPtr(in));
-  }
-
-  public static SWIGTYPE_p_UnicodeString toUnicode(String in) {
-    return new SWIGTYPE_p_UnicodeString(LemJNI.CascadeLemmatizer_toUnicode(in), true);
+    return new CascadeLemmatizer(WrapLemJNI.CascadeLemmatizer_assembleLemmatizer(), true);
   }
 
   public SWIGTYPE_p_UnicodeString lemmatize(SWIGTYPE_p_UnicodeString kwrd_orth, SWIGTYPE_p_UnicodeString kwrd_base, SWIGTYPE_p_UnicodeString kwrd_ctag, SWIGTYPE_p_UnicodeString kwrd_spaces, String category) {
-    return new SWIGTYPE_p_UnicodeString(LemJNI.CascadeLemmatizer_lemmatize__SWIG_0(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_spaces), category), true);
+    return new SWIGTYPE_p_UnicodeString(WrapLemJNI.CascadeLemmatizer_lemmatize__SWIG_0(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_spaces), category), true);
   }
 
   public SWIGTYPE_p_UnicodeString lemmatize(SWIGTYPE_p_UnicodeString kwrd_orth, SWIGTYPE_p_UnicodeString kwrd_base, SWIGTYPE_p_UnicodeString kwrd_ctag, SWIGTYPE_p_UnicodeString kwrd_spaces) {
-    return new SWIGTYPE_p_UnicodeString(LemJNI.CascadeLemmatizer_lemmatize__SWIG_1(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_spaces)), true);
+    return new SWIGTYPE_p_UnicodeString(WrapLemJNI.CascadeLemmatizer_lemmatize__SWIG_1(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_spaces)), true);
   }
 
   public SWIGTYPE_p_UnicodeString lemmatize(SWIGTYPE_p_UnicodeString kwrd_orth, SWIGTYPE_p_UnicodeString kwrd_base, SWIGTYPE_p_UnicodeString kwrd_ctag) {
-    return new SWIGTYPE_p_UnicodeString(LemJNI.CascadeLemmatizer_lemmatize__SWIG_2(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag)), true);
+    return new SWIGTYPE_p_UnicodeString(WrapLemJNI.CascadeLemmatizer_lemmatize__SWIG_2(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag)), true);
+  }
+
+  public String lemmatizeS(String kwrd_orth, String kwrd_base, String kwrd_ctag, String kwrd_spaces, String category) {
+    return WrapLemJNI.CascadeLemmatizer_lemmatizeS__SWIG_0(swigCPtr, this, kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, category);
+  }
+
+  public String lemmatizeS(String kwrd_orth, String kwrd_base, String kwrd_ctag, String kwrd_spaces) {
+    return WrapLemJNI.CascadeLemmatizer_lemmatizeS__SWIG_1(swigCPtr, this, kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces);
+  }
+
+  public String lemmatizeS(String kwrd_orth, String kwrd_base, String kwrd_ctag) {
+    return WrapLemJNI.CascadeLemmatizer_lemmatizeS__SWIG_2(swigCPtr, this, kwrd_orth, kwrd_base, kwrd_ctag);
   }
 
 }

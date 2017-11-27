@@ -73,35 +73,36 @@ int main(int argc, const char *argv[]) {
 
         boost::program_options::options_description desc("Parameters");
         desc.add_options()
-                ("h","Print help message")
-                ("p",boost::program_options::value<string>(),"Pathname to input file - REQUIRED")
-                ("t",boost::program_options::value<string>(),"Tagset to use (Currently only NKJP)- OPTIONAL")
-                ("cs","Case sensitive evaluation - OPTIONAL")
-                ("ss","White lines sensitive evaluation - OPTIONAL");
+                ("help,h","Print help message")
+                ("pathname,p",boost::program_options::value<string>(),"Pathname to input file - REQUIRED")
+                ("tagset,t",boost::program_options::value<string>(),"Tagset to use (Currently only NKJP)- OPTIONAL")
+                ("case-sensitive,cs","Case sensitive evaluation - OPTIONAL")
+                ("space-sensitive,ss","Whitespace sensitive evaluation - OPTIONAL");
 
         boost::program_options::variables_map vm;
         boost::program_options::store(boost::program_options::parse_command_line(argc,argv,desc),vm);
-        boost::program_options::notify(vm);
+
 
         string pathname;
         string argTagset;
         bool caseInsensitive = true;
         bool spaceInsensitive = true;
 
-
-        if(vm.count("h")){
-            cout<<desc<<endl;
-        }else{
-                pathname = vm["p"].as<string>();
-                if (vm.count("t")) {
+        if (vm.count("help")) {
+                cout << desc << endl;
+            return 0;
+        } else {
+                boost::program_options::notify(vm);
+                pathname = vm["pathname"].as<string>();
+                if (vm.count("tagset")) {
                     argTagset = vm["t"].as<string>();
                 } else {
                     argTagset = "nkjp";
                 }
-                if (vm.count("cs")) {
+                if (vm.count("case-sensitive")) {
                     caseInsensitive = false;
                 }
-                if (vm.count("ss")) {
+                if (vm.count("space-sensitive")) {
                     spaceInsensitive = false;
                 }
         }

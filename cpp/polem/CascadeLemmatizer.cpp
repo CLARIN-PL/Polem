@@ -359,14 +359,27 @@ UnicodeString CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeStrin
     return this->lemmatize(kwrd_orth,kwrd_base,kwrd_ctag,"","");
 }
 
-std::string CascadeLemmatizer::toString(UnicodeString in) {
+std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag,
+                                          std::string kwrd_spaces, std::string category) {
     std::string out;
-    in.toUTF8String(out);
+    UnicodeString proc = this->lemmatize(kwrd_orth.c_str(),kwrd_base.c_str(),kwrd_ctag.c_str(),kwrd_spaces.c_str(),category.c_str());
+    proc.toUTF8String(out);
     return out;
 }
 
-UnicodeString CascadeLemmatizer::toUnicode(std::string in) {
-    return in.c_str();
+std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag,
+                                          std::string kwrd_spaces) {
+    std::string out;
+    UnicodeString proc = this->lemmatize(kwrd_orth.c_str(),kwrd_base.c_str(),kwrd_ctag.c_str(),kwrd_spaces.c_str());
+    proc.toUTF8String(out);
+    return out;
+}
+
+std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag) {
+    std::string out;
+    UnicodeString proc = this->lemmatize(kwrd_orth.c_str(),kwrd_base.c_str(),kwrd_ctag.c_str());
+    proc.toUTF8String(out);
+    return out;
 }
 
 

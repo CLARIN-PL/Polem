@@ -7,13 +7,13 @@
  * ----------------------------------------------------------------------------- */
 
 
-public class Lem {
+public class WrapLem {
   public static void setGlobalMethod(String value) {
-    LemJNI.globalMethod_set(value);
+    WrapLemJNI.globalMethod_set(value);
   }
 
   public static String getGlobalMethod() {
-    return LemJNI.globalMethod_get();
+    return WrapLemJNI.globalMethod_get();
   }
 
 }
