@@ -67,7 +67,7 @@ set(LIBRARY_FILES ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp polem/
         polem/CascadeLemmatizer.h polem/RuleLemmatizer.h
         polem/DictionaryLemmatizer.h polem/Inflection.h
         polem/NamLivPersonLemmatizer.h polem/NamLocLemmatizer.h
-        polem/OrthLemmatizer.h)# ${CMAKE_CURRENT_SOURCE_DIR}/pythonwrap/WrapLem_wrap.cxx)
+        polem/OrthLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/pythonwrap/WrapLem_wrap.cxx)
 
 set(PUBLIC_HEADERS polem/CascadeLemmatizer.h polem/DictionaryLemmatizer.h
         polem/NamLivPersonLemmatizer.h polem/NamLocLemmatizer.h
@@ -77,8 +77,8 @@ set(PUBLIC_HEADERS polem/CascadeLemmatizer.h polem/DictionaryLemmatizer.h
 set(WRAPPER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/WrapLem_wrap.cxx)
 #set(WRAPPER_HEADERS "")
 
-#set(PY_FILES ${CMAKE_CURRENT_SOURCE_DIR}/pythonwrap/WrapLem_wrap.cxx)
-#set(PY_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/pythonwrap/WrapLem.py)
+set(PY_FILES ${CMAKE_CURRENT_SOURCE_DIR}/pythonwrap/WrapLem_wrap.cxx)
+set(PY_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/pythonwrap/WrapLem.py)
 
 file(GLOB DEPLOY_FILES_AND_DIRS "${PROJECT_SOURCE_DIR}/dict/*")
 foreach(ITEM ${DEPLOY_FILES_AND_DIRS})
@@ -124,27 +124,26 @@ add_jar(polemJav ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/CascadeLemmatizer.java ${C
         ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/WrapLemJNI.java ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/SWIGTYPE_p_UnicodeString.java)
 
 
+FIND_PACKAGE(SWIG REQUIRED)
+INCLUDE(${SWIG_USE_FILE})
 
+find_package(PythonInterp REQUIRED)
+FIND_PACKAGE(PythonLibs REQUIRED)
+INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
 
-#FIND_PACKAGE(SWIG REQUIRED)
-#INCLUDE(${SWIG_USE_FILE})
-#set(Python_ADDITIONAL_VERSIONS 2.7.12 3.5.2)
-#find_package(PythonInterp REQUIRED)
-#FIND_PACKAGE(PythonLibs REQUIRED)
-#INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 
-#INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+SET(CMAKE_SWIG_FLAGS "")
 
-#SET(CMAKE_SWIG_FLAGS "")
+SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i PROPERTIES CPLUSPLUS ON)
 
-#SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i PROPERTIES CPLUSPLUS ON)
-
-#SWIG_ADD_MODULE(WrapLem python ${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i)
-#SWIG_LINK_LIBRARIES(WrapLem polem-dev ${LIBS} ${PYTHON_LIBRARIES} )
+SWIG_ADD_MODULE(WrapLem python ${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i)
+SWIG_LINK_LIBRARIES(WrapLem polem-dev ${LIBS} ${PYTHON_LIBRARIES})
 
 #execute_process ( COMMAND python3 -c "import site; print(site.getsitepackages()[0])" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
+execute_process(COMMAND python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-#install(TARGETS _WrapLem
-#        LIBRARY DESTINATION ${PYTHON_SITE_PACKAGES})
-#install(FILES ${PY_HEADERS}
-#        DESTINATION ${PYTHON_SITE_PACKAGES})
+install(TARGETS _WrapLem
+        LIBRARY DESTINATION ${PYTHON_SITE_PACKAGES})
+install(FILES ${PY_HEADERS}
+        DESTINATION ${PYTHON_SITE_PACKAGES})

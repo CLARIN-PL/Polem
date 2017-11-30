@@ -290,7 +290,7 @@ CascadeLemmatizer::CascadeLemmatizer(string tagset, morfeusz::Morfeusz *generato
 
 UnicodeString
 CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag,
-                             UnicodeString kwrd_spaces, std::string kw_category) {
+                             UnicodeString kwrd_spaces, std::string kw_category, bool debug) {
 
     vector<vector<UnicodeString>> kw = CascadeLemmatizer::chopInput(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces);
     //processing keyword into input to lemmatizer as
@@ -300,31 +300,42 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
     globalMethod = "";
     //indicates what is used to lemmatize
 
-    //launching lemmatizers in order morfgeo - nelex - namliv - namloc - rule - orth
-    UnicodeString lemma = this->nelexLemmatizer.lemmatize(kw, kw_category);
+    //launching lemmatizers in order nelex - morfgeo - namliv - namloc - rule - orth
+    UnicodeString lemma = this->nelexLemmatizer.lemmatize(kw, kw_category, debug);
 
     if(lemma=="") {
-        lemma = this->morfGeoLemmatizer.lemmatize(kw, kw_category);
+        lemma = this->morfGeoLemmatizer.lemmatize(kw, kw_category, debug);
     }else{//
         globalMethod = "DictionaryLemmatizer:NelexiconInfobox";
 
     }
 
     if(lemma==""){
-        lemma = this->namLivPersonLemmatizer.lemmatize(kw,kw_category);
+        lemma = this->namLivPersonLemmatizer.lemmatize(kw, kw_category, debug);
     } else if (globalMethod != "DictionaryLemmatizer:NelexiconInfobox") {
         globalMethod = "DictionaryLemmatizer:MorfeuszGeograficzne";
     }
 
-    if(lemma==""){
-        lemma = this->namLocLemmatizer.lemmatize(kw,kw_category);
+    if (debug) {
+        cout << "Exited NamLivPerson lemmatizer with " << globalMethod << endl;
     }
 
     if(lemma==""){
-        lemma = this->ruleLemmatizer.lemmatize(kw,kw_category);
+        lemma = this->namLocLemmatizer.lemmatize(kw, kw_category, debug);
+    }
+
+    if(lemma==""){
+        lemma = this->ruleLemmatizer.lemmatize(kw, kw_category, debug);
     }else if(globalMethod.find("DictionaryLemmatizer")==string::npos
                 &&globalMethod.find("NamLivPerson")==string::npos){
         globalMethod = "NamLocLemmatizer:Inflection";
+        if (debug) {
+            cout << "Exited NamLoc lemmatizer with " << globalMethod << endl;
+        }
+    }
+
+    if (debug) {
+        cout << "Exiting Rule lemmatizer with" << globalMethod << endl;
     }
 
     if(lemma=="") {
@@ -350,13 +361,14 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
 }
 
 UnicodeString CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag,
-                                           UnicodeString kwrd_spaces) {
-    return this->lemmatize(kwrd_orth,kwrd_base,kwrd_ctag,kwrd_spaces,"");
+                                           UnicodeString kwrd_spaces, bool debug) {
+    return this->lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, "", debug);
 }
 
-UnicodeString CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag) {
+UnicodeString
+CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, bool debug) {
 
-    return this->lemmatize(kwrd_orth,kwrd_base,kwrd_ctag,"","");
+    return this->lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, "", "", debug);
 }
 
 std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag,
@@ -377,7 +389,7 @@ std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwr
 
 std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag) {
     std::string out;
-    UnicodeString proc = this->lemmatize(kwrd_orth.c_str(),kwrd_base.c_str(),kwrd_ctag.c_str());
+    UnicodeString proc = this->lemmatize(kwrd_orth.c_str(), kwrd_base.c_str(), kwrd_ctag.c_str(), false);
     proc.toUTF8String(out);
     return out;
 }

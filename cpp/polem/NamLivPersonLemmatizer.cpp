@@ -77,7 +77,12 @@ NamLivPersonLemmatizer::NamLivPersonLemmatizer(
 }
 
 icu::UnicodeString
-NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > keyword, std::string category) {
+NamLivPersonLemmatizer::lemmatize(std::vector <std::vector<icu::UnicodeString>> keyword, std::string category,
+                                  bool debug) {
+
+    if (debug) {
+        cout << "Entering NamLivPerson lemmatizer" << endl;
+    }
 
     if(find(this->categories.begin(),this->categories.end(),category.c_str())==this->categories.end()){
         return "";
@@ -144,6 +149,9 @@ NamLivPersonLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > 
         for(auto& i:keyword) {
             UnicodeString lemma = this->inflection.generate_base(i[2], i[0]);
             if (lemma == "") {
+                if (debug) {
+                    cout << "Exiting NamLivPerson lemmatizer" << endl;
+                }
                 return lemma;
             }
             name.append(lemma);

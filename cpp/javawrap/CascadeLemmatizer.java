@@ -8,10 +8,6 @@
 
 
 public class CascadeLemmatizer {
-
-    static{
-        System.loadLibrary("polemJava-dev");
-    }
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -42,16 +38,16 @@ public class CascadeLemmatizer {
     return new CascadeLemmatizer(WrapLemJNI.CascadeLemmatizer_assembleLemmatizer(), true);
   }
 
-  public SWIGTYPE_p_UnicodeString lemmatize(SWIGTYPE_p_UnicodeString kwrd_orth, SWIGTYPE_p_UnicodeString kwrd_base, SWIGTYPE_p_UnicodeString kwrd_ctag, SWIGTYPE_p_UnicodeString kwrd_spaces, String category) {
-    return new SWIGTYPE_p_UnicodeString(WrapLemJNI.CascadeLemmatizer_lemmatize__SWIG_0(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_spaces), category), true);
+  public SWIGTYPE_p_UnicodeString lemmatize(SWIGTYPE_p_UnicodeString kwrd_orth, SWIGTYPE_p_UnicodeString kwrd_base, SWIGTYPE_p_UnicodeString kwrd_ctag, SWIGTYPE_p_UnicodeString kwrd_spaces, String category, boolean debug) {
+    return new SWIGTYPE_p_UnicodeString(WrapLemJNI.CascadeLemmatizer_lemmatize__SWIG_0(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_spaces), category, debug), true);
   }
 
-  public SWIGTYPE_p_UnicodeString lemmatize(SWIGTYPE_p_UnicodeString kwrd_orth, SWIGTYPE_p_UnicodeString kwrd_base, SWIGTYPE_p_UnicodeString kwrd_ctag, SWIGTYPE_p_UnicodeString kwrd_spaces) {
-    return new SWIGTYPE_p_UnicodeString(WrapLemJNI.CascadeLemmatizer_lemmatize__SWIG_1(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_spaces)), true);
+  public SWIGTYPE_p_UnicodeString lemmatize(SWIGTYPE_p_UnicodeString kwrd_orth, SWIGTYPE_p_UnicodeString kwrd_base, SWIGTYPE_p_UnicodeString kwrd_ctag, SWIGTYPE_p_UnicodeString kwrd_spaces, boolean debug) {
+    return new SWIGTYPE_p_UnicodeString(WrapLemJNI.CascadeLemmatizer_lemmatize__SWIG_1(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_spaces), debug), true);
   }
 
-  public SWIGTYPE_p_UnicodeString lemmatize(SWIGTYPE_p_UnicodeString kwrd_orth, SWIGTYPE_p_UnicodeString kwrd_base, SWIGTYPE_p_UnicodeString kwrd_ctag) {
-    return new SWIGTYPE_p_UnicodeString(WrapLemJNI.CascadeLemmatizer_lemmatize__SWIG_2(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag)), true);
+  public SWIGTYPE_p_UnicodeString lemmatize(SWIGTYPE_p_UnicodeString kwrd_orth, SWIGTYPE_p_UnicodeString kwrd_base, SWIGTYPE_p_UnicodeString kwrd_ctag, boolean debug) {
+    return new SWIGTYPE_p_UnicodeString(WrapLemJNI.CascadeLemmatizer_lemmatize__SWIG_2(swigCPtr, this, SWIGTYPE_p_UnicodeString.getCPtr(kwrd_orth), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_base), SWIGTYPE_p_UnicodeString.getCPtr(kwrd_ctag), debug), true);
   }
 
   public String lemmatizeS(String kwrd_orth, String kwrd_base, String kwrd_ctag, String kwrd_spaces, String category) {

@@ -44,9 +44,11 @@ DictionaryLemmatizer::DictionaryLemmatizer(std::string pathname,
 }
 
 icu::UnicodeString DictionaryLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > keyword,
-                                                   std::string category) {
+                                                   std::string category, bool debug) {
 
-
+    if (debug) {
+        cout << "Entering dictionary lemmatizer" << endl;
+    }
     //dictionary lemmatizer checks dictionary files for a lemma for given orth
     icu::UnicodeString orth ="";
     icu::UnicodeString key = "";
@@ -69,7 +71,9 @@ icu::UnicodeString DictionaryLemmatizer::lemmatize(std::vector<std::vector<icu::
         key.append(orth.toLower().trim());
     } else key.append(orth.toLower().trim());
 
-
+    if (debug) {
+        cout << "Exiting dictionary lemmatizer" << endl;
+    }
     if(this->dictionaryItems.count(key)>0) {
         if (this->dictionaryItems[key].indexOf(":") != -1) {
             return this->dictionaryItems[key].tempSubStringBetween(0, this->dictionaryItems[key].indexOf(":"));

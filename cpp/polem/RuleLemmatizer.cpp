@@ -93,7 +93,8 @@ RuleLemmatizer::RuleLemmatizer(string tagset, morfeusz::Morfeusz *generator, boo
 
 }
 
-icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString>> kw, std::string kw_category) {
+icu::UnicodeString
+RuleLemmatizer::lemmatize(std::vector <std::vector<icu::UnicodeString>> kw, std::string kw_category, bool debug) {
 
 
     /*
@@ -102,7 +103,9 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
     (orth, base, ctag)
     @return: lemat jako obiekt unicode
     */
-
+    if (debug) {
+        cout << "Entering Rule lemmatizer" << endl;
+    }
     char buffer[L_tmpnam];
     tmpnam(buffer);
 
@@ -134,6 +137,9 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
     try {
         sentence = rdr->get_next_sentence();
     } catch (Corpus2::Corpus2Error &e) {
+        if (debug) {
+            cout << "Exiting Rule lemmatizer" << endl;
+        }
         return "";
     }
 
@@ -236,7 +242,9 @@ icu::UnicodeString RuleLemmatizer::lemmatize(std::vector<std::vector<icu::Unicod
 
 
     }
-
+    if (debug) {
+        cout << "Exiting Rule lemmatizer" << endl;
+    }
     return "";
 }
 

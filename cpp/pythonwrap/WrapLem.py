@@ -102,12 +102,6 @@ class CascadeLemmatizer(_object):
     __swig_getmethods__["assembleLemmatizer"] = lambda x: _WrapLem.CascadeLemmatizer_assembleLemmatizer
     if _newclass:
         assembleLemmatizer = staticmethod(_WrapLem.CascadeLemmatizer_assembleLemmatizer)
-    __swig_getmethods__["toString"] = lambda x: _WrapLem.CascadeLemmatizer_toString
-    if _newclass:
-        toString = staticmethod(_WrapLem.CascadeLemmatizer_toString)
-    __swig_getmethods__["toUnicode"] = lambda x: _WrapLem.CascadeLemmatizer_toUnicode
-    if _newclass:
-        toUnicode = staticmethod(_WrapLem.CascadeLemmatizer_toUnicode)
 
     def lemmatize(self, *args):
         return _WrapLem.CascadeLemmatizer_lemmatize(self, *args)
@@ -123,14 +117,6 @@ cvar = _WrapLem.cvar
 def CascadeLemmatizer_assembleLemmatizer():
     return _WrapLem.CascadeLemmatizer_assembleLemmatizer()
 CascadeLemmatizer_assembleLemmatizer = _WrapLem.CascadeLemmatizer_assembleLemmatizer
-
-def CascadeLemmatizer_toString(arg2):
-    return _WrapLem.CascadeLemmatizer_toString(arg2)
-CascadeLemmatizer_toString = _WrapLem.CascadeLemmatizer_toString
-
-def CascadeLemmatizer_toUnicode(arg2):
-    return _WrapLem.CascadeLemmatizer_toUnicode(arg2)
-CascadeLemmatizer_toUnicode = _WrapLem.CascadeLemmatizer_toUnicode
 
 # This file is compatible with both classic and new-style classes.
 
