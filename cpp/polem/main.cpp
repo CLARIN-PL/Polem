@@ -76,8 +76,9 @@ int main(int argc, const char *argv[]) {
                 ("help,h","Print help message")
                 ("pathname,p",boost::program_options::value<string>(),"Pathname to input file - REQUIRED")
                 ("tagset,t",boost::program_options::value<string>(),"Tagset to use (Currently only NKJP)- OPTIONAL")
-                ("case-sensitive,cs","Case sensitive evaluation - OPTIONAL")
-                ("space-sensitive,ss","Whitespace sensitive evaluation - OPTIONAL");
+                ("case-sensitive,c", "Case sensitive evaluation - OPTIONAL")
+                ("space-sensitive,s", "Whitespace sensitive evaluation - OPTIONAL")
+                ("debug,d", "Additional debug prints");
 
         boost::program_options::variables_map vm;
         boost::program_options::store(boost::program_options::parse_command_line(argc,argv,desc),vm);
@@ -87,6 +88,7 @@ int main(int argc, const char *argv[]) {
         string argTagset;
         bool caseInsensitive = true;
         bool spaceInsensitive = true;
+        bool debug = false;
 
         if (vm.count("help")) {
                 cout << desc << endl;
@@ -105,6 +107,9 @@ int main(int argc, const char *argv[]) {
                 if (vm.count("space-sensitive")) {
                     spaceInsensitive = false;
                 }
+            if (vm.count("debug")) {
+                debug = true;
+            }
         }
 
         //processing arguments
@@ -177,7 +182,8 @@ int main(int argc, const char *argv[]) {
             }
 
 
-            UnicodeString lemma = cascadeLemmatizer.lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, kwrd_category);
+            UnicodeString lemma = cascadeLemmatizer.lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces,
+                                                              kwrd_category, debug);
 
             //string view = globalMethod;
             string lemmaprnt;

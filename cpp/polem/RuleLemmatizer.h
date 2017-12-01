@@ -30,7 +30,7 @@ public:
     RuleLemmatizer(std::string tagset, morfeusz::Morfeusz *generator, bool fix,
                    bool useOrthForOov);
 
-    icu::UnicodeString lemmatize(std::vector<std::vector<icu::UnicodeString>> kw, std::string kw_category);
+    icu::UnicodeString lemmatize(std::vector <std::vector<icu::UnicodeString>> kw, std::string kw_category, bool debug);
 
 
 };

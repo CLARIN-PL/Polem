@@ -44,12 +44,13 @@ public:
 
     UnicodeString
     lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces,
-              std::string category);
+              std::string category, bool debug);
 
     UnicodeString
-    lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces);
+    lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces,
+              bool debug);
 
-    UnicodeString lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag);
+    UnicodeString lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, bool debug);
 
     std::string
     lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag, std::string kwrd_spaces,

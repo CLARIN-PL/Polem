@@ -3295,6 +3295,142 @@ SWIG_From_std_string  (const std::string& s)
   return SWIG_FromCharPtrAndSize(s.data(), s.size());
 }
 
+
+SWIGINTERN int
+SWIG_AsVal_double(PyObject *obj, double *val) {
+    int res = SWIG_TypeError;
+    if (PyFloat_Check(obj)) {
+        if (val) *val = PyFloat_AsDouble(obj);
+        return SWIG_OK;
+#if PY_VERSION_HEX < 0x03000000
+    } else if (PyInt_Check(obj)) {
+        if (val) *val = PyInt_AsLong(obj);
+        return SWIG_OK;
+#endif
+    } else if (PyLong_Check(obj)) {
+        double v = PyLong_AsDouble(obj);
+        if (!PyErr_Occurred()) {
+            if (val) *val = v;
+            return SWIG_OK;
+        } else {
+            PyErr_Clear();
+        }
+    }
+#ifdef SWIG_PYTHON_CAST_MODE
+    {
+      int dispatch = 0;
+      double d = PyFloat_AsDouble(obj);
+      if (!PyErr_Occurred()) {
+        if (val) *val = d;
+        return SWIG_AddCast(SWIG_OK);
+      } else {
+        PyErr_Clear();
+      }
+      if (!dispatch) {
+        long v = PyLong_AsLong(obj);
+        if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_AddCast(SWIG_AddCast(SWIG_OK));
+        } else {
+      PyErr_Clear();
+        }
+      }
+    }
+#endif
+    return res;
+}
+
+
+#include <float.h>
+
+
+#include <math.h>
+
+
+SWIGINTERNINLINE int
+SWIG_CanCastAsInteger(double *d, double min, double max) {
+    double x = *d;
+    if ((min <= x && x <= max)) {
+        double fx = floor(x);
+        double cx = ceil(x);
+        double rd = ((x - fx) < 0.5) ? fx : cx; /* simple rint */
+        if ((errno == EDOM) || (errno == ERANGE)) {
+            errno = 0;
+        } else {
+            double summ, reps, diff;
+            if (rd < x) {
+                diff = x - rd;
+            } else if (rd > x) {
+                diff = rd - x;
+            } else {
+                return 1;
+            }
+            summ = rd + x;
+            reps = diff / summ;
+            if (reps < 8 * DBL_EPSILON) {
+                *d = rd;
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_long(PyObject *obj, long *val) {
+#if PY_VERSION_HEX < 0x03000000
+    if (PyInt_Check(obj)) {
+        if (val) *val = PyInt_AsLong(obj);
+        return SWIG_OK;
+    } else
+#endif
+    if (PyLong_Check(obj)) {
+        long v = PyLong_AsLong(obj);
+        if (!PyErr_Occurred()) {
+            if (val) *val = v;
+            return SWIG_OK;
+        } else {
+            PyErr_Clear();
+            return SWIG_OverflowError;
+        }
+    }
+#ifdef SWIG_PYTHON_CAST_MODE
+    {
+      int dispatch = 0;
+      long v = PyInt_AsLong(obj);
+      if (!PyErr_Occurred()) {
+        if (val) *val = v;
+        return SWIG_AddCast(SWIG_OK);
+      } else {
+        PyErr_Clear();
+      }
+      if (!dispatch) {
+        double d;
+        int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
+        if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, LONG_MIN, LONG_MAX)) {
+      if (val) *val = (long)(d);
+      return res;
+        }
+      }
+    }
+#endif
+    return SWIG_TypeError;
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_bool(PyObject *obj, bool *val) {
+    int r;
+    if (!PyBool_Check(obj))
+        return SWIG_ERROR;
+    r = PyObject_IsTrue(obj);
+    if (r == -1)
+        return SWIG_ERROR;
+    if (val) *val = r ? true : false;
+    return SWIG_OK;
+}
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -3335,60 +3471,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_CascadeLemmatizer_toString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  UnicodeString arg1 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::string result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:CascadeLemmatizer_toString",&obj0)) SWIG_fail;
-  {
-    res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_UnicodeString,  0  | 0);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CascadeLemmatizer_toString" "', argument " "1"" of type '" "UnicodeString""'"); 
-    }  
-    if (!argp1) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CascadeLemmatizer_toString" "', argument " "1"" of type '" "UnicodeString""'");
-    } else {
-      UnicodeString * temp = reinterpret_cast< UnicodeString * >(argp1);
-      arg1 = *temp;
-      if (SWIG_IsNewObj(res1)) delete temp;
-    }
-  }
-  result = CascadeLemmatizer::toString(arg1);
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_CascadeLemmatizer_toUnicode(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string arg1 ;
-  PyObject * obj0 = 0 ;
-  UnicodeString result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:CascadeLemmatizer_toUnicode",&obj0)) SWIG_fail;
-  {
-    std::string *ptr = (std::string *)0;
-    int res = SWIG_AsPtr_std_string(obj0, &ptr);
-    if (!SWIG_IsOK(res) || !ptr) {
-      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "CascadeLemmatizer_toUnicode" "', argument " "1"" of type '" "std::string""'"); 
-    }
-    arg1 = *ptr;
-    if (SWIG_IsNewObj(res)) delete ptr;
-  }
-  result = CascadeLemmatizer::toUnicode(arg1);
-  resultobj = SWIG_NewPointerObj((new UnicodeString(static_cast< const UnicodeString& >(result))), SWIGTYPE_p_UnicodeString, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   CascadeLemmatizer *arg1 = (CascadeLemmatizer *) 0 ;
@@ -3397,6 +3479,7 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize__SWIG_0(PyObject *SWIGUNU
   UnicodeString arg4 ;
   UnicodeString arg5 ;
   std::string arg6 ;
+    bool arg7;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 ;
@@ -3407,15 +3490,20 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize__SWIG_0(PyObject *SWIGUNU
   int res4 = 0 ;
   void *argp5 ;
   int res5 = 0 ;
+    bool val7;
+    int ecode7 = 0;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   PyObject * obj3 = 0 ;
   PyObject * obj4 = 0 ;
   PyObject * obj5 = 0 ;
+    PyObject *obj6 = 0;
   UnicodeString result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:CascadeLemmatizer_lemmatize",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+
+    if (!PyArg_ParseTuple(args, (char *) "OOOOOOO:CascadeLemmatizer_lemmatize", &obj0, &obj1, &obj2, &obj3, &obj4,
+                          &obj5, &obj6))
+        SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_CascadeLemmatizer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CascadeLemmatizer_lemmatize" "', argument " "1"" of type '" "CascadeLemmatizer *""'"); 
@@ -3482,7 +3570,13 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize__SWIG_0(PyObject *SWIGUNU
     arg6 = *ptr;
     if (SWIG_IsNewObj(res)) delete ptr;
   }
-  result = (arg1)->lemmatize(arg2,arg3,arg4,arg5,arg6);
+    ecode7 = SWIG_AsVal_bool(obj6, &val7);
+    if (!SWIG_IsOK(ecode7)) {
+        SWIG_exception_fail(SWIG_ArgError(ecode7),
+                            "in method '" "CascadeLemmatizer_lemmatize" "', argument " "7"" of type '" "bool""'");
+    }
+    arg7 = static_cast< bool >(val7);
+    result = (arg1)->lemmatize(arg2, arg3, arg4, arg5, arg6, arg7);
   resultobj = SWIG_NewPointerObj((new UnicodeString(static_cast< const UnicodeString& >(result))), SWIGTYPE_p_UnicodeString, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -3497,6 +3591,7 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize__SWIG_1(PyObject *SWIGUNU
   UnicodeString arg3 ;
   UnicodeString arg4 ;
   UnicodeString arg5 ;
+    bool arg6;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 ;
@@ -3507,14 +3602,19 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize__SWIG_1(PyObject *SWIGUNU
   int res4 = 0 ;
   void *argp5 ;
   int res5 = 0 ;
+    bool val6;
+    int ecode6 = 0;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   PyObject * obj3 = 0 ;
   PyObject * obj4 = 0 ;
+    PyObject *obj5 = 0;
   UnicodeString result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CascadeLemmatizer_lemmatize",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+
+    if (!PyArg_ParseTuple(args, (char *) "OOOOOO:CascadeLemmatizer_lemmatize", &obj0, &obj1, &obj2, &obj3, &obj4,
+                          &obj5))
+        SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_CascadeLemmatizer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CascadeLemmatizer_lemmatize" "', argument " "1"" of type '" "CascadeLemmatizer *""'"); 
@@ -3572,7 +3672,13 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize__SWIG_1(PyObject *SWIGUNU
       if (SWIG_IsNewObj(res5)) delete temp;
     }
   }
-  result = (arg1)->lemmatize(arg2,arg3,arg4,arg5);
+    ecode6 = SWIG_AsVal_bool(obj5, &val6);
+    if (!SWIG_IsOK(ecode6)) {
+        SWIG_exception_fail(SWIG_ArgError(ecode6),
+                            "in method '" "CascadeLemmatizer_lemmatize" "', argument " "6"" of type '" "bool""'");
+    }
+    arg6 = static_cast< bool >(val6);
+    result = (arg1)->lemmatize(arg2, arg3, arg4, arg5, arg6);
   resultobj = SWIG_NewPointerObj((new UnicodeString(static_cast< const UnicodeString& >(result))), SWIGTYPE_p_UnicodeString, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -3586,6 +3692,7 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize__SWIG_2(PyObject *SWIGUNU
   UnicodeString arg2 ;
   UnicodeString arg3 ;
   UnicodeString arg4 ;
+    bool arg5;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 ;
@@ -3594,13 +3701,18 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize__SWIG_2(PyObject *SWIGUNU
   int res3 = 0 ;
   void *argp4 ;
   int res4 = 0 ;
+    bool val5;
+    int ecode5 = 0;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   PyObject * obj3 = 0 ;
+    PyObject *obj4 = 0;
   UnicodeString result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:CascadeLemmatizer_lemmatize",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+
+    if (!PyArg_ParseTuple(args, (char *) "OOOOO:CascadeLemmatizer_lemmatize", &obj0, &obj1, &obj2, &obj3,
+                          &obj4))
+        SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_CascadeLemmatizer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CascadeLemmatizer_lemmatize" "', argument " "1"" of type '" "CascadeLemmatizer *""'"); 
@@ -3645,7 +3757,13 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize__SWIG_2(PyObject *SWIGUNU
       if (SWIG_IsNewObj(res4)) delete temp;
     }
   }
-  result = (arg1)->lemmatize(arg2,arg3,arg4);
+    ecode5 = SWIG_AsVal_bool(obj4, &val5);
+    if (!SWIG_IsOK(ecode5)) {
+        SWIG_exception_fail(SWIG_ArgError(ecode5),
+                            "in method '" "CascadeLemmatizer_lemmatize" "', argument " "5"" of type '" "bool""'");
+    }
+    arg5 = static_cast< bool >(val5);
+    result = (arg1)->lemmatize(arg2, arg3, arg4, arg5);
   resultobj = SWIG_NewPointerObj((new UnicodeString(static_cast< const UnicodeString& >(result))), SWIGTYPE_p_UnicodeString, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -3655,17 +3773,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[7] = {
+    PyObject *argv[8] = {
     0
   };
   Py_ssize_t ii;
   
   if (!PyTuple_Check(args)) SWIG_fail;
   argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 6) && (ii < argc); ii++) {
+    for (ii = 0; (ii < 7) && (ii < argc); ii++) {
     argv[ii] = PyTuple_GET_ITEM(args,ii);
   }
-  if (argc == 4) {
+    if (argc == 5) {
     int _v;
     void *vptr = 0;
     int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_CascadeLemmatizer, 0);
@@ -3680,13 +3798,19 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize(PyObject *self, PyObject 
           int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_UnicodeString, 0);
           _v = SWIG_CheckState(res);
           if (_v) {
-            return _wrap_CascadeLemmatizer_lemmatize__SWIG_2(self, args);
+              {
+                  int res = SWIG_AsVal_bool(argv[4], NULL);
+                  _v = SWIG_CheckState(res);
+              }
+              if (_v) {
+                  return _wrap_CascadeLemmatizer_lemmatize__SWIG_2(self, args);
+              }
           }
         }
       }
     }
   }
-  if (argc == 5) {
+    if (argc == 6) {
     int _v;
     void *vptr = 0;
     int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_CascadeLemmatizer, 0);
@@ -3704,14 +3828,20 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize(PyObject *self, PyObject 
             int res = SWIG_ConvertPtr(argv[4], 0, SWIGTYPE_p_UnicodeString, 0);
             _v = SWIG_CheckState(res);
             if (_v) {
-              return _wrap_CascadeLemmatizer_lemmatize__SWIG_1(self, args);
+                {
+                    int res = SWIG_AsVal_bool(argv[5], NULL);
+                    _v = SWIG_CheckState(res);
+                }
+                if (_v) {
+                    return _wrap_CascadeLemmatizer_lemmatize__SWIG_1(self, args);
+                }
             }
           }
         }
       }
     }
   }
-  if (argc == 6) {
+    if (argc == 7) {
     int _v;
     void *vptr = 0;
     int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_CascadeLemmatizer, 0);
@@ -3732,7 +3862,13 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize(PyObject *self, PyObject 
               int res = SWIG_AsPtr_std_string(argv[5], (std::string**)(0));
               _v = SWIG_CheckState(res);
               if (_v) {
-                return _wrap_CascadeLemmatizer_lemmatize__SWIG_0(self, args);
+                  {
+                      int res = SWIG_AsVal_bool(argv[6], NULL);
+                      _v = SWIG_CheckState(res);
+                  }
+                  if (_v) {
+                      return _wrap_CascadeLemmatizer_lemmatize__SWIG_0(self, args);
+                  }
               }
             }
           }
@@ -3744,9 +3880,9 @@ SWIGINTERN PyObject *_wrap_CascadeLemmatizer_lemmatize(PyObject *self, PyObject 
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CascadeLemmatizer_lemmatize'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    CascadeLemmatizer::lemmatize(UnicodeString,UnicodeString,UnicodeString,UnicodeString,std::string)\n"
-    "    CascadeLemmatizer::lemmatize(UnicodeString,UnicodeString,UnicodeString,UnicodeString)\n"
-    "    CascadeLemmatizer::lemmatize(UnicodeString,UnicodeString,UnicodeString)\n");
+          "    CascadeLemmatizer::lemmatize(UnicodeString,UnicodeString,UnicodeString,UnicodeString,std::string,bool)\n"
+          "    CascadeLemmatizer::lemmatize(UnicodeString,UnicodeString,UnicodeString,UnicodeString,bool)\n"
+          "    CascadeLemmatizer::lemmatize(UnicodeString,UnicodeString,UnicodeString,bool)\n");
   return 0;
 }
 
@@ -4078,8 +4214,6 @@ SWIGINTERN PyObject *CascadeLemmatizer_swigregister(PyObject *SWIGUNUSEDPARM(sel
 static PyMethodDef SwigMethods[] = {
 	 { (char *)"SWIG_PyInstanceMethod_New", (PyCFunction)SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { (char *)"CascadeLemmatizer_assembleLemmatizer", _wrap_CascadeLemmatizer_assembleLemmatizer, METH_VARARGS, NULL},
-	 { (char *)"CascadeLemmatizer_toString", _wrap_CascadeLemmatizer_toString, METH_VARARGS, NULL},
-	 { (char *)"CascadeLemmatizer_toUnicode", _wrap_CascadeLemmatizer_toUnicode, METH_VARARGS, NULL},
 	 { (char *)"CascadeLemmatizer_lemmatize", _wrap_CascadeLemmatizer_lemmatize, METH_VARARGS, NULL},
 	 { (char *)"CascadeLemmatizer_lemmatizeS", _wrap_CascadeLemmatizer_lemmatizeS, METH_VARARGS, NULL},
 	 { (char *)"delete_CascadeLemmatizer", _wrap_delete_CascadeLemmatizer, METH_VARARGS, NULL},

@@ -16,10 +16,13 @@ NamLocLemmatizer::NamLocLemmatizer(Inflection inflection) : inflection(inflectio
 }
 
 icu::UnicodeString
-NamLocLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > keyword, std::string category) {
+NamLocLemmatizer::lemmatize(std::vector <std::vector<icu::UnicodeString>> keyword, std::string category, bool debug) {
 
     if(category.empty()||category.find("nam_loc")!=0){
         return "";
+    }
+    if (debug) {
+        cout << "Entering NamLoc lemmatizer" << endl;
     }
     UnicodeString lemma;
     UnicodeString name;
@@ -27,6 +30,9 @@ NamLocLemmatizer::lemmatize(std::vector<std::vector<icu::UnicodeString> > keywor
     for (auto& it:keyword){
         lemma = this->inflection.generate_base(it[2], it[0]);
         if(lemma==""){
+            if (debug) {
+                cout << "Exiting NamLoc lemmatizer" << endl;
+            }
             return "";
         }
         if(name!=""){
