@@ -13,19 +13,19 @@ using namespace std;
 string globalMethod;
 
 
-CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer() {
+CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer(std::string datafiles) {
 
     string line;
     vector<UnicodeString> vecLastNames;
 
-    ifstream lastNames("/usr/local/share/polem/nelexicon2_nam_liv_person_last.txt");
+    ifstream lastNames(datafiles+"nelexicon2_nam_liv_person_last.txt");
     while (getline(lastNames, line)) {
         vecLastNames.emplace_back(line.substr(line.find('\t') + 1).c_str());
     }
     lastNames.close();
     //loading dictionaries to namlivlemmatizer
 
-    ifstream firstNames("/usr/local/share/polem/nelexicon2_nam_liv_person_first.txt");
+    ifstream firstNames(datafiles+"nelexicon2_nam_liv_person_first.txt");
     while (getline(firstNames, line)) {
         vecLastNames.emplace_back(line.substr(line.find('\t') + 1).c_str());
     }
@@ -33,14 +33,14 @@ CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer() {
 
     vector<UnicodeString> vecNamLoc;
 
-    ifstream namLoc("/usr/local/share/polem/nelexicon2-infobox-nam_loc.txt");
+    ifstream namLoc(datafiles+"nelexicon2-infobox-nam_loc.txt");
     while (getline(namLoc, line)) {
         vecNamLoc.emplace_back(line.substr(line.find('\t') + 1).c_str());
     }
     namLoc.close();
     //loading dictionary for namloclemmatizer
 
-    ifstream dictFile("/usr/local/share/polem/nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt");
+    ifstream dictFile(datafiles+"nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt");
 
     map<UnicodeString, pair<UnicodeString, UnicodeString> > dictionaryItems;
 
@@ -59,9 +59,9 @@ CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer() {
     //orth, pair < category , lemma >
 
     Inflection inflection = Inflection(vecLastNames);
-    inflection.loadInflectionRules("/usr/local/share/polem/inflection_nam_liv_person_last.txt");
+    inflection.loadInflectionRules(datafiles+"inflection_nam_liv_person_last.txt");
     Inflection inflectionNamLoc = Inflection(vecNamLoc);
-    inflectionNamLoc.loadInflectionRules("/usr/local/share/polem/inflection_nam_loc.txt");
+    inflectionNamLoc.loadInflectionRules(datafiles+"inflection_nam_loc.txt");
     //loading rules for inflection
 
 
@@ -69,109 +69,12 @@ CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer() {
 
 
     return CascadeLemmatizer("nkjp", generator, dictionaryItems, inflection,
-                             inflectionNamLoc);
+                             inflectionNamLoc,datafiles);
 
 }
 
-icu::UnicodeString
-CascadeLemmatizer::filter(std::vector<std::vector<icu::UnicodeString>> kw, icu::UnicodeString lemma,
-                          std::string kw_category) {
-
-
-    lemma = lemma.trim();
-    if (globalMethod == "NamLivPersonLemmatizer:Dictionary" &&
-        (lemma.indexOf("Teofil") != -1 || lemma.indexOf("Jan") != -1
-         || lemma.indexOf("teofil") != -1 || lemma.indexOf("jan") != -1)) {
-        for (auto it:kw) {
-            if (it[0].indexOf("J") == 0 && it[2].indexOf(":m") != -1 &&
-                (lemma.indexOf("teofil") != -1 || lemma.indexOf("Teofil") != -1)) {
-                lemma.findAndReplace("Teofil", "Józef");
-                lemma.findAndReplace("teofil", "Józef");
-                break;
-            }
-            if (it[0].indexOf("Michał") != -1 && it[2].indexOf(":m") != -1
-                && (lemma.indexOf("jan") != -1 || lemma.indexOf("Jan") != -1)) {
-                lemma.findAndReplace("Jan", "Michał");
-                lemma.findAndReplace("jan", "Michał");
-                break;
-            }
-        }
-    }
-    //poprawianie błędów słownika
-
-
-    if (lemma.endsWith("ii") && lemma.indexOf(" ") == -1) {
-        lemma.findAndReplace("ii", "ia");
-    } else if (lemma.indexOf(" ") == -1 && lemma.endsWith("ego")) {
-        lemma.findAndReplace("ego", "");
-    } else if (lemma.endsWith("scy") && kw_category.find("nam_liv_person") == std::string::npos) {
-        lemma.findAndReplace("scy", "ski");
-    } else if (lemma.endsWith("ę")) {
-        lemma.findAndReplace("ę", "a");
-    } else if (lemma.endsWith("ą") || (lemma.indexOf("ą ") != -1 && kw.size() < 5)) {
-        lemma.findAndReplace("ą", "a");
-    } else if (kw_category.find("nam_loc") == 0 && lemma.endsWith("u")) {
-        lemma.extractBetween(0, lemma.length() - 1, lemma);
-    } else if (lemma.endsWith("owi")) {
-        lemma.findAndReplace("owi", "");
-    } else if (lemma.endsWith("em")) {
-        lemma.findAndReplace("em", "");
-    }
-    lemma.findAndReplace(" 's", "'s ");
-    if ((kw_category == "nam_pro_media_web" || kw_category == "nam_oth_www") &&
-        (lemma.indexOf(".pl") != -1 || lemma.indexOf(".com") != -1 || lemma.indexOf(".org") != -1 ||
-         lemma.indexOf(".us") != -1 || lemma.indexOf(".net") != -1 || lemma.indexOf("http") == 0)) {
-        lemma.findAndReplace(" ", "");
-    }
-
-    if (lemma.indexOf("'") + 3 > lemma.length() && lemma.indexOf("'") != -1) {
-            lemma.extractBetween(0, lemma.indexOf("'"), lemma);
-    }
-
-    if (lemma.indexOf("’") + 3 > lemma.length() && lemma.indexOf("’") != -1) {
-        lemma.extractBetween(0, lemma.indexOf("’"), lemma);
-    }
-    //handling some of phrases that wasnt lemmatized correctly
-
-    while (lemma.indexOf("  ") != -1) {
-        lemma.findAndReplace("  ", " ");
-    }
-
-    return lemma.trim();
-
-}
-
-UnicodeString CascadeLemmatizer::preprocessOrth(UnicodeString orth) {
-
-    //dodanie przerw przy każdym znaku specjalnym
-    //bo kazdy jest tokenem
-
-    orth.findAndReplace("-", " - ");
-    orth.findAndReplace(".", " . ");
-    orth.findAndReplace(",", " , ");
-    orth.findAndReplace("?", " ? ");
-    orth.findAndReplace("!", " ! ");
-    //orth.findAndReplace("'", " ' ");
-    orth.findAndReplace("’", " ’ ");
-    orth.findAndReplace("„", " „ ");
-    orth.findAndReplace("”", " ” ");
-    orth.findAndReplace("(", " ( ");
-    orth.findAndReplace(")", " ) ");
-    orth.findAndReplace(":", " : ");
-    orth.findAndReplace("@", " @ ");
-    orth.findAndReplace("/", " / ");
-    orth.findAndReplace("\"", " \" ");
-    orth.findAndReplace("–", " – ");
-    orth.findAndReplace("´", " ´ ");
-    orth.findAndReplace("®", " ® ");
-    orth.findAndReplace("+", " + ");
-    orth.findAndReplace("_", " _ ");
-    orth.findAndReplace("#", " # ");
-
-    while (orth.indexOf("  ") != -1) orth.findAndReplace("  ", " ");
-
-    return orth.trim();
-
+CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer() {
+    return CascadeLemmatizer::assembleLemmatizer("/usr/local/share/polem/");
 }
 
 vector<vector<UnicodeString>>
@@ -216,70 +119,14 @@ CascadeLemmatizer::chopInput(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
 
 }
 
-UnicodeString CascadeLemmatizer::foldOutput(UnicodeString lemma, vector<vector<UnicodeString>> kw, string kw_category) {
-
-    lemma = preprocessOrth(lemma);
-
-    //reorganizing lemma to get spaces right according to input
-    //&&
-    //handling lemma case based on input orths
-
-
-    UErrorCode status = U_ZERO_ERROR;
-    RegexMatcher rm("\\s", 0, status);
-    UnicodeString check[50];
-    int numWords = rm.split(lemma, check, 50, status);
-    UnicodeString outlemmas[numWords];
-    rm.split(lemma, outlemmas, numWords, status);
-
-    lemma = "";
-    for (int i = 0; i < numWords; ++i) {
-        if (i >= kw.size()) {
-            lemma.trim();
-            lemma.append(outlemmas[i].findAndReplace(" ", ""));
-            continue;
-        }
-
-        int ii = 0;
-        for (ii = 0; ii < outlemmas[i].length(); ++ii) {
-
-            wchar_t inlowchar, outlowchar, outcapitalchar;
-            UnicodeString xyz = kw[i][0];
-            inlowchar = xyz.toLower().charAt(ii);
-            outlowchar = outlemmas[i].toLower().charAt(ii);
-            //outcapitalchar = outlemmas[i].toUpper().charAt(ii);
-
-            if (kw_category.find("nam_adj") == 0) {
-                lemma.append(outlowchar);
-            } else if (kw[i][0].charAt(ii) == outlemmas[i].charAt(ii)) {
-                lemma.append(outlemmas[i].charAt(ii));
-            } else if (outlowchar == inlowchar && kw_category.find("nam_adj") != 0) {
-                lemma.append(kw[i][0].charAt(ii));
-            } else {
-                lemma.append(outlemmas[i].charAt(ii));
-            }/* else if (rank>0.5){
-                lemma.append(outcapitalchar);
-            } else if (rank > 0.05 && ii == 0){
-                lemma.append(outcapitalchar);
-            } else (lemma.append(outlowchar));*/
-        }
-
-        if (kw[i][3] == "True") {
-            lemma.append(" ");
-        }
-    }
-
-    return lemma.trim();
-
-}
 
 CascadeLemmatizer::CascadeLemmatizer(string tagset, morfeusz::Morfeusz *generator,
                                      map<UnicodeString,
                                              pair<UnicodeString, UnicodeString> > dictionaryItems,
-                                     Inflection inflection, Inflection inflectionNamLoc) :
-        nelexLemmatizer("/usr/local/share/polem/nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt",true),
-        ruleLemmatizer(std::move(tagset), generator, true, true),
-        morfGeoLemmatizer("/usr/local/share/polem/sgjp-20160310-geograficzne.tab", false),
+                                     Inflection inflection, Inflection inflectionNamLoc, string datafiles) :
+        nelexLemmatizer(datafiles+"nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt",true),
+        ruleLemmatizer(std::move(tagset), generator, true, true,datafiles),
+        morfGeoLemmatizer(datafiles+"sgjp-20160310-geograficzne.tab", false),
         namLivPersonLemmatizer(std::move(dictionaryItems), std::move(inflection)),
         namLocLemmatizer(std::move(inflectionNamLoc)),
         orthLemmatizer(){
@@ -372,17 +219,19 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
 }
 
 std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag,
-                                          std::string kwrd_spaces, std::string category) {
+                                            std::string kwrd_spaces, std::string category) {
     std::string out;
-    UnicodeString proc = this->lemmatize(kwrd_orth.c_str(),kwrd_base.c_str(),kwrd_ctag.c_str(),kwrd_spaces.c_str(),category.c_str());
+    UnicodeString proc = this->lemmatize(kwrd_orth.c_str(), kwrd_base.c_str(), kwrd_ctag.c_str(), kwrd_spaces.c_str(),
+                                         category, false);
     proc.toUTF8String(out);
     return out;
 }
 
 std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag,
-                                          std::string kwrd_spaces) {
+                                            std::string kwrd_spaces) {
     std::string out;
-    UnicodeString proc = this->lemmatize(kwrd_orth.c_str(),kwrd_base.c_str(),kwrd_ctag.c_str(),kwrd_spaces.c_str());
+    UnicodeString proc = this->lemmatize(kwrd_orth.c_str(), kwrd_base.c_str(), kwrd_ctag.c_str(), kwrd_spaces.c_str(),
+                                         false);
     proc.toUTF8String(out);
     return out;
 }

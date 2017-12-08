@@ -127,6 +127,7 @@ add_jar(polemJav ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/CascadeLemmatizer.java ${C
 FIND_PACKAGE(SWIG REQUIRED)
 INCLUDE(${SWIG_USE_FILE})
 
+
 find_package(PythonInterp REQUIRED)
 FIND_PACKAGE(PythonLibs REQUIRED)
 INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
@@ -140,6 +141,8 @@ SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i PROPERTIES CPL
 SWIG_ADD_MODULE(WrapLem python ${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i)
 SWIG_LINK_LIBRARIES(WrapLem polem-dev ${LIBS} ${PYTHON_LIBRARIES})
 
+message("${PYTHON_LIBRARIES}")
+
 #execute_process ( COMMAND python3 -c "import site; print(site.getsitepackages()[0])" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
 execute_process(COMMAND python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
 
@@ -147,3 +150,4 @@ install(TARGETS _WrapLem
         LIBRARY DESTINATION ${PYTHON_SITE_PACKAGES})
 install(FILES ${PY_HEADERS}
         DESTINATION ${PYTHON_SITE_PACKAGES})
+

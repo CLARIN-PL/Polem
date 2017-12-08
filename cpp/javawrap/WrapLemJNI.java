@@ -10,7 +10,8 @@
 public class WrapLemJNI {
   public final static native void globalMethod_set(String jarg1);
   public final static native String globalMethod_get();
-  public final static native long CascadeLemmatizer_assembleLemmatizer();
+  public final static native long CascadeLemmatizer_assembleLemmatizer__SWIG_0();
+  public final static native long CascadeLemmatizer_assembleLemmatizer__SWIG_1(String jarg1);
   public final static native long CascadeLemmatizer_lemmatize__SWIG_0(long jarg1, CascadeLemmatizer jarg1_, long jarg2, long jarg3, long jarg4, long jarg5, String jarg6, boolean jarg7);
   public final static native long CascadeLemmatizer_lemmatize__SWIG_1(long jarg1, CascadeLemmatizer jarg1_, long jarg2, long jarg3, long jarg4, long jarg5, boolean jarg6);
   public final static native long CascadeLemmatizer_lemmatize__SWIG_2(long jarg1, CascadeLemmatizer jarg1_, long jarg2, long jarg3, long jarg4, boolean jarg5);

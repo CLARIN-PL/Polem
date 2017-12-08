@@ -114,8 +114,8 @@ CascadeLemmatizer_swigregister = _WrapLem.CascadeLemmatizer_swigregister
 CascadeLemmatizer_swigregister(CascadeLemmatizer)
 cvar = _WrapLem.cvar
 
-def CascadeLemmatizer_assembleLemmatizer():
-    return _WrapLem.CascadeLemmatizer_assembleLemmatizer()
+def CascadeLemmatizer_assembleLemmatizer(*args):
+    return _WrapLem.CascadeLemmatizer_assembleLemmatizer(*args)
 CascadeLemmatizer_assembleLemmatizer = _WrapLem.CascadeLemmatizer_assembleLemmatizer
 
 # This file is compatible with both classic and new-style classes.

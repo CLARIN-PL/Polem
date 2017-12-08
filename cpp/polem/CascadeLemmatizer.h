@@ -37,10 +37,12 @@ class CascadeLemmatizer{
 
     CascadeLemmatizer(std::string tagset, morfeusz::Morfeusz *generator,
                       std::map<UnicodeString, std::pair<UnicodeString, UnicodeString>> dictionaryItems,
-                      Inflection inflection, Inflection inflectionNamLoc);
+                      Inflection inflection, Inflection inflectionNamLoc, std::string datafiles);
 
 public:
     static CascadeLemmatizer assembleLemmatizer();
+
+    static CascadeLemmatizer assembleLemmatizer(std::string datafiles);
 
     UnicodeString
     lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces,
