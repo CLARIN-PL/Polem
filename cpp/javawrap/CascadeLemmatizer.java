@@ -35,7 +35,11 @@ public class CascadeLemmatizer {
   }
 
   public static CascadeLemmatizer assembleLemmatizer() {
-    return new CascadeLemmatizer(WrapLemJNI.CascadeLemmatizer_assembleLemmatizer(), true);
+    return new CascadeLemmatizer(WrapLemJNI.CascadeLemmatizer_assembleLemmatizer__SWIG_0(), true);
+  }
+
+  public static CascadeLemmatizer assembleLemmatizer(String datafiles) {
+    return new CascadeLemmatizer(WrapLemJNI.CascadeLemmatizer_assembleLemmatizer__SWIG_1(datafiles), true);
   }
 
   public SWIGTYPE_p_UnicodeString lemmatize(SWIGTYPE_p_UnicodeString kwrd_orth, SWIGTYPE_p_UnicodeString kwrd_base, SWIGTYPE_p_UnicodeString kwrd_ctag, SWIGTYPE_p_UnicodeString kwrd_spaces, String category, boolean debug) {

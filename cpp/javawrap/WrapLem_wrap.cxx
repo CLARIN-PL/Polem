@@ -175,7 +175,6 @@ template <typename T> T SwigValueInit() {
 
 #include <jni.h>
 #include <stdlib.h>
-#include <string.h>
 
 
 /* Support for throwing Java exceptions */
@@ -268,7 +267,7 @@ SWIGEXPORT jstring JNICALL Java_WrapLemJNI_globalMethod_1get(JNIEnv *jenv, jclas
 }
 
 
-SWIGEXPORT jlong JNICALL Java_WrapLemJNI_CascadeLemmatizer_1assembleLemmatizer(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_WrapLemJNI_CascadeLemmatizer_1assembleLemmatizer_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   SwigValueWrapper< CascadeLemmatizer > result;
   
@@ -280,19 +279,28 @@ SWIGEXPORT jlong JNICALL Java_WrapLemJNI_CascadeLemmatizer_1assembleLemmatizer(J
 }
 
 
-SWIGEXPORT jlong JNICALL
-Java_WrapLemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_10(JNIEnv
-*jenv,
-jclass jcls, jlong
-jarg1,
-jobject jarg1_, jlong
-jarg2,
-jlong jarg3, jlong
-jarg4,
-jlong jarg5, jstring
-jarg6,
-jboolean jarg7
-) {
+SWIGEXPORT jlong JNICALL Java_WrapLemJNI_CascadeLemmatizer_1assembleLemmatizer_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string arg1 ;
+  SwigValueWrapper< CascadeLemmatizer > result;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  (&arg1)->assign(arg1_pstr);
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = CascadeLemmatizer::assembleLemmatizer(arg1);
+  *(CascadeLemmatizer **)&jresult = new CascadeLemmatizer((const CascadeLemmatizer &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_WrapLemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jlong jarg5, jstring jarg6, jboolean jarg7) {
   jlong jresult = 0 ;
   CascadeLemmatizer *arg1 = (CascadeLemmatizer *) 0 ;
   UnicodeString arg2 ;
@@ -300,7 +308,7 @@ jboolean jarg7
   UnicodeString arg4 ;
   UnicodeString arg5 ;
   std::string arg6 ;
-bool arg7;
+  bool arg7 ;
   UnicodeString *argp2 ;
   UnicodeString *argp3 ;
   UnicodeString *argp4 ;
@@ -342,32 +350,22 @@ bool arg7;
   const char *arg6_pstr = (const char *)jenv->GetStringUTFChars(jarg6, 0); 
   if (!arg6_pstr) return 0;
   (&arg6)->assign(arg6_pstr);
-  jenv->ReleaseStringUTFChars(jarg6, arg6_pstr);
-arg7 = jarg7 ? true : false;
-result = (arg1)->lemmatize(arg2, arg3, arg4, arg5, arg6, arg7);
+  jenv->ReleaseStringUTFChars(jarg6, arg6_pstr); 
+  arg7 = jarg7 ? true : false; 
+  result = (arg1)->lemmatize(arg2,arg3,arg4,arg5,arg6,arg7);
   *(UnicodeString **)&jresult = new UnicodeString((const UnicodeString &)result); 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL
-Java_WrapLemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_11(JNIEnv
-*jenv,
-jclass jcls, jlong
-jarg1,
-jobject jarg1_, jlong
-jarg2,
-jlong jarg3, jlong
-jarg4,
-jlong jarg5, jboolean
-jarg6) {
+SWIGEXPORT jlong JNICALL Java_WrapLemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jlong jarg5, jboolean jarg6) {
   jlong jresult = 0 ;
   CascadeLemmatizer *arg1 = (CascadeLemmatizer *) 0 ;
   UnicodeString arg2 ;
   UnicodeString arg3 ;
   UnicodeString arg4 ;
   UnicodeString arg5 ;
-bool arg6;
+  bool arg6 ;
   UnicodeString *argp2 ;
   UnicodeString *argp3 ;
   UnicodeString *argp4 ;
@@ -401,31 +399,21 @@ bool arg6;
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
   }
-  arg5 = *argp5;
-arg6 = jarg6 ? true : false;
-result = (arg1)->lemmatize(arg2, arg3, arg4, arg5, arg6);
+  arg5 = *argp5; 
+  arg6 = jarg6 ? true : false; 
+  result = (arg1)->lemmatize(arg2,arg3,arg4,arg5,arg6);
   *(UnicodeString **)&jresult = new UnicodeString((const UnicodeString &)result); 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL
-Java_WrapLemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_12(JNIEnv
-*jenv,
-jclass jcls, jlong
-jarg1,
-jobject jarg1_, jlong
-jarg2,
-jlong jarg3, jlong
-jarg4,
-jboolean jarg5
-) {
+SWIGEXPORT jlong JNICALL Java_WrapLemJNI_CascadeLemmatizer_1lemmatize_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jboolean jarg5) {
   jlong jresult = 0 ;
   CascadeLemmatizer *arg1 = (CascadeLemmatizer *) 0 ;
   UnicodeString arg2 ;
   UnicodeString arg3 ;
   UnicodeString arg4 ;
-bool arg5;
+  bool arg5 ;
   UnicodeString *argp2 ;
   UnicodeString *argp3 ;
   UnicodeString *argp4 ;
@@ -452,9 +440,9 @@ bool arg5;
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null UnicodeString");
     return 0;
   }
-  arg4 = *argp4;
-arg5 = jarg5 ? true : false;
-result = (arg1)->lemmatize(arg2, arg3, arg4, arg5);
+  arg4 = *argp4; 
+  arg5 = jarg5 ? true : false; 
+  result = (arg1)->lemmatize(arg2,arg3,arg4,arg5);
   *(UnicodeString **)&jresult = new UnicodeString((const UnicodeString &)result); 
   return jresult;
 }

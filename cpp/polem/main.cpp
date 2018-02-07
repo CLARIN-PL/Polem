@@ -6,6 +6,7 @@
 #include "CascadeLemmatizer.h"
 #include <boost/format.hpp>
 #include <boost/program_options.hpp>
+#include <boost/algorithm/string.hpp>
 
 using namespace std;
 
@@ -73,15 +74,16 @@ int main(int argc, const char *argv[]) {
 
         boost::program_options::options_description desc("Parameters");
         desc.add_options()
-                ("help,h","Print help message")
-                ("pathname,p",boost::program_options::value<string>(),"Pathname to input file - REQUIRED")
-                ("tagset,t",boost::program_options::value<string>(),"Tagset to use (Currently only NKJP)- OPTIONAL")
+                ("help,h", "Print help message")
+                ("pathname,p", boost::program_options::value<string>(), "Pathname to input file - REQUIRED")
+                ("files,f", boost::program_options::value<string>(), "Full pathname to data files for lemmatizer, required when lemmatizer is not installed")
+                ("tagset,t", boost::program_options::value<string>(), "Tagset to use (Currently only NKJP)- OPTIONAL")
                 ("case-sensitive,c", "Case sensitive evaluation - OPTIONAL")
                 ("space-sensitive,s", "Whitespace sensitive evaluation - OPTIONAL")
                 ("debug,d", "Additional debug prints");
 
         boost::program_options::variables_map vm;
-        boost::program_options::store(boost::program_options::parse_command_line(argc,argv,desc),vm);
+        boost::program_options::store(boost::program_options::parse_command_line(argc, argv, desc), vm);
 
 
         string pathname;
@@ -89,29 +91,42 @@ int main(int argc, const char *argv[]) {
         bool caseInsensitive = true;
         bool spaceInsensitive = true;
         bool debug = false;
+        string datafiles = "/usr/local/share/polem/";
 
         if (vm.count("help")) {
-                cout << desc << endl;
+            cout << desc << endl;
             return 0;
         } else {
-                boost::program_options::notify(vm);
-                pathname = vm["pathname"].as<string>();
-                if (vm.count("tagset")) {
-                    argTagset = vm["t"].as<string>();
-                } else {
-                    argTagset = "nkjp";
-                }
-                if (vm.count("case-sensitive")) {
-                    caseInsensitive = false;
-                }
-                if (vm.count("space-sensitive")) {
-                    spaceInsensitive = false;
-                }
+            boost::program_options::notify(vm);
+            pathname = vm["pathname"].as<string>();
+            if (vm.count("tagset")) {
+                argTagset = vm["tagset"].as<string>();
+            } else {
+                argTagset = "nkjp";
+            }
+            if (vm.count("case-sensitive")) {
+                caseInsensitive = false;
+            }
+            if (vm.count("space-sensitive")) {
+                spaceInsensitive = false;
+            }
             if (vm.count("debug")) {
                 debug = true;
             }
+            if (vm.count("files")) {
+                datafiles = vm["files"].as<string>();
+            }
         }
 
+        if(!boost::algorithm::ends_with(datafiles,"/")){
+            datafiles = datafiles+"/";
+        }
+        if(datafiles.find("/")!=0){
+            datafiles = "/"+datafiles;
+        }
+
+
+        cout<<"Looking for data files in : " + datafiles <<endl;
         //processing arguments
         // pathname to file to lemmatize, tagset, case sensitive, space sensitive
 
@@ -121,8 +136,16 @@ int main(int argc, const char *argv[]) {
         // string is keyword, pair of ints is amount of success and failure in lemmatization
 
         //const Corpus2::Tagset &tagset = Corpus2::get_named_tagset(argTagset);
+        boost::optional<CascadeLemmatizer> cascadeLemmatizer;
 
-        CascadeLemmatizer cascadeLemmatizer = CascadeLemmatizer::assembleLemmatizer();
+        try {
+            cascadeLemmatizer = CascadeLemmatizer::assembleLemmatizer(datafiles);
+        } catch (std::exception& e) {
+            std::cout << "Couldnt build Lemmatizer instance" << endl;
+            std::cout << "Please specify the directory of data files with -f parameter" << endl;
+            std::cout << e.what() <<endl;
+            return 0;
+        }
 
         ifstream infile(pathname.c_str());
 
@@ -182,8 +205,8 @@ int main(int argc, const char *argv[]) {
             }
 
 
-            UnicodeString lemma = cascadeLemmatizer.lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces,
-                                                              kwrd_category, debug);
+            UnicodeString lemma = cascadeLemmatizer->lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces,
+                                                               kwrd_category, debug);
 
             //string view = globalMethod;
             string lemmaprnt;
@@ -260,12 +283,10 @@ int main(int argc, const char *argv[]) {
         output.close();
 
 
-    }catch(std::logic_error& err){
+    }catch(std::logic_error &err){
         std::cout << "No or insufficient parameters given"<<endl;
         std::cout << "Run with -h to see help" <<endl;
-    }catch(std::exception& e){
-        std::cout << "No or insufficient parameters given"<<endl;
-        std::cout << "Run with -h to see help" <<endl;
+        std::cout << err.what();
     }
 
     return 0;

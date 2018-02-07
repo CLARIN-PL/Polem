@@ -40,7 +40,7 @@ setvar($s:Pos2mod, ["cas=nom"])
 */
 
 RuleLemmatizer::RuleLemmatizer(string tagset, morfeusz::Morfeusz *generator, bool fix,
-                               bool useOrthForOov) {
+                               bool useOrthForOov, std::string datafiles) {
 
 
     /*
@@ -57,7 +57,8 @@ RuleLemmatizer::RuleLemmatizer(string tagset, morfeusz::Morfeusz *generator, boo
     this->tagset = Corpus2::get_named_tagset(tagset);
 
     xml_document doc;
-    doc.load_file("/usr/local/share/polem/lemmatization-rules-azon2.xml", parse_default | parse_declaration);
+    std::string files = datafiles+"lemmatization-rules-azon2.xml";
+    doc.load_file(files.c_str(), parse_default | parse_declaration);
     xml_node rules = doc.child("rules");
 
     char temp[] = "/tmp/fileXXXXXX";
