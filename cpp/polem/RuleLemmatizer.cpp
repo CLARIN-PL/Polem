@@ -143,7 +143,7 @@ RuleLemmatizer::lemmatize(std::vector <std::vector<icu::UnicodeString>> kw, std:
         }
         return "";
     }
-
+    
     //Odpal operatory i znajdź dopasowania
     //for (vector<pair<string, boost::shared_ptr<Wccl::FunctionalOperator>>>::iterator it = this->wccl_operators.begin();
      //    it != this->wccl_operators.end(); ++it) {

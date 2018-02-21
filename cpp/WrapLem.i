@@ -1,5 +1,5 @@
 %module WrapLem
-%include <std_string.i>
+%include<std_string.i>
 
 %{
 #include "polem/CascadeLemmatizer.h"

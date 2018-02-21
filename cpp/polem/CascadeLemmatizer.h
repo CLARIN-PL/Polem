@@ -10,6 +10,7 @@
 #include "NamLivPersonLemmatizer.h"
 #include "NamLocLemmatizer.h"
 #include "OrthLemmatizer.h"
+#include <unicode/uconfig.h>
 #include <string>
 #include <vector>
 
@@ -56,13 +57,13 @@ public:
 
     std::string
     lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag, std::string kwrd_spaces,
-                std::string category);
+                std::string category, bool debug);
 
     std::string
-    lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag, std::string kwrd_spaces);
+    lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag, std::string kwrd_spaces, bool debug);
 
     std::string
-    lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag);
+    lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag, bool debug);
 
 
 };

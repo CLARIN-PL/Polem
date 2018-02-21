@@ -42,6 +42,7 @@ endif(WCCL_LIBRARY AND WCCL_INCLUDE_DIR)
 
 find_package(Morfeusz2 REQUIRED)
 include_directories(${MORFEUSZ2_INCLUDE_DIR})
+
 set(LIBS ${LIBS} ${MORFEUSZ2_LIBRARY})
 
 find_package(PwrUtils REQUIRED)
@@ -60,19 +61,20 @@ set(SOURCE_FILES polem/main.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugi
         polem/Inflection.h polem/NamLivPersonLemmatizer.h
         polem/NamLocLemmatizer.h polem/OrthLemmatizer.h)
 
-set(LIBRARY_FILES ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp polem/CascadeLemmatizer.cpp
-        polem/RuleLemmatizer.cpp polem/DictionaryLemmatizer.cpp
-        polem/Inflection.cpp polem/NamLivPersonLemmatizer.cpp
-        polem/NamLocLemmatizer.cpp polem/OrthLemmatizer.cpp
-        polem/CascadeLemmatizer.h polem/RuleLemmatizer.h
-        polem/DictionaryLemmatizer.h polem/Inflection.h
-        polem/NamLivPersonLemmatizer.h polem/NamLocLemmatizer.h
-        polem/OrthLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/pythonwrap/WrapLem_wrap.cxx)
+set(LIBRARY_FILES ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp ${CMAKE_CURRENT_SOURCE_DIR}/polem/CascadeLemmatizer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/RuleLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/polem/DictionaryLemmatizer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/Inflection.cpp ${CMAKE_CURRENT_SOURCE_DIR}/polem/NamLivPersonLemmatizer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/NamLocLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/polem/OrthLemmatizer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/CascadeLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/RuleLemmatizer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/DictionaryLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/Inflection.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/NamLivPersonLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/NamLocLemmatizer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/OrthLemmatizer.h)
 
-set(PUBLIC_HEADERS polem/CascadeLemmatizer.h polem/DictionaryLemmatizer.h
-        polem/NamLivPersonLemmatizer.h polem/NamLocLemmatizer.h
-        polem/RuleLemmatizer.h polem/OrthLemmatizer.h
-        polem/Inflection.h)
+
+set(PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/polem/CascadeLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/DictionaryLemmatizer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/NamLivPersonLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/NamLocLemmatizer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/RuleLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/OrthLemmatizer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/Inflection.h)
 
 set(WRAPPER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/WrapLem_wrap.cxx)
 #set(WRAPPER_HEADERS "")
@@ -93,40 +95,63 @@ target_link_libraries(polem ${LIBS})
 install(TARGETS polem RUNTIME DESTINATION "/usr/local/bin/")
 
 
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+#set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 
 add_library(polem-dev SHARED ${LIBRARY_FILES})
-target_link_libraries(polem-dev ${Corpus2_LIBRARY})
-target_link_libraries(polem-dev ${LIBS})
-
+set_target_properties(polem-dev PROPERTIES
+        PUBLIC_HEADER ${PUBLIC_HEADERS})
+target_include_directories(polem-dev PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/polem)
 
 install(TARGETS polem-dev
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/polem-dev)
+target_link_libraries(polem-dev ${ICU_I18N_LIBRARIES})
+target_link_libraries(polem-dev ${ICU_LIBRARIES})
+target_link_libraries(polem-dev ${Corpus2_LIBRARY})
+target_link_libraries(polem-dev ${LIBS})
 install(FILES ${PUBLIC_HEADERS}
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-add_library(polemJava-dev SHARED ${WRAPPER_FILES})
-set_property(TARGET polemJava-dev PROPERTY POSITION_INDEPENDENT_CODE ON)
-include_directories(${JNI_INCLUDE_DIRS})
-target_link_libraries(polemJava-dev polem-dev)
-target_link_libraries(polemJava-dev ${JNI_LIBRARIES})
-target_link_libraries(polemJava-dev ${Corpus2_LIBRARY})
-target_link_libraries(polemJava-dev ${LIBS})
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/polem-dev)
 
 
-install(TARGETS polemJava-dev
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-#install(FILES ${WRAPPER_HEADERS}
-#        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-set(CMAKE_JNI_TARGET TRUE)
-add_jar(polemJav ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/CascadeLemmatizer.java ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/WrapLem.java
-        ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/WrapLemJNI.java ${CMAKE_CURRENT_SOURCE_DIR}/javawrap/SWIGTYPE_p_UnicodeString.java)
-
+#####JAVA
 
 FIND_PACKAGE(SWIG REQUIRED)
 INCLUDE(${SWIG_USE_FILE})
 
+include(UseSWIG)
+include_directories(${JNI_INCLUDE_DIRS})
+
+SET(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/java)
+SET(CMAKE_SWIG_FLAGS -package g419.polem)
+
+set_property(SOURCE "WrapLem.i" PROPERTY CPLUSPLUS ON)
+
+swig_add_module(
+        PolemJava
+        java
+        WrapLem.i
+        ${LIBRARY_FILES}
+)
+
+TARGET_INCLUDE_DIRECTORIES(PolemJava
+        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+        PRIVATE ${JAVA_INCLUDE_PATH}
+        PRIVATE ${JAVA_INCLUDE_PATH2}
+        )
+
+target_link_libraries(PolemJava ${LIBS})
+
+FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/classes)
+add_custom_command(TARGET PolemJava POST_BUILD
+        COMMAND ${Java_JAVAC_EXECUTABLE} -d classes java/*.java
+        COMMAND ${Java_JAR_EXECUTABLE} -cfM PolemJava.jar -C classes .
+        )
+
+INSTALL(TARGETS PolemJava
+        DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+####PYTHON
 
 find_package(PythonInterp REQUIRED)
 FIND_PACKAGE(PythonLibs REQUIRED)
@@ -141,7 +166,7 @@ SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i PROPERTIES CPL
 SWIG_ADD_MODULE(WrapLem python ${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i)
 SWIG_LINK_LIBRARIES(WrapLem polem-dev ${LIBS} ${PYTHON_LIBRARIES})
 
-message("${PYTHON_LIBRARIES}")
+#message("${PYTHON_LIBRARIES}")
 
 #execute_process ( COMMAND python3 -c "import site; print(site.getsitepackages()[0])" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
 execute_process(COMMAND python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
