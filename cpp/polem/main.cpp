@@ -161,19 +161,18 @@ int main(int argc, const char *argv[]) {
             outname.append("ss-");
         }
         outname.append(pathname);
-        //creating name for output file
+        //creating name for fout file
 
-        ofstream output;
-        output.open(outname);
+        ofstream fout;
+        fout.open(outname);
 
         string line;
 
-        output << setprecision(4) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t"
-               << "Expected"
-               << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
-        cout << setprecision(4) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t"
-             << "Expected"
-             << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
+        std::stringstream sbuf;
+        sbuf << setprecision(4) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t"
+               << "Expected" << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
+        fout << sbuf.str();
+        cout << sbuf.str();
 
         while (getline(infile, line, '\n')) {
             //line by line reading file
@@ -193,22 +192,21 @@ int main(int argc, const char *argv[]) {
             UnicodeString kwrd_base = fields[2].trim();
             UnicodeString kwrd_ctag = fields[3].trim();
             UnicodeString kwrd_spaces;
-            if (numWords < 5) kwrd_spaces = "";
-            else {
+            if (numWords < 5) {
+                kwrd_spaces = "";
+            } else {
                 kwrd_spaces = fields[4].trim();
             }
             string kwrd_category;
-            if (numWords < 6) kwrd_category = "";
-            else {
+            if (numWords < 6) {
+                kwrd_category = "none";
+            } else {
                 fields[5].findAndReplace("\tnull", "");
                 fields[5].trim().toUTF8String(kwrd_category);
             }
 
+            UnicodeString lemma = cascadeLemmatizer->lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, kwrd_category, debug);
 
-            UnicodeString lemma = cascadeLemmatizer->lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces,
-                                                               kwrd_category, debug);
-
-            //string view = globalMethod;
             string lemmaprnt;
             lemma.toUTF8String(lemmaprnt);
             string kwrdprnt;
@@ -233,7 +231,10 @@ int main(int argc, const char *argv[]) {
                 kwrd.findAndReplace(" ", "");
             }
 
+            string eval;
+
             if (lemma == kwrd) { // success
+                eval = "True";
                 if (tfByMethod.count(globalMethod) > 0) { // method found in structure
                     tfByMethod[globalMethod].first++;      //increasing success amount
                 } else {
@@ -244,16 +245,8 @@ int main(int argc, const char *argv[]) {
                 } else {
                     tfByCategory.insert(make_pair(kwrd_category, make_pair(1, 0)));
                 }
-                output.clear();
-                output << "[" << setw(4) << line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt
-                       << "\t"
-                       << kwrdprnt << "\t" << kwrd_category
-                       << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
-                cout << "[" << setw(4) << line_no << "]" << "\t" << "True" << "\t" << orthprnt << "\t" << lemmaprnt
-                     << "\t" << kwrdprnt
-                     << "\t" << kwrd_category
-                     << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
             } else { // failure
+                eval = "False";
                 if (tfByMethod.count(globalMethod) > 0) {
                     tfByMethod[globalMethod].second++;
                 } else {
@@ -264,26 +257,23 @@ int main(int argc, const char *argv[]) {
                 } else {
                     tfByCategory.insert(make_pair(kwrd_category, make_pair(0, 1)));
                 }
-                output.clear();
-                output << "[" << setw(4) << line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt
-                       << "\t"
-                       << kwrdprnt << "\t" << kwrd_category
-                       << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
-                cout << "[" << setw(4) << line_no << "]" << "\t" << "False" << "\t" << orthprnt << "\t" << lemmaprnt
-                     << "\t"
-                     << kwrdprnt << "\t" << kwrd_category
-                     << "\t" << globalMethod << "\t" << basesprnt << " \t" << ctagprnt << "\n";
-
             }
+
+            sbuf.str(std::string());
+            sbuf << "[" << setw(4) << line_no << "]" << "\t" << eval << "\t" << orthprnt << "\t" << lemmaprnt
+                   << "\t" << kwrdprnt << "\t" << kwrd_category << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << "\n";
+
+            fout.clear();
+            fout << sbuf.str();
+            cout << sbuf.str();
+
             line_no++;
         }
-        printResults(output, "Evaluation by method", tfByMethod, line_no);
-        printResults(output, "Evaluation by keyword category", tfByCategory, line_no);
+        printResults(fout, "Evaluation by method", tfByMethod, line_no);
+        printResults(fout, "Evaluation by keyword category", tfByCategory, line_no);
         infile.close();
-        output.close();
-
-
-    }catch(std::logic_error &err){
+        fout.close();
+    } catch(std::logic_error &err) {
         std::cout << "No or insufficient parameters given"<<endl;
         std::cout << "Run with -h to see help" <<endl;
         std::cout << err.what();

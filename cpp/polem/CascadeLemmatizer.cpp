@@ -197,13 +197,6 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
         lemma.toLower();
     }
 
-//    string err;
-//    lemma.toUTF8String(err);
-//    lemma = foldOutput(lemma, kw, kw_category);
-
-    //lemma = filter(kw, lemma, kw_category);
-    //filter the results, adding few % points
-
     return lemma.trim();
 }
 
