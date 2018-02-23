@@ -10,61 +10,54 @@
 
 using namespace std;
 
-double acc(int tru, int fals) {
-    if (tru + fals > 0) {
-        return (double) tru * 100 / (tru + fals);
-    } else {
-        return 0.0;
-    }
+double accuracy(int t, int f) {
+    return (t+f>0) ? (double)t * 100.0 / (double)(t+f) : 0.0;
+}
+
+double coverage(int t, int f, int c){
+    return c > 0 ? (double)(t+f)*100.0/(double)c : 0.0;
 }
 
 void
-printResults(ofstream &output, const string &title, map<string, pair<int, int> > tfs, int count) {
+printResults(ofstream &fout, const string &title, map<string, pair<int, int> > tfs, int count) {
     int ms = 0, mf = 0;
 
-    output << setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
-    output <<"# "<<title << endl;
-    output << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
-    output << "\\hline" << endl;
-    output<< boost::format("%5s & %5s & %6s & %-30s & %s \\\\") % "True" % "False" %"Acc" % "Method" % "Coverage"<<endl;
-    output << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
-    output << "\\hline" << endl;
+    std::stringstream sbuf;
 
-    cout << setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
-    cout <<"# "<<title << endl;
-    cout << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
-    cout << "\\hline" << endl;
-    cout<< boost::format("%5s & %5s & %6s & %-30s & %s \\\\") % "True" % "False" %"Acc" % "Method" % "Coverage"<<endl;
-    cout << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
-    cout << "\\hline" << endl;
+    sbuf << setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
+    sbuf << "# "<<title << endl;
+    sbuf << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
+    sbuf << "\\hline" << endl;
+    sbuf << boost::format("%5s & %5s & %6s & %-30s & %s \\\\") % "True" % "False" %"Acc" % "Method" % "Coverage"<<endl;
+    sbuf << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
+    sbuf << "\\hline" << endl;
+    fout << sbuf.str();
+    cout << sbuf.str();
 
-    //for (map<string, pair<int, int> >::iterator it = tfs.begin(); it != tfs.end(); ++it) {
     for(auto& it:tfs){
         UnicodeString cat = it.first.c_str();
         cat.findAndReplace("_","\\_");
-        string print;
-        cat.toUTF8String(print);
-        output << boost::format(R"(%5d & %5d & %6.2f\%% & %-30s & %6.2f\%% \\)") % it.second.first
-                  % it.second.second % acc(it.second.first,it.second.second) % print
-                  % acc(it.second.first+it.second.second,count)<<endl;
-        cout << boost::format(R"(%5d & %5d & %6.2f\%% & %-30s & %6.2f\%% \\)") % it.second.first
-                  % it.second.second % acc(it.second.first,it.second.second) % print
-                  % acc(it.second.first+it.second.second,count)<<endl;
+        string method;
+        cat.toUTF8String(method);
+
+        sbuf.str(std::string());
+        sbuf << boost::format(R"(%5d & %5d & %6.2f\%% & %-30s & %6.2f\%% \\)")
+                  % it.second.first % it.second.second % accuracy(it.second.first,it.second.second)
+                  % method % coverage(it.second.first,it.second.second,count) << endl;
+        fout << sbuf.str();
+        cout << sbuf.str();
 
         ms = ms + it.second.first;
         mf = mf + it.second.second;
     }
-    output << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
-    output << "\\hline" << endl;
-    output << boost::format(R"(%5d & %5d & %6.2f\%% & %-30s \\)") % ms % mf % acc(ms,mf) % "Total"<<endl;
-    output << "%------------------------------------------------------------" << endl;
-    output << "\\hline" << endl;
-
-    cout << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
-    cout << "\\hline" << endl;
-    cout << boost::format(R"(%5d & %5d & %6.2f\%% & %-30s \\)") % ms % mf % acc(ms,mf) % "Total"<<endl;
-    cout << "%------------------------------------------------------------" << endl;
-    cout << "\\hline" << endl;
+    sbuf.str(std::string());
+    sbuf << '%'<<setfill('-')<<setw(60)<<"-"<<setfill(' ')<<endl;
+    sbuf << "\\hline" << endl;
+    sbuf << boost::format(R"(%5d & %5d & %6.2f\%% & %-30s \\)") % ms % mf % accuracy(ms,mf) % "Total" << endl;
+    sbuf << "%------------------------------------------------------------" << endl;
+    sbuf << "\\hline" << endl;
+    fout << sbuf.str();
+    cout << sbuf.str();
 }
 
 
