@@ -77,10 +77,40 @@ RuleLemmatizer::RuleLemmatizer(string tagset, morfeusz::Morfeusz *generator, boo
         string name = rule.attribute("name").value();
         this->rule_categories[name + "-0"] = rule.attribute("category").value();
         if (fix || (name.find("Fix") == string::npos)) {
+            std::string ruleString = rule.child("wccl").child_value();
+            ruleString = ruleString.substr(0,ruleString.find_last_of("\n"));
+            ruleString = ruleString.substr(0,ruleString.find_last_of("\n"));
+            for(xml_node set = rule.child("transformations").child("set"); set; set = set.next_sibling("set")){
+                int index = set.attribute("index").as_int();
+                std::string cas = set.attribute("cas").value();
+                std::string gnd = set.attribute("gnd").value();
+                std::string nmb = set.attribute("nmb").value();
+                ruleString.append(",\n\t\t\tsetvar($s:Pos"+std::to_string(index+1)+"mod, [\"");
+                if(cas!=""){
+
+                    ruleString.append("cas=" + cas+"\",");
+                }
+                if(gnd!=""){
+
+                    ruleString.append("\"gnd="+gnd+"\",");
+                }
+                if(nmb!=""){
+
+                    ruleString.append("\"nmb="+nmb+"\",");
+                }
+                ruleString = ruleString.substr(0,ruleString.find_last_of(','));
+                ruleString.append("])");
+           }
+
             if (rule_no > 0) {
                 file << "\n";
+                //std::cout << "\n";
             }
-            file << "@b:\"" << name << "\" (" << rule.child_value() << ")";
+            //file << "@b:\"" << name << "\" (" << rule.child_value() << ")";
+            if(ruleString.find("//or,")!=string::npos){
+                ruleString.replace(ruleString.find("//or,"),5,",//or");
+                }
+            file << "@b:\"" << name << "\" (" << ruleString << "\n\t\t)\n\t\t)";
         }
         rule_no++;
     }

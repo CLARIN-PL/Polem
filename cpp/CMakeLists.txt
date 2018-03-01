@@ -102,6 +102,7 @@ add_library(polem-dev SHARED ${LIBRARY_FILES})
 set_target_properties(polem-dev PROPERTIES
         PUBLIC_HEADER ${PUBLIC_HEADERS})
 target_include_directories(polem-dev PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/polem)
+target_include_directories(polem-dev PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 install(TARGETS polem-dev
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
