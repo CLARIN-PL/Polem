@@ -1,87 +1,72 @@
-//
-// Created by gkubon on 18/07/17.
-//
-
 #include "CascadeLemmatizer.h"
 #include <unicode/regex.h>
 #include <fstream>
-
+#include <boost/algorithm/string.hpp>
 
 using namespace std;
 
-
 string globalMethod;
 
-
+/**
+ * Creates lemmatizer using data from datafile folder.
+ * @return Instance of CascadeLemmatizer.
+ */
 CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer(std::string datafiles) {
 
-    string line;
+    map<UnicodeString, pair<UnicodeString, UnicodeString> > dictionaryItems;
     vector<UnicodeString> vecLastNames;
-
-    ifstream lastNames(datafiles+"nelexicon2_nam_liv_person_last.txt");
-    while (getline(lastNames, line)) {
-        vecLastNames.emplace_back(line.substr(line.find('\t') + 1).c_str());
-    }
-    lastNames.close();
-    //loading dictionaries to namlivlemmatizer
-
-    ifstream firstNames(datafiles+"nelexicon2_nam_liv_person_first.txt");
-    while (getline(firstNames, line)) {
-        vecLastNames.emplace_back(line.substr(line.find('\t') + 1).c_str());
-    }
-    firstNames.close();
-
     vector<UnicodeString> vecNamLoc;
 
-    ifstream namLoc(datafiles+"nelexicon2-infobox-nam_loc.txt");
-    while (getline(namLoc, line)) {
-        vecNamLoc.emplace_back(line.substr(line.find('\t') + 1).c_str());
-    }
-    namLoc.close();
-    //loading dictionary for namloclemmatizer
+    CascadeLemmatizer::addLinesFromFileToVector(datafiles+"nelexicon2_nam_liv_person_last.txt", vecLastNames);
+    CascadeLemmatizer::addLinesFromFileToVector(datafiles+"nelexicon2_nam_liv_person_first.txt", vecLastNames);
+    CascadeLemmatizer::addLinesFromFileToVector(datafiles+"nelexicon2-infobox-nam_loc.txt", vecNamLoc);
 
+    /** Load lines in the form of: category<tab>orth<tab>lemma */
+    string line;
     ifstream dictFile(datafiles+"nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt");
-
-    map<UnicodeString, pair<UnicodeString, UnicodeString> > dictionaryItems;
-
     while (getline(dictFile, line)) {
         UnicodeString dictCat, dictOrth, dictLemma;
-        dictCat = line.substr(0, line.find('\t')).c_str();
-        dictOrth = line.substr(line.find('\t') + 1).substr(0,
-                                                           line.substr(line.find('\t') + 1).find_last_of('\t')).c_str();
-        dictLemma = line.substr(line.rfind('\t') + 1).c_str();
+        size_t t1 = line.find('\t');
+        size_t t2 = line.rfind('\t');
+        dictCat = line.substr(0, t1).c_str();
+        dictOrth = line.substr(t1+1, t2).c_str();
+        dictLemma = line.substr(t2+1).c_str();
         dictionaryItems[dictOrth] = make_pair(dictCat, dictLemma);
-
     }
     dictFile.close();
-    //loading dict for dictionary lemmatizers
-    //dictionary items - key - unicode string value - pair < uni string, uni string >
-    //orth, pair < category , lemma >
+    /** EOB **/
 
-    Inflection inflection = Inflection(vecLastNames);
-    inflection.loadInflectionRules(datafiles+"inflection_nam_liv_person_last.txt");
-    Inflection inflectionNamLoc = Inflection(vecNamLoc);
-    inflectionNamLoc.loadInflectionRules(datafiles+"inflection_nam_loc.txt");
-    //loading rules for inflection
-
-
+    Inflection inflection = Inflection::createForRulesInFile(vecLastNames, datafiles+"inflection_nam_liv_person_last.txt");
+    Inflection inflectionNamLoc = Inflection::createForRulesInFile(vecNamLoc, datafiles+"inflection_nam_loc.txt");
     morfeusz::Morfeusz *generator = morfeusz::Morfeusz::createInstance(morfeusz::GENERATE_ONLY);
 
-
-    return CascadeLemmatizer("nkjp", generator, dictionaryItems, inflection,
-                             inflectionNamLoc,datafiles);
-
+    return CascadeLemmatizer("nkjp", generator, dictionaryItems, inflection, inflectionNamLoc,datafiles);
 }
 
+/**
+ *
+ * @param path
+ * @return
+ */
+void CascadeLemmatizer::addLinesFromFileToVector(std::string path, std::vector<UnicodeString> &dict){
+    std::string line;
+    ifstream ff(path);
+    while (getline(ff, line)) {
+        dict.emplace_back(line.substr(line.find('\t') + 1).c_str());
+    }
+    ff.close();
+}
+
+/**
+ * Creates lemmatizer using default data provided with the installation.
+ * @return Instance of CascadeLemmatizer.
+ */
 CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer() {
     return CascadeLemmatizer::assembleLemmatizer("/usr/local/share/polem/");
 }
 
-vector<vector<UnicodeString>>
-CascadeLemmatizer::chopInput(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag,
-                             UnicodeString kwrd_spaces) {
-
-    //kwrd_orth = preprocessOrth(kwrd_orth);
+vector<vector<UnicodeString>> CascadeLemmatizer::chopInput(
+        UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces) {
 
     UErrorCode status = U_ZERO_ERROR;
 

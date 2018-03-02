@@ -27,8 +27,6 @@ class CascadeLemmatizer{
     NamLocLemmatizer namLocLemmatizer;
     OrthLemmatizer orthLemmatizer;
 
-    UnicodeString preprocessOrth(UnicodeString orth);
-
     std::vector<std::vector<UnicodeString>> chopInput(UnicodeString kwrd_orth, UnicodeString kwrd_base,
                                                       UnicodeString kwrd_ctag, UnicodeString kwrd_spaces);
 
@@ -44,6 +42,8 @@ public:
     static CascadeLemmatizer assembleLemmatizer();
 
     static CascadeLemmatizer assembleLemmatizer(std::string datafiles);
+
+    static void addLinesFromFileToVector(std::string path, std::vector<UnicodeString> &dict);
 
     UnicodeString
     lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces,
