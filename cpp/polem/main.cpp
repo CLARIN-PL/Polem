@@ -62,9 +62,7 @@ printResults(ofstream &fout, const string &title, map<string, pair<int, int> > t
 
 
 int main(int argc, const char *argv[]) {
-
     try {
-
         boost::program_options::options_description desc("Parameters");
         desc.add_options()
                 ("help,h", "Print help message")
@@ -74,7 +72,6 @@ int main(int argc, const char *argv[]) {
                 ("case-sensitive,c", "Case sensitive evaluation - OPTIONAL")
                 ("space-sensitive,s", "Whitespace sensitive evaluation - OPTIONAL")
                 ("debug,d", "Additional debug prints");
-
         boost::program_options::variables_map vm;
         boost::program_options::store(boost::program_options::parse_command_line(argc, argv, desc), vm);
 
@@ -154,19 +151,17 @@ int main(int argc, const char *argv[]) {
             outname.append("ss-");
         }
         outname.append(pathname);
-        //creating name for fout file
 
         ofstream fout;
         fout.open(outname);
 
-        string line;
-
         std::stringstream sbuf;
-        sbuf << setprecision(4) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t"
-               << "Expected" << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
+        sbuf << setprecision(4) << "Line" << "\t" << "Correct" << "\t" << "Orth" << "\t" << "Lemma" << "\t";
+        sbuf <<"Expected" << "\t" << "Category" << "\t" << "Method" << "\t" << "Bases" << "\t" << "Ctags" << endl;
         fout << sbuf.str();
         cout << sbuf.str();
 
+        string line;
         while (getline(infile, line, '\n')) {
             //line by line reading file
             //keyword \t orth \t base \t tag \t spaces \t category \n
@@ -253,8 +248,8 @@ int main(int argc, const char *argv[]) {
             }
 
             sbuf.str(std::string());
-            sbuf << "[" << setw(4) << line_no << "]" << "\t" << eval << "\t" << orthprnt << "\t" << lemmaprnt
-                   << "\t" << kwrdprnt << "\t" << kwrd_category << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << "\n";
+            sbuf << "[" << setw(4) << line_no << "]" << "\t" << eval << "\t" << orthprnt << "\t" << lemmaprnt;
+            sbuf << "\t" << kwrdprnt << "\t" << kwrd_category << "\t" << globalMethod << "\t" << basesprnt << "\t" << ctagprnt << "\n";
 
             fout.clear();
             fout << sbuf.str();

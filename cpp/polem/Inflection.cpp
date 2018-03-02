@@ -29,7 +29,7 @@ Inflection::Inflection(vector<UnicodeString> known_bases){
 /**
  * Load inflection patterns represented in the form of: 'ctag form_ending norm_ending count conf'
  * For example:
- * subst:sg:gen:m1#ka#ek 53 0.8
+ * subst:sg:gen:m1 ka ek 53 0.8
  *
  * @param pathname
  */
@@ -53,8 +53,7 @@ void Inflection::loadInflectionRules(std::string pathname) {
         infrule.normEnding = parts[2]=="#" ? "" : parts[2].c_str();
         infrule.count = stoi(parts[3]);
         infrule.confidence = stof(parts[4]);
-
-        this->inflections[infrule.ctag].emplace_back(infrule);
+        this->inflections[infrule.ctag][infrule.formEnding].emplace_back(infrule);
     }
     rules.close();
 }
@@ -71,28 +70,28 @@ UnicodeString Inflection::generate_base(icu::UnicodeString ctag, icu::UnicodeStr
         return base;
     }
 
-    if(ctag=="subst:sg:gen:m1" && (base = this->_generate_base("subst:sg:acc:m1",form))!=""){
+    if(ctag=="subst:sg:gen:m1" && !(base = this->_generate_base("subst:sg:acc:m1",form)).isEmpty()){
         return base;
     }
 
-    if(ctag=="subst:sg:gen:m3" && (base = this->_generate_base("subst:sg:acc:m3",form))!=""){
+    if(ctag=="subst:sg:gen:m3" && !(base = this->_generate_base("subst:sg:acc:m3",form)).isEmpty()){
         return base;
     }
 
-    if(ctag=="subst:sg:acc:m1" && (base = this->_generate_base("subst:sg:gen:m1",form))!=""){
+    if(ctag=="subst:sg:acc:m1" && !(base = this->_generate_base("subst:sg:gen:m1",form)).isEmpty()){
         return base;
     }
 
-    if(ctag.endsWith(":n") && (base = this->_generate_base(ctag.findAndReplace(":n",":m1"),form))!=""){
+    if(ctag.endsWith(":n") && !(base = this->_generate_base(ctag.findAndReplace(":n",":m1"),form)).isEmpty()){
         return base;
     }
 
-    if(ctag.endsWith(":m3") && (base = this->_generate_base(ctag.findAndReplace(":m3",":m1"),form))!=""){
+    if(ctag.endsWith(":m3") && !(base = this->_generate_base(ctag.findAndReplace(":m3",":m1"),form)).isEmpty()){
         return base;
     }
 
     // Generic method for mainly to handle multi-word forms
-    if(ctag.indexOf(":nom")==-1 && (base = this->_generate_base("",form))!=""){
+    if(ctag.indexOf(":nom")==-1 && !(base = this->_generate_base("",form)).isEmpty()){
         return base;
     }
 
@@ -100,15 +99,15 @@ UnicodeString Inflection::generate_base(icu::UnicodeString ctag, icu::UnicodeStr
 }
 
 UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString form) {
-
     UnicodeString forms[10];
     UErrorCode status = U_ZERO_ERROR;
     RegexMatcher m("\\s+", 0, status);
-    int split1 = m.split(form, forms, 10, status);
+    int tokenCount = m.split(form, forms, 10, status);
 
     UnicodeString base = "";
     UnicodeString lem;
 
+    if ( tokenCount > 1 ){
     //Lematyzacja frazy wielowyrazowej bez uwzględniania frekwencji alternacji
     /*if (this->inflections.find(ctagInf) != this->inflections.end() && split1 > 1) {
         map<UnicodeString, int> part_candidates;
@@ -182,72 +181,56 @@ UnicodeString Inflection::_generate_base(UnicodeString ctagInf, UnicodeString fo
         }
 
         return "";
-
-        //Lematyzacja pojedynczego słowa z wyborem tej alternacji, która jest najbardziej liczna
-    } else */
-
-    if (this->inflections.find(ctagInf) != this->inflections.end() && split1 == 1) {
+        */
+    } else if (this->inflections.find(ctagInf) != this->inflections.end() ) {
+        /** Lematyzacja pojedynczego słowa z wyborem tej alternacji, która jest najbardziej liczna */
         int maxCount = 0;
         int maxEndingLength = 0;
         UnicodeString possible_form;
-        for(auto& it : this->inflections[ctagInf]){
-            if (form.endsWith(it.formEnding)) {
-                if (it.formEnding == "") {
-                    possible_form = form;
-                } else {
-                    possible_form = form.tempSubStringBetween(0, form.lastIndexOf(it.formEnding)) + it.normEnding;
-                }
-
-                UnicodeString lower = possible_form;
-                lower.toLower();
-
-                if (this->known_bases_set.find(lower) != this->known_bases_set.end()
-                    && (it.formEnding.length() > maxEndingLength || (it.formEnding.length() == maxEndingLength && it.count > maxCount))) {
-                    maxCount = it.count;
-                    maxEndingLength = it.formEnding.length();
-                    base = possible_form;
-                }
-            }
-        }
-        //Generowanie możliwej formy bazowej bez sprawdzenia w słowniku wzorcowym
-        if (base == "") {
-            maxCount = 0;
-            for(auto& it:this->inflections[ctagInf]){
-                if (form.endsWith(it.formEnding) && it.count > 30 && it.formEnding.length() > 1) {
-                    if (it.formEnding == "") {
-                        possible_form = form;
-                    } else {
-                        possible_form = form.tempSubStringBetween(0, form.lastIndexOf(it.formEnding)) + it.normEnding;
-                    }
-
-                    if (it.count > maxCount) {
+        for(auto& its : this->inflections[ctagInf]){
+            if (form.endsWith(its.first)) {
+                for (auto& it : its.second){
+                    possible_form = it.inflectForm(form);
+                    UnicodeString lower = possible_form;
+                    lower.toLower();
+                    if (this->known_bases_set.find(lower) != this->known_bases_set.end()
+                        && (it.formEnding.length() > maxEndingLength || (it.formEnding.length() == maxEndingLength && it.count > maxCount))) {
                         maxCount = it.count;
+                        maxEndingLength = it.formEnding.length();
                         base = possible_form;
                     }
                 }
             }
         }
-    }
-    // Generowanie dla pustego tagu morfologicznego
-    else if (ctagInf == "" && split1 == 1) {
-        int maxCount = 0;
-        for(auto& it:this->inflections){
-            for(auto& it2:it.second){
-                if (form.endsWith(it2.formEnding) && it2.count > 30 && it2.formEnding.length() > 1) {
-                    UnicodeString possible_form;
-                    if (it2.formEnding == "") {
-                        possible_form = form;
-                    } else {
-                        possible_form = form.tempSubStringBetween(0, form.lastIndexOf(it2.formEnding));
-                        possible_form.append(it2.normEnding);
-                    }
-                    if (it2.count > maxCount) {
-                        maxCount = it2.count;
-                        base = possible_form;
+        if (base.isEmpty()) {
+            maxCount = 0;
+            for (auto &its:this->inflections[ctagInf]) {
+                if (form.endsWith(its.first)) {
+                    for (auto &it : its.second) {
+                        if (it.count > 30 && it.formEnding.length() > 1 && it.count > maxCount) {
+                            maxCount = it.count;
+                            base = it.inflectForm(form);
+                        }
                     }
                 }
             }
         }
+    } else if (ctagInf == "" ) {
+        // ToDo: Consider if this is worth keeping
+//        // Generowanie dla pustego tagu morfologicznego
+//        int maxCount = 0;
+//        for(auto& itc:this->inflections ){
+//            for (auto& its : itc.second){
+//                if (form.endsWith(its.first)) {
+//                    for (auto &it : its.second) {
+//                        if (it.count > 30 && it.formEnding.length() > 1 && it.count > maxCount) {
+//                            base = it.inflectForm(form);
+//                            maxCount = it.count;
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
     return base;
 }

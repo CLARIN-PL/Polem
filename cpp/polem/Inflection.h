@@ -9,7 +9,7 @@
 
 
 class Inflection {
-    std::map<UnicodeString,std::vector<InflectionRule > > inflections;
+    std::map<UnicodeString,std::map<UnicodeString,std::vector<InflectionRule > > > inflections;
     std::set<icu::UnicodeString> known_bases_set;
 
     UnicodeString _generate_base(icu::UnicodeString ctag ,icu::UnicodeString form);

@@ -68,8 +68,6 @@ RuleLemmatizer::RuleLemmatizer(string tagset, morfeusz::Morfeusz *generator, boo
     fstream file;
     file.open(temp);
 
-
-
     // Wczytaj reguły wccl i operatory
     int rule_no = 0;
     for (xml_node rule = rules.child("rule"); rule; rule = rule.next_sibling("rule")) {
@@ -115,11 +113,11 @@ RuleLemmatizer::RuleLemmatizer(string tagset, morfeusz::Morfeusz *generator, boo
         rule_no++;
     }
     file.flush();
-
     Wccl::Parser parser = Wccl::Parser(tagset);
-
     Wccl::FunctionalOpSequence::name_op_v_t fos = parser.parseWcclFileFromPath(temp)->gen_all_op_pairs();
+
     file.close();
+    unlink(temp);
     this->wccl_operators = fos;
 
 }

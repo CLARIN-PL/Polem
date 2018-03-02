@@ -60,7 +60,7 @@ set(SOURCE_FILES polem/main.cpp ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugi
         polem/RuleLemmatizer.h polem/DictionaryLemmatizer.h
         polem/Inflection.h polem/NamLivPersonLemmatizer.h
         polem/NamLocLemmatizer.h polem/OrthLemmatizer.h
-        polem/InflectionRule.h)
+        polem/InflectionRule.h polem/InflectionRule.cpp)
 
 set(LIBRARY_FILES ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp ${CMAKE_CURRENT_SOURCE_DIR}/polem/CascadeLemmatizer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/polem/RuleLemmatizer.cpp ${CMAKE_CURRENT_SOURCE_DIR}/polem/DictionaryLemmatizer.cpp
@@ -69,7 +69,8 @@ set(LIBRARY_FILES ${CMAKE_CURRENT_SOURCE_DIR}/pugixml-1.8/src/pugixml.cpp ${CMAK
         ${CMAKE_CURRENT_SOURCE_DIR}/polem/CascadeLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/RuleLemmatizer.h
         ${CMAKE_CURRENT_SOURCE_DIR}/polem/DictionaryLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/Inflection.h
         ${CMAKE_CURRENT_SOURCE_DIR}/polem/NamLivPersonLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/NamLocLemmatizer.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/polem/OrthLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/InflectionRule.h)
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/OrthLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/InflectionRule.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/polem/InflectionRule.cpp)
 
 
 set(PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/polem/CascadeLemmatizer.h ${CMAKE_CURRENT_SOURCE_DIR}/polem/DictionaryLemmatizer.h

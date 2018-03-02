@@ -15,6 +15,8 @@ public:
     icu::UnicodeString normEnding;
     std::size_t count;
     double confidence;
+
+    icu::UnicodeString inflectForm(icu::UnicodeString form);
 };
 
 
