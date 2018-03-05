@@ -1,3 +1,15 @@
+/*
+   Copyright (C) Wrocław University of Science and Technology (PWr), 2017-2018.
+   Grzegorz Kuboń, Michał Marcińczuk.
+
+   Part of Polem project.
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+ */
+
 #include "CascadeLemmatizer.h"
 #include <unicode/regex.h>
 #include <fstream>
@@ -5,7 +17,12 @@
 
 using namespace std;
 
-string globalMethod;
+/**
+ * Global variable to store the information about lemmatization method used to generate the last lemma.
+ * ToDo: remove global variable and replace is with a structure containg the lemma and the method name,
+ * which will be returned by every lemmatize method.
+ */
+std::string globalMethod;
 
 /**
  * Creates lemmatizer using data from datafile folder.
@@ -65,6 +82,18 @@ CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer() {
     return CascadeLemmatizer::assembleLemmatizer("/usr/local/share/polem/");
 }
 
+/**
+ *
+ *   //processing keyword into input to lemmatizer as
+ *   //orth1, base1, tag1, space1  <- vector
+ *   //orth2, base2, tag2, space2 and so on
+ *
+ * @param kwrd_orth
+ * @param kwrd_base
+ * @param kwrd_ctag
+ * @param kwrd_spaces
+ * @return
+ */
 vector<vector<UnicodeString>> CascadeLemmatizer::chopInput(
         UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces) {
 
@@ -101,101 +130,123 @@ vector<vector<UnicodeString>> CascadeLemmatizer::chopInput(
     }
 
     return kw;
-
 }
 
 
 CascadeLemmatizer::CascadeLemmatizer(string tagset, morfeusz::Morfeusz *generator,
-                                     map<UnicodeString,
-                                             pair<UnicodeString, UnicodeString> > dictionaryItems,
+                                     map<UnicodeString, pair<UnicodeString, UnicodeString> > dictionaryItems,
                                      Inflection inflection, Inflection inflectionNamLoc, string datafiles) :
-        nelexLemmatizer(datafiles+"nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt",true),
-        ruleLemmatizer(std::move(tagset), generator, true, true,datafiles),
-        morfGeoLemmatizer(datafiles+"sgjp-20160310-geograficzne.tab", false),
-        namLivPersonLemmatizer(std::move(dictionaryItems), std::move(inflection)),
-        namLocLemmatizer(std::move(inflectionNamLoc)),
-        orthLemmatizer(){
+    nelexLemmatizer(datafiles+"nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt",true),
+    ruleLemmatizer(std::move(tagset), generator, true, true, datafiles+"lemmatization-rules-azon2.xml"),
+    morfGeoLemmatizer(datafiles+"sgjp-20160310-geograficzne.tab", false),
+    namLivPersonLemmatizer(std::move(dictionaryItems), std::move(inflection)),
+    namLocLemmatizer(std::move(inflectionNamLoc)),
+    orthLemmatizer(){}
 
-//constructor launches different lemmatizers constructors
-
-}
-
+/**
+ *
+ * @param kwrd_orth
+ * @param kwrd_base
+ * @param kwrd_ctag
+ * @param kwrd_spaces
+ * @param kw_category
+ * @param debug
+ * @return
+ */
 UnicodeString
 CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag,
                              UnicodeString kwrd_spaces, std::string kw_category, bool debug) {
-
     vector<vector<UnicodeString>> kw = CascadeLemmatizer::chopInput(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces);
-    //processing keyword into input to lemmatizer as
-    //orth1, base1, tag1, space1  <- vector
-    //orth2, base2, tag2, space2 and so on
-
     globalMethod = "";
-    //indicates what is used to lemmatize
-
-    //launching lemmatizers in order nelex - morfgeo - namliv - namloc - rule - orth
-    UnicodeString lemma = this->nelexLemmatizer.lemmatize(kw, kw_category, debug);
-
-    if(lemma=="") {
-        lemma = this->morfGeoLemmatizer.lemmatize(kw, kw_category, debug);
-    }else{//
-        globalMethod = "DictionaryLemmatizer:NelexiconInfobox";
-
-    }
-
-    if(lemma==""){
-        lemma = this->namLivPersonLemmatizer.lemmatize(kw, kw_category, debug);
-    } else if (globalMethod != "DictionaryLemmatizer:NelexiconInfobox") {
-        globalMethod = "DictionaryLemmatizer:MorfeuszGeograficzne";
-    }
-
-    if (debug) {
-        cout << "Exited NamLivPerson lemmatizer with " << globalMethod << endl;
-    }
-
-    if(lemma==""){
-        lemma = this->namLocLemmatizer.lemmatize(kw, kw_category, debug);
-    }
-
-    if(lemma==""){
-        lemma = this->ruleLemmatizer.lemmatize(kw, kw_category, debug);
-    }else if(globalMethod.find("DictionaryLemmatizer")==string::npos
-                &&globalMethod.find("NamLivPerson")==string::npos){
-        globalMethod = "NamLocLemmatizer:Inflection";
-        if (debug) {
-            cout << "Exited NamLoc lemmatizer with " << globalMethod << endl;
-        }
-    }
-
-    if (debug) {
-        cout << "Exiting Rule lemmatizer with" << globalMethod << endl;
-    }
-
-    if(lemma=="") {
-        lemma = this->orthLemmatizer.lemmatize(kw);
-    }
-    if (lemma != "" && globalMethod.empty()) {
-        globalMethod = "OrthLemmatizer";
-    }
-
+    icu::UnicodeString lemma = this->lemmatizeCascade(kw, kw_category, debug);
     if (kw.size() == 1 && lemma != "" && !kw_category.empty() &&
         (kw_category.find("nam_adj") == 0 || (kw_category == "nam_loc_gpe_admin1" && kw[0][2].startsWith("adj:")))) {
         lemma.toLower();
     }
-
     return lemma.trim();
 }
 
+/**
+ *
+ * @param kw
+ * @param kw_category
+ * @param debug
+ * @return
+ */
+icu::UnicodeString CascadeLemmatizer::lemmatizeCascade(std::vector<std::vector<UnicodeString>> kw,
+                                                       std::string kw_category, bool debug){
+    UnicodeString lemma;
+
+    if ( !(lemma = this->nelexLemmatizer.lemmatize(kw, kw_category, debug)).isEmpty() ){
+        globalMethod = "DictionaryLemmatizer:NelexiconInfobox";
+        return lemma;
+    }
+
+    if( !(lemma = this->morfGeoLemmatizer.lemmatize(kw, kw_category, debug)).isEmpty() ) {
+        globalMethod = "DictionaryLemmatizer:MorfeuszGeographical";
+        return lemma;
+    }
+
+    if( !(lemma = this->namLivPersonLemmatizer.lemmatize(kw, kw_category, debug)).isEmpty() ){
+        //globalMethod was set by the NamLivPersonLemmatizer
+        return lemma;
+    }
+
+    if( !(lemma = this->namLocLemmatizer.lemmatize(kw, kw_category, debug)).isEmpty() ){
+        globalMethod = "NamLocLemmatizer:Inflection";
+        return lemma;
+    }
+
+    if( !(lemma = this->ruleLemmatizer.lemmatize(kw, kw_category, debug)).isEmpty()){
+        globalMethod = "RuleLemmatizer";
+        return lemma;
+    }
+
+    if( !(lemma = this->orthLemmatizer.lemmatize(kw)).isEmpty() ) {
+        globalMethod = "OrthLemmatizer";
+        return lemma;
+    }
+
+    return lemma;
+}
+
+/**
+ *
+ * @param kwrd_orth
+ * @param kwrd_base
+ * @param kwrd_ctag
+ * @param kwrd_spaces
+ * @param debug
+ * @return
+ */
 UnicodeString CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag,
                                            UnicodeString kwrd_spaces, bool debug) {
     return this->lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces, "", debug);
 }
 
+/**
+ *
+ * @param kwrd_orth
+ * @param kwrd_base
+ * @param kwrd_ctag
+ * @param debug
+ * @return
+ */
 UnicodeString
 CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, bool debug) {
-
     return this->lemmatize(kwrd_orth, kwrd_base, kwrd_ctag, "", "", debug);
 }
 
+/**
+ *
+ * @param kwrd_orth
+ * @param kwrd_base
+ * @param kwrd_ctag
+ * @param kwrd_spaces
+ * @param category
+ * @param debug
+ * @return
+ */
 std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag,
                                             std::string kwrd_spaces, std::string category, bool debug) {
     std::string out;
@@ -205,6 +256,15 @@ std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwr
     return out;
 }
 
+/**
+ *
+ * @param kwrd_orth
+ * @param kwrd_base
+ * @param kwrd_ctag
+ * @param kwrd_spaces
+ * @param debug
+ * @return
+ */
 std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag,
                                             std::string kwrd_spaces, bool debug) {
     std::string out;
@@ -214,6 +274,14 @@ std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwr
     return out;
 }
 
+/**
+ *
+ * @param kwrd_orth
+ * @param kwrd_base
+ * @param kwrd_ctag
+ * @param debug
+ * @return
+ */
 std::string CascadeLemmatizer::lemmatizeS(std::string kwrd_orth, std::string kwrd_base, std::string kwrd_ctag, bool debug) {
     std::string out;
     UnicodeString proc = this->lemmatize(kwrd_orth.c_str(), kwrd_base.c_str(), kwrd_ctag.c_str(), debug);

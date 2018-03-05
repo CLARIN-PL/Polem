@@ -1,6 +1,14 @@
-//
-// Created by gkubon on 18/07/17.
-//
+/*
+   Copyright (C) Wrocław University of Science and Technology (PWr), 2017-2018.
+   Grzegorz Kuboń, Michał Marcińczuk.
+
+   Part of Polem project.
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+ */
 
 #ifndef LEMATYZATOR_CASCADELEMMATIZER_H
 #define LEMATYZATOR_CASCADELEMMATIZER_H
@@ -30,13 +38,11 @@ class CascadeLemmatizer{
     std::vector<std::vector<UnicodeString>> chopInput(UnicodeString kwrd_orth, UnicodeString kwrd_base,
                                                       UnicodeString kwrd_ctag, UnicodeString kwrd_spaces);
 
-    UnicodeString foldOutput(UnicodeString lemma, std::vector<std::vector<UnicodeString>> kw, std::string kw_category);
-
-    UnicodeString filter(std::vector<std::vector<UnicodeString>> kw, UnicodeString lemma, std::string kw_category);
-
     CascadeLemmatizer(std::string tagset, morfeusz::Morfeusz *generator,
                       std::map<UnicodeString, std::pair<UnicodeString, UnicodeString>> dictionaryItems,
                       Inflection inflection, Inflection inflectionNamLoc, std::string datafiles);
+
+    icu::UnicodeString lemmatizeCascade(std::vector<std::vector<UnicodeString>>, std::string category, bool debug);
 
 public:
     static CascadeLemmatizer assembleLemmatizer();

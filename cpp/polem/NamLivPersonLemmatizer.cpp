@@ -1,23 +1,25 @@
-//
-// Created by gkubon on 01/08/17.
-//
+/*
+   Copyright (C) Wrocław University of Science and Technology (PWr), 2017-2018.
+   Grzegorz Kuboń, Michał Marcińczuk.
+
+   Part of Polem project.
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+ */
 
 #include <boost/algorithm/string/split.hpp>
 #include <unicode/regex.h>
 #include "NamLivPersonLemmatizer.h"
 #include "CascadeLemmatizer.h"
 
-
-
 using namespace std;
-
-
 
 NamLivPersonLemmatizer::NamLivPersonLemmatizer(
             std::map<icu::UnicodeString, std::pair<icu::UnicodeString, icu::UnicodeString> > dictionaryItems,
             Inflection inflection) : inflection(inflection) {
-
-
     this->categories.emplace_back("nam_liv_person");
     this->categories.emplace_back("nam_liv_person_last");
     this->categories.emplace_back("nam_liv_person_first");
@@ -60,7 +62,6 @@ NamLivPersonLemmatizer::NamLivPersonLemmatizer(
             UnicodeString lemmas[numWordsLem];
             rm.split(it.second.second, lemmas, numWordsLem, status);
 
-
             if (numWords == numWordsLem) {
                 for (int i = 0; i < numWords; ++i) {
                     string check1, check2;
@@ -73,7 +74,6 @@ NamLivPersonLemmatizer::NamLivPersonLemmatizer(
     }
 
     this->inflection = inflection;
-
 }
 
 icu::UnicodeString
