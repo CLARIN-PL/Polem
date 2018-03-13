@@ -109,10 +109,10 @@ Parameters:
 Testing
 -------
 
-The `./data/` folder contains train and test sets. To evaluate the Polem lemmatization model on the gold standard data, run the following command:
+The `./corpus/` folder contains train and test sets. To evaluate the Polem lemmatization model on the gold standard data, run the following command:
 
 ```bash
-polem -p data/kpwr-1.1-fixed-keywords-test.txt
+polem -p corpus/kpwr-1.1-fixed-keywords-test.txt
 ```
 
 Output:
