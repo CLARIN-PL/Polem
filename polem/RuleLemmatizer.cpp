@@ -232,9 +232,9 @@ RuleLemmatizer::lemmatize(std::vector <std::vector<icu::UnicodeString>> kw, std:
                         kw[i - 1][2].indexOf("adj") != -1 &&
                         kw[i - 3][2].indexOf("adv") != -1 &&
                         kw[i - 2][2] == "-") {
-                        operations.emplace_back("cas=nom");
+                        operations.push_back("cas=nom");
                     } else {
-                        operations.emplace_back("");
+                        operations.push_back("");
                     }
                 }
                 operationss.insert(make_pair(i, operations));
@@ -279,7 +279,7 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
 
         icu::UnicodeString orth = token->orth();
 
-        lemmaspaces.emplace_back(spaces[position - 1] == "True" != 0);
+        lemmaspaces.push_back(spaces[position - 1] == "True" != 0);
 
         Corpus2::Tag tag;
         try {
@@ -359,7 +359,7 @@ icu::UnicodeString RuleLemmatizer::generate(Corpus2::Sentence::Ptr sentence, std
                 return "";
             }
         }
-        lemmas.emplace_back(form);
+        lemmas.push_back(form);
     }
     for (int i = 0; i < lemmas.size(); ++i) {
         lemma.append(lemmas[i]);

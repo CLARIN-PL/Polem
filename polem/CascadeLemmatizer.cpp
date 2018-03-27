@@ -69,7 +69,7 @@ void CascadeLemmatizer::addLinesFromFileToVector(std::string path, std::vector<U
     std::string line;
     ifstream ff(path);
     while (getline(ff, line)) {
-        dict.emplace_back(line.substr(line.find('\t') + 1).c_str());
+        dict.push_back(line.substr(line.find('\t') + 1).c_str());
     }
     ff.close();
 }
@@ -122,11 +122,11 @@ vector<vector<UnicodeString>> CascadeLemmatizer::chopInput(
     vector<vector<UnicodeString> > kw;
     for (int i = 0; i < numWords; i++) {
         vector<UnicodeString> row;
-        row.emplace_back(orths[i]);
-        row.emplace_back(bases[i]);
-        row.emplace_back(ctags[i]);
-        row.emplace_back(spaces[i]);
-        kw.emplace_back(row);
+        row.push_back(orths[i]);
+        row.push_back(bases[i]);
+        row.push_back(ctags[i]);
+        row.push_back(spaces[i]);
+        kw.push_back(row);
     }
 
     return kw;

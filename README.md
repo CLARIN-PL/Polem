@@ -64,10 +64,28 @@ Before running the build system, you need to ensure you have the following libra
    mkdir bin
    cd bin
    cmake ..
-   make
+   make -j
+   make -j
    sudo make install
    sudo ldconfig
+   cd ../..
    ```
+   
+* WCCL
+  ```bash
+  sudo apt-get install -y libantlr-dev
+  git clone http://nlp.pwr.edu.pl/wccl.git
+  cd wccl
+  mkdir bin
+  cd bin
+  cmake ..
+  make -j
+  make -j
+  sudo make install
+  sudo ldconfig
+  cd ../..
+  ```   
+   
 * Morfeusz2 form generator
     ```bash
     wget -O morfeusz2-2.0.0-Linux-amd64.deb https://nextcloud.clarin-pl.eu/index.php/s/VVIvx4w20azcWbp/download

@@ -20,27 +20,27 @@ using namespace std;
 NamLivPersonLemmatizer::NamLivPersonLemmatizer(
             std::map<icu::UnicodeString, std::pair<icu::UnicodeString, icu::UnicodeString> > dictionaryItems,
             Inflection inflection) : inflection(inflection) {
-    this->categories.emplace_back("nam_liv_person");
-    this->categories.emplace_back("nam_liv_person_last");
-    this->categories.emplace_back("nam_liv_person_first");
+    this->categories.push_back("nam_liv_person");
+    this->categories.push_back("nam_liv_person_last");
+    this->categories.push_back("nam_liv_person_first");
 
     //Formy tekstowe do skopiowania
-    this->copyOrths.emplace_back("św");
-    this->copyOrths.emplace_back(".");
+    this->copyOrths.push_back("św");
+    this->copyOrths.push_back(".");
     //lista form bazowych, dla nazw jednowyrazowych, dla których ma być wymuszona forma
-    this->forceSingleBases.emplace_back("Maja");
+    this->forceSingleBases.push_back("Maja");
     //Zbiór separatorów oddzielających formę bazową od końcówki formy odmienionej
-    this->inflectionSeparators.emplace_back("-");
-    this->inflectionSeparators.emplace_back("'");
+    this->inflectionSeparators.push_back("-");
+    this->inflectionSeparators.push_back("'");
     //this->inflectionSeparators.push_back("’");
     //this->inflectionSeparators.push_back(" ");
     //this->inflectionSeparators.push_back("´");
     //Zbiór końcówek form odmienionych, które mogą wystąpić po separatorze
-    this->inflectionEndings.emplace_back("a");
-    this->inflectionEndings.emplace_back("cie");
-    this->inflectionEndings.emplace_back("em");
-    this->inflectionEndings.emplace_back("s");
-    this->inflectionEndings.emplace_back("ego");
+    this->inflectionEndings.push_back("a");
+    this->inflectionEndings.push_back("cie");
+    this->inflectionEndings.push_back("em");
+    this->inflectionEndings.push_back("s");
+    this->inflectionEndings.push_back("ego");
     //this->inflectionEndings.push_back("u");
     //this->inflectionEndings.push_back("owi");
     //for(map<UnicodeString,pair<UnicodeString,UnicodeString>>::iterator it = dictionaryItems.begin(); it!=dictionaryItems.end(); ++it){
@@ -67,7 +67,7 @@ NamLivPersonLemmatizer::NamLivPersonLemmatizer(
                     string check1, check2;
                     orths[i].toLower().toUTF8String(check1);
                     lemmas[i].toUTF8String(check2);
-                    this->names[orths[i].toLower()].emplace_back(lemmas[i]);
+                    this->names[orths[i].toLower()].push_back(lemmas[i]);
                 }
             }
         }

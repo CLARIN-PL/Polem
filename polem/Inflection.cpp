@@ -65,7 +65,7 @@ void Inflection::loadInflectionRules(std::string pathname) {
         infrule.normEnding = parts[2]=="#" ? "" : parts[2].c_str();
         infrule.count = stoi(parts[3]);
         infrule.confidence = stof(parts[4]);
-        this->inflections[infrule.ctag][infrule.formEnding].emplace_back(infrule);
+        this->inflections[infrule.ctag][infrule.formEnding].push_back(infrule);
     }
     rules.close();
 }
