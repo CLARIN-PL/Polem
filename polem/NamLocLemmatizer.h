@@ -22,7 +22,7 @@ public:
     explicit NamLocLemmatizer(Inflection inflection);
 
     icu::UnicodeString
-    lemmatize(std::vector <std::vector<icu::UnicodeString>> keyword, std::string category, bool debug);
+    lemmatize(std::vector <std::vector<icu::UnicodeString> > keyword, std::string category, bool debug);
 
     Inflection inflection;
 };

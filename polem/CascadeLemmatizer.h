@@ -35,14 +35,14 @@ class CascadeLemmatizer{
     NamLocLemmatizer namLocLemmatizer;
     OrthLemmatizer orthLemmatizer;
 
-    std::vector<std::vector<UnicodeString>> chopInput(UnicodeString kwrd_orth, UnicodeString kwrd_base,
+    std::vector<std::vector<UnicodeString> > chopInput(UnicodeString kwrd_orth, UnicodeString kwrd_base,
                                                       UnicodeString kwrd_ctag, UnicodeString kwrd_spaces);
 
     CascadeLemmatizer(std::string tagset, morfeusz::Morfeusz *generator,
-                      std::map<UnicodeString, std::pair<UnicodeString, UnicodeString>> dictionaryItems,
+                      std::map<UnicodeString, std::pair<UnicodeString, UnicodeString> > dictionaryItems,
                       Inflection inflection, Inflection inflectionNamLoc, std::string datafiles);
 
-    icu::UnicodeString lemmatizeCascade(std::vector<std::vector<UnicodeString>>, std::string category, bool debug);
+    icu::UnicodeString lemmatizeCascade(std::vector<std::vector<UnicodeString> >, std::string category, bool debug);
 
 public:
     static CascadeLemmatizer assembleLemmatizer();

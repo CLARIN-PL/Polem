@@ -40,7 +40,7 @@ CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer(std::string datafiles) {
 
     /** Load lines in the form of: category<tab>orth<tab>lemma */
     string line;
-    ifstream dictFile(datafiles+"nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt");
+    ifstream dictFile((datafiles+"nelexicon2_wikipedia-infobox-forms-with-bases-filtered.txt").c_str());
     while (getline(dictFile, line)) {
         UnicodeString dictCat, dictOrth, dictLemma;
         size_t t1 = line.find('\t');
@@ -67,7 +67,7 @@ CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer(std::string datafiles) {
  */
 void CascadeLemmatizer::addLinesFromFileToVector(std::string path, std::vector<UnicodeString> &dict){
     std::string line;
-    ifstream ff(path);
+    ifstream ff(path.c_str());
     while (getline(ff, line)) {
         dict.push_back(line.substr(line.find('\t') + 1).c_str());
     }
@@ -94,7 +94,7 @@ CascadeLemmatizer CascadeLemmatizer::assembleLemmatizer() {
  * @param kwrd_spaces
  * @return
  */
-vector<vector<UnicodeString>> CascadeLemmatizer::chopInput(
+vector<vector<UnicodeString> > CascadeLemmatizer::chopInput(
         UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag, UnicodeString kwrd_spaces) {
 
     UErrorCode status = U_ZERO_ERROR;
@@ -156,7 +156,7 @@ CascadeLemmatizer::CascadeLemmatizer(string tagset, morfeusz::Morfeusz *generato
 UnicodeString
 CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, UnicodeString kwrd_ctag,
                              UnicodeString kwrd_spaces, std::string kw_category, bool debug) {
-    vector<vector<UnicodeString>> kw = CascadeLemmatizer::chopInput(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces);
+    vector<vector<UnicodeString> > kw = CascadeLemmatizer::chopInput(kwrd_orth, kwrd_base, kwrd_ctag, kwrd_spaces);
     globalMethod = "";
     icu::UnicodeString lemma = this->lemmatizeCascade(kw, kw_category, debug);
     if (kw.size() == 1 && lemma != "" && !kw_category.empty() &&
@@ -173,7 +173,7 @@ CascadeLemmatizer::lemmatize(UnicodeString kwrd_orth, UnicodeString kwrd_base, U
  * @param debug
  * @return
  */
-icu::UnicodeString CascadeLemmatizer::lemmatizeCascade(std::vector<std::vector<UnicodeString>> kw,
+icu::UnicodeString CascadeLemmatizer::lemmatizeCascade(std::vector<std::vector<UnicodeString> > kw,
                                                        std::string kw_category, bool debug){
     UnicodeString lemma;
 

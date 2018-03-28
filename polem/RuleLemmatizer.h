@@ -28,7 +28,7 @@ class RuleLemmatizer {
     Corpus2::Tagset tagset;
     morfeusz::Morfeusz *generator;
     std::map< std::string, std::string > rule_categories;
-    std::vector<std::pair<std::string, boost::shared_ptr<Wccl::FunctionalOperator>>> wccl_operators;
+    std::vector<std::pair<std::string, boost::shared_ptr<Wccl::FunctionalOperator> > > wccl_operators;
     bool useOrthForOov;
 
     icu::UnicodeString generate(Corpus2::Sentence::Ptr sentence, std::map<int, std::vector<std::string> > operations,
@@ -38,7 +38,7 @@ public:
     RuleLemmatizer(std::string tagset, morfeusz::Morfeusz *generator, bool fix,
                    bool useOrthForOov, std::string datafiles);
 
-    icu::UnicodeString lemmatize(std::vector <std::vector<icu::UnicodeString>> kw, std::string kw_category, bool debug);
+    icu::UnicodeString lemmatize(std::vector <std::vector<icu::UnicodeString> > kw, std::string kw_category, bool debug);
 
 
 };

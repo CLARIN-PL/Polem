@@ -26,7 +26,7 @@ public:
     DictionaryLemmatizer(std::string name, bool typed);
 
     icu::UnicodeString
-    lemmatize(std::vector <std::vector<icu::UnicodeString>> keyword, std::string category, bool debug);
+    lemmatize(std::vector <std::vector<icu::UnicodeString> > keyword, std::string category, bool debug);
 
 };
 
