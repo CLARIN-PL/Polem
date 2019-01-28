@@ -31,6 +31,7 @@ RUN ldconfig
 RUN apt-get -y install default-jdk
 RUN mkdir -p /build/polem/build
 COPY . /build/polem
+RUN rm /build/polem/build -rf
 WORKDIR /build/polem/build
 RUN cmake ..
 RUN make
