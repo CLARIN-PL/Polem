@@ -59,7 +59,7 @@ Before running the build system, you need to ensure you have the following libra
    ```
 * Corpus2
    ```bash
-   git clone git@nlp.pwr.wroc.pl:corpus2
+   git clone http://nlp.pwr.wroc.pl/corpus2.git
    cd corpus2
    mkdir bin
    cd bin
