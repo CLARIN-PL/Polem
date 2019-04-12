@@ -22,6 +22,7 @@ Polem is a tool for multi-word phrase lemmatization for Polish language. It was 
   bibsource = {dblp computer science bibliography, http://dblp.org}
 }
 ```
+[Presentation](https://www.researchgate.net/publication/332369593_Lemmatization_of_Multi-word_Common_Noun_Phrases_and_Named_Entities_in_Polish)
 
 Contributors
 -------------
