@@ -17,9 +17,9 @@ set(CMAKE_INSTALL_INCLUDEDIR "include")
 
 include(LibFindMacros)
 
-find_package(JNI REQUIRED)
+find_package(JNI)
 
-find_package(Java REQUIRED)
+find_package(Java)
 
 include(UseJava)
 
@@ -122,41 +122,44 @@ install(FILES ${PUBLIC_HEADERS}
 
 
 #####JAVA
+if(Java_FOUND)
+    FIND_PACKAGE(SWIG REQUIRED)
+    INCLUDE(${SWIG_USE_FILE})
 
-FIND_PACKAGE(SWIG REQUIRED)
-INCLUDE(${SWIG_USE_FILE})
+    include(UseSWIG)
+    include_directories(${JNI_INCLUDE_DIRS})
 
-include(UseSWIG)
-include_directories(${JNI_INCLUDE_DIRS})
+    SET(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/java)
+    SET(CMAKE_SWIG_FLAGS -package g419.polem)
 
-SET(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/java)
-SET(CMAKE_SWIG_FLAGS -package g419.polem)
+    set_property(SOURCE "WrapLem.i" PROPERTY CPLUSPLUS ON)
 
-set_property(SOURCE "WrapLem.i" PROPERTY CPLUSPLUS ON)
-
-swig_add_module(
+    swig_add_module(
         PolemJava
         java
         WrapLem.i
         ${LIBRARY_FILES}
-)
+    )
 
-TARGET_INCLUDE_DIRECTORIES(PolemJava
+    TARGET_INCLUDE_DIRECTORIES(PolemJava
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
         PRIVATE ${JAVA_INCLUDE_PATH}
         PRIVATE ${JAVA_INCLUDE_PATH2}
         )
 
-target_link_libraries(PolemJava ${LIBS})
+    target_link_libraries(PolemJava ${LIBS})
 
-FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/classes)
-add_custom_command(TARGET PolemJava POST_BUILD
+    FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/classes)
+    add_custom_command(TARGET PolemJava POST_BUILD
         COMMAND ${Java_JAVAC_EXECUTABLE} -d classes java/*.java
         COMMAND ${Java_JAR_EXECUTABLE} -cfM PolemJava.jar -C classes .
         )
 
-INSTALL(TARGETS PolemJava
+    INSTALL(TARGETS PolemJava
         DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+
+endif()
 
 ####PYTHON
 
