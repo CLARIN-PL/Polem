@@ -167,6 +167,11 @@ find_package(Python3 COMPONENTS Interpreter Development)
 find_package(Python2 COMPONENTS Interpreter Development)
 
 if(Python3_FOUND)
+
+    INCLUDE(${SWIG_USE_FILE})
+
+    include(UseSWIG)
+    
     INCLUDE_DIRECTORIES(${Python3_INCLUDE_DIRS})
     INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
     
