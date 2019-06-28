@@ -181,7 +181,7 @@ if(${Python3_VERSION} EQUAL 3.6)
     SWIG_ADD_LIBRARY(WrapLem LANGUAGE python SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i)
     SWIG_LINK_LIBRARIES(WrapLem polem-dev ${LIBS} ${Python3_LIBRARIES})
 
-    execute_process ( COMMAND python3.6 -c "import site; print(site.getsitepackages()[0])" OUTPUT_VA$
+    execute_process ( COMMAND python3.6 -c "import site; print(site.getsitepackages()[0])" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
 
     install(TARGETS _WrapLem
         LIBRARY DESTINATION ${PYTHON_SITE_PACKAGES})
