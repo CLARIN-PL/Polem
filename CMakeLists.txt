@@ -166,7 +166,7 @@ endif()
 find_package(Python3 COMPONENTS Interpreter Development)
 find_package(Python2 COMPONENTS Interpreter Development)
 
-if(Python3_FOUND)
+if(${Python3_VERSION} EQUAL 3.6)
 
     INCLUDE(${SWIG_USE_FILE})
 
@@ -181,12 +181,13 @@ if(Python3_FOUND)
     SWIG_ADD_LIBRARY(WrapLem LANGUAGE python SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i)
     SWIG_LINK_LIBRARIES(WrapLem polem-dev ${LIBS} ${Python3_LIBRARIES})
 
-    execute_process ( COMMAND python3 -c "import site; print(site.getsitepackages()[0])" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
+    execute_process ( COMMAND python3.6 -c "import site; print(site.getsitepackages()[0])" OUTPUT_VA$
 
     install(TARGETS _WrapLem
         LIBRARY DESTINATION ${PYTHON_SITE_PACKAGES})
     install(FILES ${PY_HEADERS}
         DESTINATION ${PYTHON_SITE_PACKAGES})
+
 elseif(Python2_FOUND)
     INCLUDE_DIRECTORIES(${Python2_INCLUDE_DIRS})
     INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
