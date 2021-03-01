@@ -17,9 +17,9 @@ set(CMAKE_INSTALL_INCLUDEDIR "include")
 
 include(LibFindMacros)
 
-find_package(JNI REQUIRED)
+find_package(JNI)
 
-find_package(Java REQUIRED)
+find_package(Java)
 
 include(UseJava)
 
@@ -122,7 +122,6 @@ install(FILES ${PUBLIC_HEADERS}
 
 
 #####JAVA
-
 FIND_PACKAGE(SWIG REQUIRED)
 INCLUDE(${SWIG_USE_FILE})
 
@@ -139,7 +138,7 @@ swig_add_module(
         java
         WrapLem.i
         ${LIBRARY_FILES}
-)
+    )
 
 TARGET_INCLUDE_DIRECTORIES(PolemJava
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -158,28 +157,51 @@ add_custom_command(TARGET PolemJava POST_BUILD
 INSTALL(TARGETS PolemJava
         DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
+
 ####PYTHON
 
-find_package(PythonInterp REQUIRED)
-FIND_PACKAGE(PythonLibs REQUIRED)
-INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
+find_package(Python3 COMPONENTS Interpreter Development)
+find_package(Python2 COMPONENTS Interpreter Development)
 
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+if(${Python3_VERSION} EQUAL 3.6)
 
-SET(CMAKE_SWIG_FLAGS "")
+    INCLUDE(${SWIG_USE_FILE})
 
-SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i PROPERTIES CPLUSPLUS ON)
+    include(UseSWIG)
+    
+    INCLUDE_DIRECTORIES(${Python3_INCLUDE_DIRS})
+    INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+    
+    SET(CMAKE_SWIG_FLAGS "")
+    SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i PROPERTIES CPLUSPLUS ON)
+    
+    SWIG_ADD_LIBRARY(WrapLem LANGUAGE python SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i)
+    SWIG_LINK_LIBRARIES(WrapLem polem-dev ${LIBS} ${Python3_LIBRARIES})
 
-SWIG_ADD_MODULE(WrapLem python ${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i)
-SWIG_LINK_LIBRARIES(WrapLem polem-dev ${LIBS} ${PYTHON_LIBRARIES})
+    execute_process ( COMMAND python3.6 -c "import site; print(site.getsitepackages()[0])" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-#message("${PYTHON_LIBRARIES}")
-
-#execute_process ( COMMAND python3 -c "import site; print(site.getsitepackages()[0])" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
-execute_process(COMMAND python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-install(TARGETS _WrapLem
+    install(TARGETS _WrapLem
         LIBRARY DESTINATION ${PYTHON_SITE_PACKAGES})
-install(FILES ${PY_HEADERS}
+    install(FILES ${PY_HEADERS}
         DESTINATION ${PYTHON_SITE_PACKAGES})
+
+elseif(Python2_FOUND)
+    INCLUDE_DIRECTORIES(${Python2_INCLUDE_DIRS})
+    INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+    
+    SET(CMAKE_SWIG_FLAGS "")
+    SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i PROPERTIES CPLUSPLUS ON)
+    
+    SWIG_ADD_LIBRARY(WrapLem LANGUAGE python SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/WrapLem.i)
+    SWIG_LINK_LIBRARIES(WrapLem polem-dev ${LIBS} ${Python2_LIBRARIES})
+
+    execute_process(COMMAND python2 -c "from distutils.sysconfig import get_python_lib; print get_python_lib()" OUTPUT_VARIABLE PYTHON2_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+    install(TARGETS _WrapLem
+        LIBRARY DESTINATION ${PYTHON2_SITE_PACKAGES})
+    install(FILES ${PY_HEADERS}
+        DESTINATION ${PYTHON2_SITE_PACKAGES})
+endif()
+
+
 
