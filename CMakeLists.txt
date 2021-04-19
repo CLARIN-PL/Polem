@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.16)
 
 project(polem)
 
@@ -180,7 +180,7 @@ if(${Python3_VERSION} EQUAL 3.6)
 
     execute_process ( COMMAND python3.6 -c "import site; print(site.getsitepackages()[0])" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-    install(TARGETS _WrapLem
+    install(TARGETS WrapLem
         LIBRARY DESTINATION ${PYTHON_SITE_PACKAGES})
     install(FILES ${PY_HEADERS}
         DESTINATION ${PYTHON_SITE_PACKAGES})
