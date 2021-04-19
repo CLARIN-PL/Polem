@@ -33,7 +33,7 @@ Phrase lemma: liga światowa
 
 ### Local installation
 
-[Instruction](docs/local-installation.docs)
+[Go to the instruction](docs/local-installation.md)
 
 Cmd usage
 ---------

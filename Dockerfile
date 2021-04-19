@@ -59,8 +59,6 @@ COPY . /build/polem
 
 RUN mkdir -p build && \
     cd build && \
-    pwd && \
-    ls .. && \
     cmake .. && \
     make -j && \
     make install && \
