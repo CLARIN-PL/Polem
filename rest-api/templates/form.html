@@ -1,0 +1,40 @@
+<title>Polem REST API test</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="container">
+<h2>Polem REST API test</h2>
+<form action="" method="post" role="form">
+    {{ form.csrf }}
+    <div class="form-group">
+        {{ form.orths.label }}
+        {{ form.orths(size=40,class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.lemmas.label }}
+        {{ form.lemmas(size=40,class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.tags.label }}
+        {{ form.tags(size=40,class_="form-control") }}
+        <!-- <input type="text" class="form-control" id="tags" name="tags" value="subst:sg:loc:f adj:sg:loc:f:pos"> -->
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for message in messages %}
+{% if "Error" not in message[1]: %}
+<div class="alert alert-info">
+    <strong>Output </strong> {{ message[1] }}</div>
+{% endif %}
+
+{% if "Error" in message[1]: %}
+<div class="alert alert-warning">
+                {{ message[1] }}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+</div>

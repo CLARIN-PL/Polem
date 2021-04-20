@@ -44,18 +44,24 @@ RUN apt remove -y cmake && \
     tar -xzf cmake*tar.gz && \
     ln -s $(pwd)/cmake*/bin/cmake /usr/bin/cmake
 
-
 #----------------------------
-# Now build image with Polem
+# Build image with Polem
 #----------------------------
 
-FROM polem-base
+FROM polem-base as polem-source
 
 ENV LANG=C.UTF-8
 
 # Compile Polem from sources
 WORKDIR /build/polem
-COPY . /build/polem
+COPY cmake /build/polem/cmake
+COPY dict /build/polem/dict
+COPY javawrap /build/polem/javawrap
+COPY polem /build/polem/polem
+COPY pythonwrap /build/polem/pythonwrap
+COPY pugixml-1.8 /build/polem/pugixml-1.8
+COPY CMakeLists.txt /build/polem/
+COPY WrapLem.i /build/polem/
 
 RUN mkdir -p build && \
     cd build && \
@@ -66,4 +72,19 @@ RUN mkdir -p build && \
     cd / && rm -r /tmp/*
 
 WORKDIR /build/polem
-#CMD ["python3.6", "polem.py"]
+
+
+#----------------------------
+# Build image with Polem REST API
+#----------------------------
+FROM polem-source
+
+RUN apt-get update && apt-get -y upgrade
+RUN apt-get -y install python3-pip
+
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir flask wtforms
+
+WORKDIR /build/polem
+COPY rest-api /build/polem/rest-api
+CMD ["python3.6", "rest-api/app.py"]

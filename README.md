@@ -8,7 +8,7 @@ It was designed to lemmatize multi-word common noun phrases and named entities.
 
 
 Build
-=====
+-----
 
 
 ### Docker
@@ -34,6 +34,36 @@ Phrase lemma: liga światowa
 ### Local installation
 
 [Go to the instruction](docs/local-installation.md)
+
+
+Polem server
+--------
+
+Start local Docker:
+```
+docker run -p 8000:8000 polem
+```
+
+### Rest API
+
+```
+curl -XPOST localhost:8000 -H 'Content-type: application/json' \
+     -d '{"orths":"Lidze światowej", "lemmas": "liga światowy", "tags": "subst:sg:loc:f adj:sg:loc:f:pos"}'
+```
+
+Expected output:
+```
+liga światowa
+```
+
+### Web form
+
+```
+http://localhost:8000/form
+```
+
+![](docs/gfx/polem-web-form.png)
+
 
 Cmd usage
 ---------
