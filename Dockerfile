@@ -83,7 +83,7 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install python3-pip
 
 RUN pip3 install --no-cache-dir --upgrade pip && \
-    pip3 install --no-cache-dir flask wtforms
+    pip3 install --no-cache-dir flask wtforms==2.3.3
 
 WORKDIR /build/polem
 COPY rest-api /build/polem/rest-api
